@@ -53,18 +53,18 @@
 <meta property="og:site_name" content="Xsyin">
 <meta property="og:description" content="实验环境：uname -a ​      Linux ubuntu 4.4.0-121-generic #145-Ubuntu SMP Fri Apr 13 13:47:23 UTC 2018 x86_64 x86_64 x86_64 GNU&#x2F;Linux   权能对应的系统调用使用 sudo find &#x2F; -name capability.h 查找到路径 &#x2F;usr&#x2F;src&#x2F;linux-heade">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/pam.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/libpam.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_057.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_058.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_059.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_061.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/pam.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/libpam.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_057.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_058.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_059.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_061.png">
 <meta property="article:published_time" content="2018-05-01T00:09:12.000Z">
 <meta property="article:modified_time" content="2018-05-01T00:09:12.000Z">
 <meta property="article:author" content="Xu Shouyin">
 <meta property="article:tag" content="Linux capability">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://xsyin.github.io/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/pam.png">
+<meta name="twitter:image" content="https://xsyin.github.io/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/pam.png">
 
 <link rel="canonical" href="https://xsyin.github.io/2018/05/01/Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/">
 
@@ -479,7 +479,7 @@
 <hr>
 <h3 id="基于PAM用户权限设置系统"><a href="#基于PAM用户权限设置系统" class="headerlink" title="基于PAM用户权限设置系统"></a>基于PAM用户权限设置系统</h3><p>PAM 的全称为“可插拔认证模块（Pluggable Authentication Modules）”。设计的初衷是将不同的底层认证机制集中到一个高层次的API中，从而省去开发人员自己去设计和实现各种繁杂的认证机制的麻烦。</p>
 <p>PAM认证一般遵循这样的顺序：Service(服务)→PAM(配置文件)→pam_*.so，PAM配置文件在<code>/etc/pam.d/</code> 目录下，原理图如下：</p>
-<p><img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/pam.png" alt="pam"></p>
+<p><img src="pam.png" alt="pam"></p>
 <p>PAM中配置字段：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">moudle_type  control_flag  moudle_path moudle_option&#x2F;moudle_args</span><br></pre></td></tr></table></figure>
 
@@ -547,7 +547,7 @@
 </tbody></table>
 <p>​        Example：auth [user_unknown=ignore success=ok ignore=ignore default=bad] pam_securetty.so</p>
 <ol start="3">
-<li><code>module_path</code> 将指定实现模块的库对象的路径名称。默认情况下，它将被设为 <code>/lib/security</code>。        <img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/libpam.png" alt="libpam"></li>
+<li><code>module_path</code> 将指定实现模块的库对象的路径名称。默认情况下，它将被设为 <code>/lib/security</code>。        <img src="libpam.png" alt="libpam"></li>
 <li>module_options/module_args（可选字段）将指定可以传递给服务模块的选项或实参。</li>
 </ol>
 <hr>
@@ -556,7 +556,7 @@
 <li>添加用户<code>userping</code>  :  <code>sudo adduser userping</code> </li>
 <li>查看并清除<code>/bin/ping</code> 的权能：</li>
 </ul>
-<p><img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_057.png" alt="选区_057"></p>
+<p><img src="%E9%80%89%E5%8C%BA_057.png" alt="选区_057"></p>
 <ul>
 <li>切换到用户<code>userping</code> 再<code>ping</code> 无法<code>ping</code>   : <code>su userping</code> </li>
 <li><code>userping</code> 登录时给<code>/bin/ping</code> 添加权能：</li>
@@ -571,7 +571,7 @@
 <ul>
 <li>所有登录都使用<code>common-session</code> 模块：</li>
 </ul>
-<p><img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_058.png" alt="选区_058"></p>
+<p><img src="%E9%80%89%E5%8C%BA_058.png" alt="选区_058"></p>
 <p>因此在<code>common-session</code> 模块中添加规则: </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session  optional  pam_exec.so debug log&#x3D;&#x2F;tmp&#x2F;pam_exec.log seteuid &#x2F;usr&#x2F;local&#x2F;bin&#x2F;ping_cap.sh</span><br></pre></td></tr></table></figure>
 
@@ -579,9 +579,9 @@
 <ul>
 <li>切换到<code>userping</code> 用户：</li>
 </ul>
-<p><img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_059.png" alt="选区_059"></p>
+<p><img src="%E9%80%89%E5%8C%BA_059.png" alt="选区_059"></p>
 <p>出错多次，最终调试成功：</p>
-<p><img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_061.png" alt="选区_060"></p>
+<p><img src="%E9%80%89%E5%8C%BA_061.png" alt="选区_060"></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>优点：<code>userping</code> 用户无法执行特权命令，通过<code>pam</code> 可赋予一些特权操作。</p>
 <p>缺点：本实验中修改了<code>ping</code> 的文件权能，影响了其他用户。退出<code>userping</code> 后，<code>ping</code> 命令变成有效了。</p>
 <p>过渡C版本：</p>

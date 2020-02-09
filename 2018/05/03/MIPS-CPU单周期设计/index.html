@@ -53,16 +53,16 @@
 <meta property="og:site_name" content="Xsyin">
 <meta property="og:description" content="本设计为计算机系统结构实验，写此文仅为总结。   1.准备工作 安装Xilinx ISE Design Suite 14.7  本设计使用Verilog HDL硬件描述语言，需熟悉其基本语法。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/03/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-3-1.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/03/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/cpu.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/03/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-3-3.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/03/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-t-1.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/03/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-3-1.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/03/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/cpu.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/03/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-3-3.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/03/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-t-1.png">
 <meta property="article:published_time" content="2018-05-03T01:17:50.000Z">
 <meta property="article:modified_time" content="2018-05-03T01:17:50.000Z">
 <meta property="article:author" content="Xu Shouyin">
 <meta property="article:tag" content="MIPS CPU">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://xsyin.github.io/2018/05/03/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-3-1.png">
+<meta name="twitter:image" content="https://xsyin.github.io/2018/05/03/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-3-1.png">
 
 <link rel="canonical" href="https://xsyin.github.io/2018/05/03/MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/">
 
@@ -278,10 +278,10 @@
 
 </li>
 </ul>
-<h2 id="2-设计总体要求"><a href="#2-设计总体要求" class="headerlink" title="2.设计总体要求"></a>2.设计总体要求</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="(1)概述"></a>(1)概述</h3><p>单周期（Single Cycle）CPU是指CPU从取出1条指令到执行完该指令只需1个时钟周期。<br><img src="MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-3-1.png" alt=""><br>一条指令的执行过程包括：取指令→分析指令→执行指令→保存结果（如果有的话）。对于单周期CPU来说，这些执行步骤均在一个时钟周期内完成。</p>
-<h3 id="2-设计实现电路"><a href="#2-设计实现电路" class="headerlink" title="(2)设计实现电路"></a>(2)设计实现电路</h3><p><img src="MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/cpu.png" alt=""></p>
+<h2 id="2-设计总体要求"><a href="#2-设计总体要求" class="headerlink" title="2.设计总体要求"></a>2.设计总体要求</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="(1)概述"></a>(1)概述</h3><p>单周期（Single Cycle）CPU是指CPU从取出1条指令到执行完该指令只需1个时钟周期。<br><img src="1-3-1.png" alt=""><br>一条指令的执行过程包括：取指令→分析指令→执行指令→保存结果（如果有的话）。对于单周期CPU来说，这些执行步骤均在一个时钟周期内完成。</p>
+<h3 id="2-设计实现电路"><a href="#2-设计实现电路" class="headerlink" title="(2)设计实现电路"></a>(2)设计实现电路</h3><p><img src="cpu.png" alt=""></p>
 <h3 id="3-实现指令集"><a href="#3-实现指令集" class="headerlink" title="(3)实现指令集"></a>(3)实现指令集</h3><p>MIPS指令系统结构有MIPS-32和MIPS-64两种。本实验的MIPS指令选用MIPS-32。以下所说的MIPS指令均指MIPS-32。<br>MIPS的指令格式为32位。图3-3给出了MIPS指令的3种格式。</p>
-<p><img src="MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-3-3.png" alt=""><br>本实验只选取了18条典型的MIPS指令来描述CPU逻辑电路的设计方法。表3-1列出了本实验的所涉及到的18条MIPS指令。<br><img src="MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-t-1.png" alt=""><br>Op和Op2为操作码；<br>shift保存要移位的位数；<br>rd、rs、rt分别为寄存器的寄存器号；<br>immediate保存立即数的低16位；<br>offset为偏移量；<br>address为转移地址的一部分。  </p>
+<p><img src="1-3-3.png" alt=""><br>本实验只选取了18条典型的MIPS指令来描述CPU逻辑电路的设计方法。表3-1列出了本实验的所涉及到的18条MIPS指令。<br><img src="1-t-1.png" alt=""><br>Op和Op2为操作码；<br>shift保存要移位的位数；<br>rd、rs、rt分别为寄存器的寄存器号；<br>immediate保存立即数的低16位；<br>offset为偏移量；<br>address为转移地址的一部分。  </p>
 <p>1、对于add/sub/mul/and/or/xor  rd,rs,rt指令  //rdrs  op  rt<br>其中rs和rt是两个源操作数的寄存器号，rd是目的寄存器号。</p>
 <p>2、对于sll/srl/sra  rd,rt,shift 指令  //rdrt  移动  shift位</p>
 <p>3、对于addi/muli  rt,rs,imm 指令  //rtrs+imm(符号拓展)<br>rt是目的寄存器号，立即数要做符号拓展到32位。</p>

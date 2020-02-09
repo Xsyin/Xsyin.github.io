@@ -53,14 +53,14 @@
 <meta property="og:site_name" content="Xsyin">
 <meta property="og:description" content="前言 想做ppt，但几次ppt演示时出现兼容问题，于是想尝试格式稳定的beamer 做ppt 。 本机空间不足，apt-get install 命令无法指定安装路径，于是挂载了一个硬盘，手动下载后安装，空间充足可sudo apt install texlive-full texstudio 一行命令解决。  texlive安装 进入准备安装路径，使用更快的清华大学镜像源下载texlive 安装包：">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/08/ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/install-lnx-main.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/08/ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/stdcoll.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/08/ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/install-lnx-main.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/08/ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/stdcoll.png">
 <meta property="article:published_time" content="2018-05-07T23:03:40.000Z">
 <meta property="article:modified_time" content="2018-05-07T23:03:40.000Z">
 <meta property="article:author" content="Xu Shouyin">
 <meta property="article:tag" content="texlive texstudio beamer slide">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://xsyin.github.io/2018/05/08/ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/install-lnx-main.png">
+<meta name="twitter:image" content="https://xsyin.github.io/2018/05/08/ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/install-lnx-main.png">
 
 <link rel="canonical" href="https://xsyin.github.io/2018/05/08/ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/">
 
@@ -280,9 +280,9 @@
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install perl-tk</span><br><span class="line">$ .&#x2F;install-tl -gui&#x3D;perltk</span><br></pre></td></tr></table></figure>
 
-<p><img src="ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/install-lnx-main.png" alt="install-lnx-main"></p>
+<p><img src="install-lnx-main.png" alt="install-lnx-main"></p>
 <p><code>Installation collections --&gt; change</code> 选择安装模块，去除一些用不着的语言<code>Cyrillic</code> 至<code>Spanish</code> ，选上<code>US and UK English</code> ：</p>
-<p><img src="ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/stdcoll.png" alt="stdcoll"></p>
+<p><img src="stdcoll.png" alt="stdcoll"></p>
 <p><code>TEXDIR --&gt;change</code> 修改为安装路径：<code>/media/xsyin/extra/texlive2018</code> ，其余默认，开始安装。</p>
 <ol start="3">
 <li>配置环境变量，编辑<code>~/.bashrc</code>， 添加：</li>

