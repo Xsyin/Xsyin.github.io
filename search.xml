@@ -1,8 +1,364 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>hexo github搭建博客</title>
+    <url>/2020/02/19/Hexo/</url>
+    <content><![CDATA[<h2 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h2><blockquote>
+<p>Ubuntu 18.04 </p>
+</blockquote>
+<h3 id="nodejs-npm"><a href="#nodejs-npm" class="headerlink" title="nodejs     npm"></a>nodejs     npm</h3><p> 根据<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo官方文档</a> ，建议使用 Node.js 10.0 及以上版本，而此时apt安装版本为8.14，故使用以下方法：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Using Ubuntu</span></span><br><span class="line">curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -</span><br><span class="line">sudo apt-get install -y nodejs</span><br><span class="line">nodejs -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>因为npm是国外的库，所以没有翻墙的话会很慢，更改为阿里源：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry http://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+
+<h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br><span class="line">mkdir blog</span><br><span class="line">hexo init blog</span><br><span class="line">cd blog</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p><code>blog</code>目录为<code>hexo</code>的工作空间，目录如下：</p>
+<p>.<br>├── _config.yml<br>├── node_modules<br>├── package.json<br>├── package-lock.json<br>├── scaffolds<br>├── source<br>└── themes</p>
+<p>其中，<code>_config.yml</code>是博客网站的配置文件,<code>source</code>文件夹是存放用户资源的地方，<code>_posts</code> 文件夹存放Markdown文件（.md），<code>scaffolds</code>是模板文件夹，当用hexo新建文章时，hexo会根据<code>scaffolds</code>文件夹下的文件来建立文件，<code>themes</code>文件夹是存放主题的文件夹，hexo根据主题生成静态页面。<br>关于_config.yml的补充说明：其中工作空间根目录下有一个_config.yml，是博客网站的配置文件，themes文件夹中对应不同主题的目录下也有一个_config.yml文件夹，是主题的配置文件。</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="center">作用</th>
+<th align="center">简写</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">hexo init “folder-name”</td>
+<td align="center">新建一个网站</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left">hexo new “title-name”</td>
+<td align="center">新建一篇文章</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left">hexo generate</td>
+<td align="center">生产静态网站</td>
+<td align="center">hexo g</td>
+</tr>
+<tr>
+<td align="left">hexo server</td>
+<td align="center">启动本地服务器</td>
+<td align="center">hexo s</td>
+</tr>
+<tr>
+<td align="left">hexo deploy</td>
+<td align="center">部署网站</td>
+<td align="center">hexo d</td>
+</tr>
+<tr>
+<td align="left">hexo clean</td>
+<td align="center">清除缓存文件</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<h3 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h3><p>默认主题为<code>landscape</code> ，更换为<a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">NexT </a> 。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#在 blog 目录下</span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;hexo-theme-next themes&#x2F;next</span><br></pre></td></tr></table></figure>
+
+<p>在工作目录<code>blog</code>下修改配置文件<code>_config.yml</code> 行theme: landscape 为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">theme: next</span><br></pre></td></tr></table></figure>
+
+<p>重新生成网站：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+<p>在浏览器中输入：<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a></p>
+<h3 id="git-配置"><a href="#git-配置" class="headerlink" title="git 配置"></a>git 配置</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt install git</span><br><span class="line">git config --global user.name &quot;your name&quot;</span><br><span class="line">git config --global user.email &quot;your email&quot;</span><br><span class="line">ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot; # 创建git连接公钥</span><br><span class="line"># 将 ssh-key 加入到 ssh-agent</span><br><span class="line">eval &quot;$(ssh-agent -s)&quot;</span><br><span class="line">ssh-add ~&#x2F;.ssh&#x2F;id_rsa</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>公钥在<code>~/.ssh/id_rsa.pub</code>，打开该文件，复制全部内容。在github中，点击个人头像—&gt;settings—&gt;SSH and GPG keys—&gt;New SSH key，粘贴刚才复制的文本。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com # 测试是否成功连接</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在github页面，选择New repository，Respository name输入<code>username.github.io</code>，点击确定</p>
+</li>
+<li><p>编辑 <code>_config.yml</code> :</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: git@github.com:username&#x2F;username.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装hexo插件 </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><p>部署</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="上传源码"><a href="#上传源码" class="headerlink" title="上传源码"></a>上传源码</h3><p>​        不难发现这个博客仓库是不包含原始文件的，比如文章对应的 <strong>.md</strong> 文件，而该文件都只保存在配置 <strong>Hexo</strong> 的机器本地，而上传到 <strong>GitHub</strong> 的只是转换渲染过后的 <strong>.html</strong> 网页文件。而更换机器后的迁移需要源码</p>
+<p>​    在 <strong>GitHub</strong> 仓库中创建新分支 <strong>hexo</strong>，并将部分站点源文件 (如source文件夹，最好写个 <strong>.gitignore</strong> 文件) 提交到该分支，在博客根目录下执行命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ rm -rf themes&#x2F;next&#x2F;.git # Git项目内不能再包含Git子项目</span><br><span class="line">$ git init</span><br><span class="line">$ git checkout -b hexo # 创建本地分支hexo </span><br><span class="line">$ git add .</span><br><span class="line">$ git commit -m &quot;create a new branch for coordination among multiple devices&quot; </span><br><span class="line">$ git remote add origin git@github.com:username&#x2F;username.github.io  #添加远程仓库 </span><br><span class="line">$ git push origin hexo</span><br></pre></td></tr></table></figure>
+
+<p>附： </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git push origin --delete hexo     # 删除远程仓库分支</span><br></pre></td></tr></table></figure>
+
+<h3 id="主题配置"><a href="#主题配置" class="headerlink" title="主题配置"></a>主题配置</h3><p><a href="https://www.jianshu.com/p/9f0e90cc32c2" target="_blank" rel="noopener">链接</a></p>
+<ol>
+<li><p>设置 Menu</p>
+<p>theme/next/_config.yml：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: &#x2F; || home</span><br><span class="line">  about: &#x2F;about&#x2F; || user</span><br><span class="line">  tags: &#x2F;tags&#x2F; || tags</span><br><span class="line">  categories: &#x2F;categories&#x2F; || th</span><br><span class="line">  archives: &#x2F;archives&#x2F; || archive</span><br><span class="line">  #schedule: &#x2F;schedule&#x2F; || calendar</span><br><span class="line">  #sitemap: &#x2F;sitemap.xml || sitemap</span><br><span class="line">  #commonweal: &#x2F;404&#x2F; || heartbeat</span><br></pre></td></tr></table></figure>
+
+<p>相应源码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new page &quot;tags&quot;</span><br><span class="line">hexo new page &quot;about&quot;</span><br><span class="line">hexo new page &quot;categories&quot;</span><br></pre></td></tr></table></figure>
+
+<p>编辑生成的index.md</p>
+</li>
+<li><p>字数统计</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-symbols-count-time</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<ol start="3">
+<li>nexT 7.1以上只需仔细阅读主题的配置文件，开启相应开关就行</li>
+</ol>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>GDB 调试</title>
+    <url>/2020/02/19/GDB%20%E8%B0%83%E8%AF%95/</url>
+    <content><![CDATA[<h3 id="1-core-文件"><a href="#1-core-文件" class="headerlink" title="1. core 文件"></a>1. core 文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ulimit -c #为0 则关闭了dump core</span><br><span class="line">ulimit -c unlimited #打开，当前shell有效</span><br><span class="line">gdb test test.core</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h3 id="2-交互命令"><a href="#2-交互命令" class="headerlink" title="2.交互命令"></a>2.交互命令</h3><ul>
+<li>断点</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">break n （简写b n）:在第n行处设置断点</span><br><span class="line">（可以带上代码路径和代码名称： b OAGUPDATE.cpp:578）</span><br><span class="line">b fn1 if a＞b：条件断点设置</span><br><span class="line">break func（break缩写为b）：在函数func()的入口处设置断点，如：break cb_button</span><br><span class="line">delete 断点号n：删除第n个断点</span><br><span class="line">disable 断点号n：暂停第n个断点</span><br><span class="line">enable 断点号n：开启第n个断点</span><br><span class="line">clear 行号n：清除第n行的断点</span><br><span class="line">info b （info breakpoints） ：显示当前程序的断点设置情况</span><br><span class="line">delete breakpoints：清除所有断点：</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>运行</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">run：简记为 r ，其作用是运行程序，当遇到断点后，程序会在断点处停止运行，等待用户输入下一步的命令。</span><br><span class="line">continue （简写c ）：继续执行，到下一个断点处（或运行结束）</span><br><span class="line">next：（简写 n），单步跟踪程序，当遇到函数调用时，也不进入此函数体；此命令同 step 的主要区别是，step 遇到用户自定义的函数，将步进到函数中去运行，而 next 则直接调用函数，不会进入到函数体内。</span><br><span class="line">step （简写s）：单步调试如果有函数调用，则进入函数；与命令n不同，n是不进入调用的函数的</span><br><span class="line">until：当你厌倦了在一个循环体内单步跟踪时，这个命令可以运行程序直到退出循环体。</span><br><span class="line">until+行号： 运行至某行，不仅仅用来跳出循环</span><br><span class="line">finish： 运行程序，直到当前函数完成返回，并打印函数返回时的堆栈地址和返回值及参数值等信息。</span><br><span class="line">call 函数(参数)：调用程序中可见的函数，并传递“参数”，如：call gdb_test(55)</span><br><span class="line">quit：简记为 q ，退出gdb</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>分割窗口</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">layout：用于分割窗口，可以一边查看代码，一边测试：</span><br><span class="line">layout src：显示源代码窗口</span><br><span class="line">layout asm：显示反汇编窗口</span><br><span class="line">layout regs：显示源代码&#x2F;反汇编和CPU寄存器窗口</span><br><span class="line">layout split：显示源代码和反汇编窗口</span><br><span class="line">Ctrl + L：刷新窗口</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>信息查看</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">print a</span><br><span class="line">x&#x2F;nfu addr</span><br><span class="line">n：输出单元的个数。</span><br><span class="line">b）f：是输出格式。比如x是以16进制形式输出，o是以8进制形式输出,等等。</span><br><span class="line">c）u：标明一个单元的长度。b是一个byte，h是两个byte（halfword），w是四个byte（word），g是八个byte（giant word）。</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>GDB</tag>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JUNO 移植</title>
+    <url>/2020/02/19/JUNO%20%E7%A7%BB%E6%A4%8D/</url>
+    <content><![CDATA[<h2 id="1-前置工具安装"><a href="#1-前置工具安装" class="headerlink" title="1. 前置工具安装"></a>1. 前置工具安装</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt install acpica-tools autoconf bc bison bridge-utils build-essential curl device-tree-compiler expect flex g++-multilib gcc-multilib genext2fs gperf libc6:i386 libssl-dev libstdc++6:i386 libncurses5:i386 libxml2 libxml2-dev libxml2-utils libxml-libxml-perl make openssh-server openssh-client python python-pip uuid-dev automake android-tools-adb android-tools-fastboot cython kernelshark libfreetype6-dev libpng-dev libtool net-tools nmap openjdk-8-jdk pkg-config python-dev python-mako python-matplotlib python-nose python-numpy python-wand python-wrapt screen sshpass trace-cmd tree</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="2-源码下载"><a href="#2-源码下载" class="headerlink" title="2. 源码下载"></a>2. 源码下载</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone https:&#x2F;&#x2F;git.linaro.org&#x2F;landing-teams&#x2F;working&#x2F;arm&#x2F;arm-reference-platforms.git</span><br><span class="line">$ cd arm-reference-platforms&#x2F;</span><br><span class="line">#修改 sync_workspace.py 中215行 &#39;libpng-dev&#39; 为 &#39;libpng12-dev&#39;</span><br><span class="line">$ python3 sync_workspace.py</span><br><span class="line">#之后按照提示选择</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-编译使用"><a href="#3-编译使用" class="headerlink" title="3. 编译使用"></a>3. 编译使用</h2><h3 id="3-1-使用已编译的镜像"><a href="#3-1-使用已编译的镜像" class="headerlink" title="3.1  使用已编译的镜像"></a>3.1  使用已编译的镜像</h3><p>​     <code>python3 sync_workspace.py</code> 中选择 <code>use prebuilt configuration</code></p>
+<p>使用空SD卡，执行<code>sudo dd if=juno.img of=/dev/sdb bs=64M</code> </p>
+<p>启动开发板，cmd时</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Cmd&gt; flash</span><br><span class="line">Flash&gt; eraseall</span><br><span class="line">Flash&gt; quit</span><br><span class="line">Cmd&gt; usb_on</span><br></pre></td></tr></table></figure>
+
+<p>启动后，flash以u盘的形式可见，复制项目中<code>juno-ack-android-uboot</code> 文件夹下内容至u盘根目录下。</p>
+<p>将SD卡插入开发板usb口</p>
+<p>重启开发板，完成</p>
+<h3 id="3-2-使用源码"><a href="#3-2-使用源码" class="headerlink" title="3.2 使用源码"></a>3.2 使用源码</h3><ul>
+<li><p>下载 uboot, uefi, linux kernel, scp, optee源码</p>
+<p><code>python3 sync_workspace.py</code> 中选择 <code>Build from source</code> </p>
+</li>
+</ul>
+<p>执行过程半小时或一小时左右，且最后checkout时出现 dirs变量未定义使用，由于 build-scripts文件夹下没有platform文件夹导致，但后续步骤未出现问题</p>
+<p>build-scripts文件夹下执行 <code>./build-all.sh -p juno -f android all</code>  </p>
+<p>拷贝recovery目录下文件至开发板flash中，并拷贝output/juno/juno-android下内容替换flash中SOFTWARE目录下同名文件。</p>
+<ul>
+<li>下载android 源码</li>
+</ul>
+<p>从<a href="http://releases.linaro.org/members/arm/android/juno/19.01/" target="_blank" rel="noopener">http://releases.linaro.org/members/arm/android/juno/19.01/</a> 下载 linaro_android_build_cmds.sh； pinned-manifest.xml</p>
+<p>执行 <code>./linaro_android_build_cmds.sh -m pinned-manifest.xml</code> 下载同时会进行编译</p>
+<p>只编译：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">source build&#x2F;envsetup.sh</span><br><span class="line">lunch juno-userdebug</span><br><span class="line">(make -j4 droidcore boottarball showcommands) 2&gt;&amp;1 |tee build-juno.log</span><br></pre></td></tr></table></figure>
+
+<p>打包成juno.img：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ cd android&#x2F;out&#x2F;target&#x2F;product&#x2F;juno&#x2F;</span><br><span class="line">$ wget https:&#x2F;&#x2F;android-git.linaro.org&#x2F;android&#x2F;device&#x2F;linaro&#x2F;juno.git&#x2F;plain&#x2F;pack_juno_img.sh?h&#x3D;linaro-oreo -O pack_juno_img.sh</span><br><span class="line">$ chmod a+x pack_juno_img.sh</span><br><span class="line">$ .&#x2F;pack_juno_img.sh</span><br><span class="line">$ sudo dd if&#x3D;juno.img of&#x3D;&#x2F;dev&#x2F;sdb bs&#x3D;64M</span><br></pre></td></tr></table></figure>
+
+<p>不打包：</p>
+<p>linaro-android-media-create –mmc /dev/sdX –image_size 2000M –dev vexpress –systemimage system.img –userdataimage userdata.img –boot boot.tar.bz2</p>
+<h3 id="4-调试"><a href="#4-调试" class="headerlink" title="4. 调试"></a>4. 调试</h3><p> adb 连接: 网络调试</p>
+<p>在android shell 中： setprop service.adb.tcp.port 5555</p>
+<p>  stop adbd </p>
+<p>  start adbd</p>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+        <tag>JUNO</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux Kernel 运行调试</title>
+    <url>/2020/02/19/Linux%20Kernel/</url>
+    <content><![CDATA[<h2 id="前置环境"><a href="#前置环境" class="headerlink" title="前置环境"></a>前置环境</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install qemu libssl-dev libncurses5-dev gcc-5-aarch64-linux-gnu build-essential gdb-multiarch</span><br><span class="line">sudo update-alternatives --install &#x2F;usr&#x2F;bin&#x2F;aarch64-linux-gnu-gcc aarch64-linux-gnu-gcc &#x2F;usr&#x2F;bin&#x2F;aarch64-linux-gnu-gcc-5 5</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="BusyBox"><a href="#BusyBox" class="headerlink" title="BusyBox"></a>BusyBox</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd busybox-1_31_0&#x2F;</span><br><span class="line">export ARCH&#x3D;arm</span><br><span class="line">export CROSS_COMPILE&#x3D;arm-linux-gnueabi-</span><br><span class="line">make menuconfig</span><br><span class="line">#build optios ---&gt;  static binary </span><br><span class="line">make -j4 &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Linux-Kernel-https-github-com-figozhang-runninglinuxkernel-4-0"><a href="#Linux-Kernel-https-github-com-figozhang-runninglinuxkernel-4-0" class="headerlink" title="Linux Kernel(https://github.com/figozhang/runninglinuxkernel_4.0)"></a>Linux Kernel(<a href="https://github.com/figozhang/runninglinuxkernel_4.0" target="_blank" rel="noopener">https://github.com/figozhang/runninglinuxkernel_4.0</a>)</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd linux-4.14.143</span><br><span class="line">#拷贝_install_arm64, 并拷贝etc</span><br><span class="line">cd _install_arm64</span><br><span class="line">mkdir dev mnt</span><br><span class="line">cd ..</span><br><span class="line">export ARCH&#x3D;arm</span><br><span class="line">export CROSS_COMPILE&#x3D;arm-linux-gnueabi-</span><br><span class="line">make vexpress_defconfig</span><br><span class="line">make bzImage -j4 ARCH&#x3D;arm CROSS_COMPILE&#x3D;arm-linux-gnueabi-</span><br><span class="line">make dtbs</span><br></pre></td></tr></table></figure>
+
+<h2 id="qemu"><a href="#qemu" class="headerlink" title="qemu"></a>qemu</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">qemu-system-arm -M vexpress-a9 -smp 4 -m 200M -kernel arch&#x2F;arm&#x2F;boot&#x2F;zImage -append &quot;rdinit&#x3D;&#x2F;linuxrc console&#x3D;ttyAMA0 loglevel&#x3D;8&quot; -dtb arch&#x2F;arm&#x2F;boot&#x2F;dts&#x2F;vexpress-v2p-ca9.dtb -nographic</span><br><span class="line"></span><br><span class="line">qemu-system-arm -M vexpress-a9 -smp 4 -m 100M -kernel arch&#x2F;arm&#x2F;boot&#x2F;zImage -dtb arch&#x2F;arm&#x2F;boot&#x2F;dts&#x2F;vexpress-v2p-ca9.dtb -nographic -append &quot;rdinit&#x3D;&#x2F;linuxrc console&#x3D;ttyAMA0 loglevel&#x3D;8 slub_debug kmemleak&#x3D;on&quot; --fsdev local,id&#x3D;kmod_dev,path&#x3D;$PWD&#x2F;kmodules,security_model&#x3D;none -device virtio-9p-device,fsdev&#x3D;kmod_dev,mount_tag&#x3D;kmod_mount -s -S</span><br></pre></td></tr></table></figure>
+
+<h2 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;VundleVim&#x2F;Vundle.vim.git ~&#x2F;.vim&#x2F;bundle&#x2F;Vundle.vim</span><br><span class="line">#.vimrc</span><br><span class="line">------------------------------------------------</span><br><span class="line">&quot; Vundle manage</span><br><span class="line">set nocompatible           &quot; be improved, required</span><br><span class="line">filetype off</span><br><span class="line"></span><br><span class="line">&quot; set the runtime path to include Vundle and initialize</span><br><span class="line">set rtp+&#x3D;~&#x2F;.vim&#x2F;bundle&#x2F;Vundle.vim</span><br><span class="line">call vundle#begin()</span><br><span class="line"></span><br><span class="line">&quot; let Vundle manage Vundle, required</span><br><span class="line">Plugin &#39;VundleVim&#x2F;Vundle.vim&#39;</span><br><span class="line"></span><br><span class="line">&quot; All of your Plugins must be added before the following line</span><br><span class="line">call vundle#end()             &quot; required</span><br><span class="line">filetype plugin indent on      &quot; required</span><br><span class="line">------------------------------------------------------</span><br><span class="line">sudo apt-get install ctags</span><br><span class="line">$ ctags -R      &quot;在项目目录下</span><br><span class="line">$ :set tags&#x3D;tags  &quot; vim中</span><br><span class="line">sudo apt install cscope</span><br><span class="line">$ cscope -Rbq    &quot;在项目目录下</span><br><span class="line">$ cscope add        cscope find</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TA 开发问题</title>
+    <url>/2020/02/19/TA%20%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="待解决-1-APP-访问-dev-tee0权限问题"><a href="#待解决-1-APP-访问-dev-tee0权限问题" class="headerlink" title="(待解决)1.  APP 访问 /dev/tee0权限问题"></a>(待解决)1.  APP 访问 /dev/tee0权限问题</h2><p>详细描述： android app 权限低于10000, /dev/tee0权限：</p>
+<p><code>crw------- root     root     248,   0 1912-12-20 04:34 tee0</code></p>
+<p>暂时解决办法： chmod 666 /dev/tee0</p>
+<p>弊端：所有app都能读写/dev/tee0</p>
+<p>思路：app添加<code>android:sharedUserId=&quot;android.uid.system&quot;</code> 使app为系统app，签名时android studio平台签名出现问题，可在源码中编译</p>
+<a id="more"></a>
+
+<h2 id="2-TA参数只能传4个"><a href="#2-TA参数只能传4个" class="headerlink" title="2. TA参数只能传4个"></a>2. TA参数只能传4个</h2><p>operation params 结构体默认为4个</p>
+<p>解决办法：1. 修改optee源码，但不具有通用性</p>
+<ol start="2">
+<li>将几个参数包装成结构体，注意结构体内不能有指针成员；或同类型合并同时传入长度</li>
+</ol>
+<h2 id="3-运行时出现trans-fault"><a href="#3-运行时出现trans-fault" class="headerlink" title="3. 运行时出现trans fault"></a>3. 运行时出现trans fault</h2><p>知识相关：optee运行时地址布局，页表映射机制</p>
+<p>解决办法： TA_STACK_SIZE 指定了栈大小，而运行时超过该大小，将其值改大。</p>
+<p>待解决：char *serial =”/proc/cpuinfo”; TEE_MemMov(cpu, serial, 13)出现错误。</p>
+<h2 id="4-全局变量"><a href="#4-全局变量" class="headerlink" title="4. 全局变量"></a>4. 全局变量</h2><p>详细描述： 每次进入SW重新加载TA，之前运行时获得的全局变量已被销毁。</p>
+<p>解决方法：全局变量写入文件保存，用时读取，但效率太低。</p>
+<p>寻找更好方法中……………… </p>
+<p><strong>user_ta_header_defines.h</strong> 中：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> TA_FLAGS                    (TA_FLAG_SINGLE_INSTANCE | TA_FLAG_MULTI_SESSION | TA_FLAG_EXEC_DDR | TA_FLAG_INSTANCE_KEEP_ALIVE)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="5-参数传递"><a href="#5-参数传递" class="headerlink" title="5. 参数传递"></a>5. 参数传递</h2><p>字符串传递时末尾<code>‘\0’</code>  不会传递，不能使用<code>strlen()</code> 计算长度，将长度同时传递。</p>
+<p><code>strlen</code> 长度不包括末尾<code>\0</code> </p>
+<hr>
+<h2 id="QSEE-TA"><a href="#QSEE-TA" class="headerlink" title="QSEE TA"></a>QSEE TA</h2><h3 id="1-添加新TA-helloCA"><a href="#1-添加新TA-helloCA" class="headerlink" title="1. 添加新TA [helloCA]"></a>1. 添加新TA [helloCA]</h3><p>路径core/bsp/trustzone/qsapps/ 下新建目录结构：</p>
+<p><img src="file.png" alt="file"></p>
+<p>SConscript内容相应如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">Import(<span class="string">'env'</span>)</span><br><span class="line"></span><br><span class="line">env = env.Clone()</span><br><span class="line"><span class="comment">#env.Append(CFLAGS = " -Werror ")</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Check if we need to load this script or just bail-out</span></span><br><span class="line"><span class="comment">#------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># alias - First alias is always the target then the other possible aliases</span></span><br><span class="line">aliases = [</span><br><span class="line">   <span class="string">'helloCA'</span>, <span class="string">'all'</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">env.InitImageVars(</span><br><span class="line">  alias_list = aliases,       <span class="comment"># list of aliases, unique name index [0]</span></span><br><span class="line">  proc = <span class="string">'scorpion'</span>,               <span class="comment"># proc settings</span></span><br><span class="line">  config = <span class="string">'apps'</span>,            <span class="comment"># config settings</span></span><br><span class="line">  build_tags = [<span class="string">'APPS_PROC'</span>,</span><br><span class="line">                <span class="string">'HELLOCA_IMAGE'</span></span><br><span class="line">               ],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> env.CheckAlias():</span><br><span class="line">   Return()</span><br><span class="line"><span class="comment">#------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Configure and load in USES and path variables</span></span><br><span class="line"><span class="comment">#------------------------------------------------------------------------------</span></span><br><span class="line">env.LoadToolScript(<span class="string">'$&#123;BUILD_ROOT&#125;/core/bsp/build/scripts/secure_app_builder.py'</span>)</span><br><span class="line">env.InitBuildConfig()</span><br><span class="line">env.Append(OUT_DIR= os.getcwd())</span><br><span class="line">sconspath = env.subst(<span class="string">'$&#123;BUILD_ROOT&#125;/core/securemsm/trustzone/qsapps/helloCA/src/SConscript'</span>)</span><br><span class="line">env.Replace(SRC_SCONS_ROOT = sconspath.split(<span class="string">'SConscript'</span>)[<span class="number">0</span>])</span><br><span class="line">SConscript( sconspath, exports=<span class="string">'env'</span>,)</span><br><span class="line">env.Deploy(<span class="string">'SConscript'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>   路径core/securemsm/trustzone/qsapps/为项目源码文件夹，新建文件结构：</p>
+<p><img src="file1.png" alt="file1"></p>
+<p>SConscript内容如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Import(<span class="string">'env'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> env.has_key(<span class="string">'USES_NO_CP'</span>):</span><br><span class="line">  env.Append(CCFLAGS = <span class="string">' -DUSES_NO_CP '</span>)</span><br><span class="line">  </span><br><span class="line"><span class="comment">#-------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Compiler, object, and linker definitions</span></span><br><span class="line"><span class="comment">#-------------------------------------------------------------------------------</span></span><br><span class="line">includes = [</span><br><span class="line">  <span class="string">"$&#123;BUILD_ROOT&#125;/core/api/kernel/libstd/stringl"</span>,</span><br><span class="line">  <span class="string">"$&#123;BUILD_ROOT&#125;/core/securemsm/trustzone/qsapps/helloCA/inc"</span>,</span><br><span class="line">  <span class="string">'$&#123;BUILD_ROOT&#125;/core/securemsm/sse/log/inc'</span>,</span><br><span class="line">  <span class="string">'$&#123;BUILD_ROOT&#125;/coreapi/securemsm/trustzone/qsee'</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">#------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># We need to specify "neon" to generate SIMD instructions in 32-bit mode</span></span><br><span class="line"><span class="comment">#------------------------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">if</span> env[<span class="string">'PROC'</span>] == <span class="string">'scorpion'</span>:</span><br><span class="line">  env.Append(CCFLAGS = <span class="string">" -mfpu=neon "</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">target_name = <span class="string">'helloCA'</span></span><br><span class="line">app_name = <span class="string">'helloCA'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># enable logging</span></span><br><span class="line">env.Append(CPPDEFINES = [<span class="string">'-DSSE_LOG_GLOBAL'</span>])</span><br><span class="line">env.Append(CPPDEFINES = [<span class="string">'-DSSE_LOG_FILE'</span>])</span><br><span class="line">env.Append(CPPDEFINES = [<span class="string">'-DLOG_TAG=helloCA'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#----------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># App core Objects</span></span><br><span class="line"><span class="comment">#----------------------------------------------------------------------------</span></span><br><span class="line">sources = [</span><br><span class="line">  <span class="string">'app_main.c'</span>,</span><br><span class="line">]</span><br><span class="line"><span class="comment">#-------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Add metadata to image</span></span><br><span class="line"><span class="comment">#-------------------------------------------------------------------------------</span></span><br><span class="line">md = &#123;</span><br><span class="line">  <span class="string">'appName'</span>:    app_name,</span><br><span class="line">  <span class="string">'privileges'</span>: [<span class="string">'default'</span>],</span><br><span class="line">  <span class="string">'acceptBufSize'</span>: <span class="number">8192</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> env[<span class="string">'PROC'</span>] == <span class="string">'scorpion'</span>:</span><br><span class="line">  md[<span class="string">'memoryType'</span>] = <span class="string">'Unprotected'</span></span><br><span class="line"></span><br><span class="line">deploy_header_files = env.Glob(<span class="string">'../inc/*'</span>)</span><br><span class="line"></span><br><span class="line">helloCA_units = env.SecureAppBuilder(</span><br><span class="line">  sources = sources,</span><br><span class="line">  includes = includes,</span><br><span class="line">  metadata = md,</span><br><span class="line">  image = target_name,</span><br><span class="line">  deploy_sources = sources + [<span class="string">'SConscript'</span>] + deploy_header_files</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> image <span class="keyword">in</span> env[<span class="string">'IMAGE_ALIASES'</span>]:</span><br><span class="line">  op = env.Alias(image, helloCA_units)</span><br></pre></td></tr></table></figure>
+
+<p>  配置文件build/ms路径下build_config.xml中 &lt;target name=”common”&gt; 标签下添加</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">file</span> <span class="attr">name</span>=<span class="string">"helloCA"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">recompile</span>=<span class="string">"true"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifact</span> <span class="attr">name</span>=<span class="string">"helloCA"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapreport</span> <span class="attr">path</span>=<span class="string">"core/bsp/trustzone/qsapps"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">"USES_FLAGS"</span> <span class="attr">value</span>=<span class="string">"USES_NO_CP"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">file</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>相同路径下新建编译脚本helloCA.sh:</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">python build_all.py -b TZ.BF.4.0 CHIPSET=sdm660 helloCA -c</span><br><span class="line"></span><br><span class="line">python build_all.py -b TZ.BF.4.0 CHIPSET=sdm660 helloCA</span><br><span class="line"></span><br><span class="line"><span class="comment">#:&lt;&lt;!</span></span><br><span class="line">adb shell mount /firmware -o rw,remount</span><br><span class="line"><span class="comment"># echo "start push smplap32...... goodixfp"</span></span><br><span class="line"><span class="comment"># find /home/yin/TZ.BF.4.0.7/trustzone_images/build/ms/bin/PIL_IMAGES/SPLITBINS_KAJAANAA/ -maxdepth 1 -name "smplap32.*" -exec adb -s f7a66acc push &#123;&#125; /firmware/image/ \;</span></span><br><span class="line"><span class="comment"># echo "push finished !" </span></span><br><span class="line"><span class="comment">#cat /sys/kernel/debug/tzdbg/qsee_log</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"start push helloCA......"</span></span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> /home/yin/Documents/TZ.BF.4.0.7/trustzone_images/build/ms/bin/PIL_IMAGES/SPLITBINS_KAJAANAA/helloCA.*</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="variable">$f</span></span><br><span class="line">	adb -s f7a66acc push <span class="variable">$f</span> /firmware/image/</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"push finished !"</span></span><br><span class="line"><span class="comment">#!</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>安全</category>
+      </categories>
+      <tags>
+        <tag>trustZone</tag>
+        <tag>安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>archLinux 安装到u盘</title>
+    <url>/2020/02/19/archLinux%20%E5%AE%89%E8%A3%85%E5%88%B0u%E7%9B%98/</url>
+    <content><![CDATA[<blockquote>
+<p>Lenovo G510    ubuntu 18.04   8G u盘</p>
+<p>启动方式：legacy bios  非 UEFI</p>
+</blockquote>
+<h2 id="virtualBox"><a href="#virtualBox" class="headerlink" title="virtualBox"></a>virtualBox</h2><ol>
+<li>下载<a href="https://mirrors.tuna.tsinghua.edu.cn/archlinux/iso/" target="_blank" rel="noopener">archlinux镜像</a> , virtualBox中新建archlinux虚拟机</li>
+</ol>
+<p>PS：virtualBox u盘识别需要</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">usermod -a -G vboxusers $USER</span><br><span class="line"># 重启系统</span><br></pre></td></tr></table></figure>
+
+<p>​    在Ubuntu Host中 ssh连接 archlinux虚拟机：</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 在archlinux中</span><br><span class="line">systemctl start sshd</span><br><span class="line">passwd   #设置密码</span><br><span class="line"></span><br><span class="line"># virtualBox 网络配置中设置端口转发规则</span><br><span class="line">主机   1111       客户机    22</span><br><span class="line"></span><br><span class="line"># 在ubuntu 中</span><br><span class="line">ssh -l root 127.0.0.1 -p 1111</span><br></pre></td></tr></table></figure>
+
+<h2 id="U-盘"><a href="#U-盘" class="headerlink" title="U 盘"></a>U 盘</h2><ol>
+<li><strong>分区</strong>      在archlinux 中</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lsblk   </span><br><span class="line"># 查看u盘盘符，假设为sdb</span><br><span class="line">fdisk &#x2F;dev&#x2F;sdb</span><br><span class="line">主要选项：o</span><br><span class="line"> boot分区：n</span><br><span class="line">       +128M</span><br><span class="line"> 根分区：n</span><br><span class="line"> 其余默认</span><br><span class="line"> 写入修改：w</span><br><span class="line"> 打印: p</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><strong>格式化</strong> </li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mkfs.fat -F32 &#x2F;dev&#x2F;sdb1</span><br><span class="line">mkfs.ext4 &#x2F;dev&#x2F;sdb2</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>挂载</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mount &#x2F;dev&#x2F;sdb2 &#x2F;mnt</span><br></pre></td></tr></table></figure>
+
+<h2 id="ArchLinux"><a href="#ArchLinux" class="headerlink" title="ArchLinux"></a>ArchLinux</h2><ol>
+<li><strong>安装</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 修改软件源为国内源</span><br><span class="line">cd &#x2F;etc&#x2F;pacman.d</span><br><span class="line">cp mirrorlist mirrorlist.bk</span><br><span class="line">cat mirrorlist.bk | grep China -A 1 | grep -v &#39;-&#39; &gt; mirrorlist</span><br><span class="line"></span><br><span class="line">pacstrap &#x2F;mnt base base-devel linux linux-firmware dhcpcd</span><br><span class="line">genfstab -L &#x2F;mnt &gt;&gt; &#x2F;mnt&#x2F;etc&#x2F;fstab</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><strong>配置</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#进入u盘archlinux</span><br><span class="line">arch-chroot &#x2F;mnt</span><br><span class="line"># 密码</span><br><span class="line">passwd</span><br><span class="line"># 时间</span><br><span class="line">ln -sf &#x2F;usr&#x2F;share&#x2F;zoneinfo&#x2F;Asia&#x2F;Shanghai &#x2F;etc&#x2F;localtime</span><br><span class="line">hwclock --systohc</span><br><span class="line"># 基础软件</span><br><span class="line">pacman -S vim dialog wpa_supplicant ntfs-3g networkmanager</span><br><span class="line"># 语言</span><br><span class="line">vim &#x2F;etc&#x2F;locale.gen  # 取消en_US.UTF-8 zh_CN.UTF-8的注释</span><br><span class="line">locale-gen</span><br><span class="line">vim &#x2F;etc&#x2F;locale.conf  # 添加 LANG&#x3D;en_US.UTF-8</span><br><span class="line"># 主机名</span><br><span class="line">echo &#39;myhostname&#39; &gt; &#x2F;etc&#x2F;hostname</span><br><span class="line"># hosts</span><br><span class="line">vim &#x2F;etc&#x2F;hosts</span><br><span class="line"># 添加内容 </span><br><span class="line">			127.0.0.1	localhost</span><br><span class="line">			::1		localhost</span><br><span class="line">			127.0.1.1	myhostname.localdomain	myhostname</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>引导</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pacman -S intel-ucode os-prober ntfs-3g grub</span><br><span class="line">grub-install --target&#x3D;i386-pc &#x2F;dev&#x2F;sdb</span><br><span class="line">grub-mkconfig -o &#x2F;boot&#x2F;grub&#x2F;grub.cfg</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><strong>收工</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">exit</span><br><span class="line">umount &#x2F;mnt</span><br></pre></td></tr></table></figure>
+
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>重启，Fn + F12选择启动介质  或 Fn+F2进入Bios选择leagcy First, 并调整u盘为第一个 即可进入u盘的archlinux系统，经测试 编辑的文件会保留， 重启后再进入文件仍在。</p>
+<p>8G u盘过小，无法安装图形界面。可选用32G 等</p>
+<p>参考：</p>
+<p><a href="https://www.viseator.com/2017/05/17/arch_install/" target="_blank" rel="noopener">viseator大神的博客</a></p>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>教程</tag>
+        <tag>arch linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
-    <url>/2020/02/07/hello-world/</url>
+    <url>/2020/02/07/helloworld/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
@@ -196,13 +552,13 @@
 <ul>
 <li>寻找溢出点</li>
 </ul>
-<p><img src="%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_065.png" alt="选区_065"></p>
-<p><img src="%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_066.png" alt="选区_066"></p>
+<p><img src="%E9%80%89%E5%8C%BA_065.png" alt="选区_065"></p>
+<p><img src="%E9%80%89%E5%8C%BA_066.png" alt="选区_066"></p>
 <p>溢出点在偏移136处，即<code>buf</code> 填充136之后为返回地址。</p>
 <ul>
 <li>寻找需要的<code>gadget</code> 片段</li>
 </ul>
-<p><img src="%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_067.png" alt="选区_067"></p>
+<p><img src="%E9%80%89%E5%8C%BA_067.png" alt="选区_067"></p>
 <ul>
 <li>构造<code>payload</code> ：</li>
 </ul>
@@ -211,7 +567,7 @@
 <p>由于<code>linux</code> 共享库的延迟绑定技术，函数第一次调用时填充<code>GOT</code>表，在运行到<code>read</code> 函数时<code>write</code> 函数<code>GOT</code> 表中已填入实际地址。<code>payload1</code> 读取该地址。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#payload2 跳转至库函数system</span><br><span class="line">payload2 &#x3D; &quot;A&quot; * 136   #截至返回地址前的缓冲区长度</span><br><span class="line">payload2 +&#x3D; p64(pr)   #跳转到PR指令序列，填充system的第一个参数</span><br><span class="line">payload2 +&#x3D; p64(binsh_addr)  #system函数的第一个参数&#x2F;bin&#x2F;sh</span><br><span class="line">payload2 +&#x3D; p64(systemAddr)    #调用system函数</span><br></pre></td></tr></table></figure>
 
-<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_068.png" alt="选区_068"></p>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="%E9%80%89%E5%8C%BA_068.png" alt="选区_068"></p>
 <p>退出报错，可以通过PPPR片段再次跳转到<code>exit</code> 函数正常退出。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p> <strong>优点：</strong>  通过<code>ret2libc</code> 与 <code>ROP</code> 绕过了ASLR与NX机制</p>
 <p><strong>缺点：</strong> </p>

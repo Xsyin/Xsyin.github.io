@@ -53,16 +53,16 @@
 <meta property="og:site_name" content="Xsyin">
 <meta property="og:description" content="准备工作 实验环境：uname -a    64位 ubuntu 16.04 Linux ubuntu 4.4.0-122-generic #146-Ubuntu SMP Mon Apr 23 15:34:04 UTC 2018 x86_64 x86_64 x86_64 GNU&#x2F;Linux   gdb-peda  12$ git clone https:&#x2F;&#x2F;github.com">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/05/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_065.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/05/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_066.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/05/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_067.png">
-<meta property="og:image" content="https://xsyin.github.io/2018/05/05/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_068.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/05/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_065.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/05/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_066.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/05/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_067.png">
+<meta property="og:image" content="https://xsyin.github.io/2018/05/05/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_068.png">
 <meta property="article:published_time" content="2018-05-05T01:38:08.000Z">
 <meta property="article:modified_time" content="2018-05-05T01:38:08.000Z">
 <meta property="article:author" content="Xu Shouyin">
 <meta property="article:tag" content="栈溢出 ret2libc rop">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://xsyin.github.io/2018/05/05/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_065.png">
+<meta name="twitter:image" content="https://xsyin.github.io/2018/05/05/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_065.png">
 
 <link rel="canonical" href="https://xsyin.github.io/2018/05/05/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/">
 
@@ -306,13 +306,13 @@
 <ul>
 <li>寻找溢出点</li>
 </ul>
-<p><img src="%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_065.png" alt="选区_065"></p>
-<p><img src="%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_066.png" alt="选区_066"></p>
+<p><img src="%E9%80%89%E5%8C%BA_065.png" alt="选区_065"></p>
+<p><img src="%E9%80%89%E5%8C%BA_066.png" alt="选区_066"></p>
 <p>溢出点在偏移136处，即<code>buf</code> 填充136之后为返回地址。</p>
 <ul>
 <li>寻找需要的<code>gadget</code> 片段</li>
 </ul>
-<p><img src="%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_067.png" alt="选区_067"></p>
+<p><img src="%E9%80%89%E5%8C%BA_067.png" alt="选区_067"></p>
 <ul>
 <li>构造<code>payload</code> ：</li>
 </ul>
@@ -321,7 +321,7 @@
 <p>由于<code>linux</code> 共享库的延迟绑定技术，函数第一次调用时填充<code>GOT</code>表，在运行到<code>read</code> 函数时<code>write</code> 函数<code>GOT</code> 表中已填入实际地址。<code>payload1</code> 读取该地址。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#payload2 跳转至库函数system</span><br><span class="line">payload2 &#x3D; &quot;A&quot; * 136   #截至返回地址前的缓冲区长度</span><br><span class="line">payload2 +&#x3D; p64(pr)   #跳转到PR指令序列，填充system的第一个参数</span><br><span class="line">payload2 +&#x3D; p64(binsh_addr)  #system函数的第一个参数&#x2F;bin&#x2F;sh</span><br><span class="line">payload2 +&#x3D; p64(systemAddr)    #调用system函数</span><br></pre></td></tr></table></figure>
 
-<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/%E9%80%89%E5%8C%BA_068.png" alt="选区_068"></p>
+<h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="%E9%80%89%E5%8C%BA_068.png" alt="选区_068"></p>
 <p>退出报错，可以通过PPPR片段再次跳转到<code>exit</code> 函数正常退出。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p> <strong>优点：</strong>  通过<code>ret2libc</code> 与 <code>ROP</code> 绕过了ASLR与NX机制</p>
 <p><strong>缺点：</strong> </p>
@@ -478,20 +478,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
