@@ -4,7 +4,7 @@ name: Pages
 on:
   push:
     branches:
-      - main  # default branch
+      - gh-pages  # default branch
 jobs:
   # 子任务
   build:
