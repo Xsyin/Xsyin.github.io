@@ -1,0 +1,85 @@
+name: Pages
+
+# 触发器、分支
+on:
+  push:
+    branches:
+      - main  # default branch
+jobs:
+  # 子任务
+  build:
+    runs-on: ubuntu-latest # 定运行所需要的虚拟机环境
+    permissions:
+      contents: write
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      # 每个name表示一个步骤:step
+      - name: Use Node.js 20.12.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.12.2'
+      # 缓存依赖项: https://docs.github.com/cn/actions/using-workflows/caching-dependencies-to-speed-up-workflows
+      - name: Cache NPM dependencies
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-npm-cache
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache
+      - name: Look Dir List
+        run: tree -L 3 -a
+      - name: Install Dependencies
+        run: npm install
+      - name: Install Theme
+        run: git submodule add https://github.com/blinkfox/hexo-theme-matery.git themes/matery
+      - name: Clean
+        run: npm run clean
+      - name: Build
+        run: npm run build
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Get the output
+        run: |
+          echo "${{ steps.deploy.outputs.notify }}"
+  sync:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync to Gitee
+        uses: wearerequired/git-mirror-action@master
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.HEXO_DEPLOY_KEY }}
+        with:
+          # 源仓库
+          source-repo: git@github.com:Xsyin/Xsyin.github.io.git
+          # 目标仓库
+          destination-repo: git@gitee.com:xsyin/blog.git
+  reload-pages:
+    needs: sync
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Gitee Pages
+        uses: yanglbme/gitee-pages-action@main
+        with:
+          gitee-username: xsyin
+          gitee-password: ${{ secrets.GITEE_PASSWORD }}
+          gitee-repo: xsyin/blog
+          branch: master
