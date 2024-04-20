@@ -33,8 +33,6 @@ jobs:
         run: tree -L 3 -a
       - name: Install Dependencies
         run: npm install
-      - name: Install Theme
-        run: git submodule add https://github.com/blinkfox/hexo-theme-matery.git themes/matery
       - name: Clean
         run: npm run clean
       - name: Build
