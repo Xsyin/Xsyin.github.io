@@ -29,8 +29,6 @@ jobs:
           key: ${{ runner.OS }}-npm-cache
           restore-keys: |
             ${{ runner.OS }}-npm-cache
-      - name: Look Dir List
-        run: tree -L 3 -a
       - name: Install Dependencies
         run: npm install
       - name: Clean
