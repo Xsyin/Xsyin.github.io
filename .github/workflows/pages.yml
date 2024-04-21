@@ -7,42 +7,38 @@ on:
       - gh-pages  # default branch
 jobs:
   build:
-    runs-on: ubuntu-latest # 定运行所需要的虚拟机环境
-    permissions:
-      contents: write
+    runs-on: ubuntu-latest
+    name: A job to deploy blog.
     steps:
-      - name: checkout
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      # 每个name表示一个步骤:step
-      - name: Use Node.js 20.12.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.12.2'
-      # 缓存依赖项: https://docs.github.com/cn/actions/using-workflows/caching-dependencies-to-speed-up-workflows
-      - name: Cache NPM dependencies
-        uses: actions/cache@v4
-        id: cache
-        with:
-          path: node_modules
-          key: ${{ runner.OS }}-npm-cache
-          restore-keys: |
-            ${{ runner.OS }}-npm-cache
-      - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true' # 如果没有缓存 node_modules
-        run: npm install
-      - name: Deploy
-        id: deploy
-        uses: sma11black/hexo-action@v1.0.3
-        with:
-          deploy_key: ${{ secrets.HEXO_DEPLOY_KEY }}
-          user_name: Xsyin
-          user_email: shouyinxu@163.com
-          commit_msg: ${{ github.event.head_commit.message }}ion)
-      - name: Get the output
-        run: |
-          echo "${{ steps.deploy.outputs.notify }}"
+    - name: Checkout
+      uses: actions/checkout@v1
+      with:
+        submodules: true
+        
+    - name: Cache node modules
+      uses: actions/cache@v1
+      id: cache
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Install Dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: npm ci
+        
+    # Deploy hexo blog website.
+    - name: Deploy
+      id: deploy
+      uses: sma11black/hexo-action@v1.0.3
+      with:
+        deploy_key: ${{ secrets.HEXO_DEPLOY_KEY }}
+        user_name: Xsyin
+        user_email: shouyinxu@163.com
+        commit_msg: ${{ github.event.head_commit.message }}ion)
+    - name: Get the output
+      run: |
+        echo "${{ steps.deploy.outputs.notify }}"
   sync:
     needs: build
     runs-on: ubuntu-latest
