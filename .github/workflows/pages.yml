@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout Repository master branch
-        uses: actions/checkout@gh-pages
+        uses: actions/checkout@master
 
       - name: Setup Node.js 20.x
-        uses: actions/setup-node@gh-pages
+        uses: actions/setup-node@master
         with:
           node-version: 20.12.2
 
