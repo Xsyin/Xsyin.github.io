@@ -6,7 +6,6 @@ on:
     branches:
       - gh-pages  # default branch
 jobs:
-  # 子任务
   build:
     runs-on: ubuntu-latest # 定运行所需要的虚拟机环境
     permissions:
@@ -33,41 +32,17 @@ jobs:
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true' # 如果没有缓存 node_modules
         run: npm install
-      # - name: Clean
-      #   run: npm run clean
-      # - name: Build
-      #   run: npm run build
-      # - name: Upload Pages artifact
-      #   uses: actions/upload-pages-artifact@v3
-      #   with:
-      #     path: ./public
-  # deploy:
-  #   needs: build
-  #   permissions:
-  #     pages: write
-  #     id-token: write
-  #   environment:
-  #     name: github-pages
-  #     url: ${{ steps.deployment.outputs.page_url }}
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Deploy to GitHub Pages
-  #       id: deployment
-  #       uses: actions/deploy-pages@v4
-  #     - name: Get the output
-  #       run: |
-  #         echo "${{ steps.deploy.outputs.notify }}"
-    - name: Deploy
-      id: deploy
-      uses: sma11black/hexo-action@v1.0.3
-      with:
-        deploy_key: ${{ secrets.HEXO_DEPLOY_KEY }}
-        user_name: Xsyin
-        user_email: shouyinxu@163.com
-        commit_msg: ${{ github.event.head_commit.message }}ion)
-    - name: Get the output
-      run: |
-        echo "${{ steps.deploy.outputs.notify }}"
+      - name: Deploy
+        id: deploy
+        uses: sma11black/hexo-action@v1.0.3
+        with:
+          deploy_key: ${{ secrets.HEXO_DEPLOY_KEY }}
+          user_name: Xsyin
+          user_email: shouyinxu@163.com
+          commit_msg: ${{ github.event.head_commit.message }}ion)
+      - name: Get the output
+        run: |
+          echo "${{ steps.deploy.outputs.notify }}"
   sync:
     needs: build
     runs-on: ubuntu-latest
