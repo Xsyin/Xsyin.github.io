@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="archlinux">
-    <meta name="description" content="Go go">
+    <meta name="description" content="本网站是个人兴趣爱好，总结分享经验，记录生活点滴的平台，希望在以后的学习旅途中，走出自己的风景。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>archLinux 安装到u盘 | Xsyin</title>
+    <title>archLinux 安装到u盘 | Xsyin&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -29,7 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 
@@ -43,7 +44,7 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">Xsyin</span>
+                    <span class="logo-span">Xsyin&#39;s blog</span>
                 </a>
             </div>
             
@@ -117,17 +118,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -142,10 +132,10 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">Xsyin</div>
+        <div class="logo-name">Xsyin&#39;s blog</div>
         <div class="logo-desc">
             
-            Go go
+            本网站是个人兴趣爱好，总结分享经验，记录生活点滴的平台，希望在以后的学习旅途中，走出自己的风景。
             
         </div>
     </div>
@@ -220,21 +210,10 @@
           
         </li>
         
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
-		</a>
-          
-        </li>
-        
         
         <li><div class="divider"></div></li>
         <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+            <a href="https://github.com/Xsyin/Xsyin.github.io" class="waves-effect waves-light" target="_blank">
                 <i class="fab fa-github-square fa-fw"></i>Fork Me
             </a>
         </li>
@@ -291,7 +270,7 @@
     }
 </style>
 
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+<a href="https://github.com/Xsyin/Xsyin.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
    data-tooltip="Fork Me" data-position="left" data-delay="50">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
@@ -465,6 +444,11 @@
                 
 
                 
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-02-19
+                </div>
+                
 
                 
 
@@ -489,48 +473,96 @@
 <li>下载<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/archlinux/iso/">archlinux镜像</a> , virtualBox中新建archlinux虚拟机</li>
 </ol>
 <p>PS：virtualBox u盘识别需要</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">usermod -a -G vboxusers $USER</span><br><span class="line"># 重启系统</span><br></pre></td></tr></table></figure>
-
+<pre><code>usermod -a -G vboxusers $USER
+# 重启系统
+</code></pre>
 <p>​    在Ubuntu Host中 ssh连接 archlinux虚拟机：</p>
 <span id="more"></span>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 在archlinux中</span><br><span class="line">systemctl start sshd</span><br><span class="line">passwd   #设置密码</span><br><span class="line"></span><br><span class="line"># virtualBox 网络配置中设置端口转发规则</span><br><span class="line">主机   1111       客户机    22</span><br><span class="line"></span><br><span class="line"># 在ubuntu 中</span><br><span class="line">ssh -l root 127.0.0.1 -p 1111</span><br></pre></td></tr></table></figure>
+<pre><code># 在archlinux中
+systemctl start sshd
+passwd   #设置密码
 
+# virtualBox 网络配置中设置端口转发规则
+主机   1111       客户机    22
+
+# 在ubuntu 中
+ssh -l root 127.0.0.1 -p 1111
+</code></pre>
 <h2 id="U-盘"><a href="#U-盘" class="headerlink" title="U 盘"></a>U 盘</h2><ol>
 <li><strong>分区</strong>      在archlinux 中</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">lsblk   </span><br><span class="line"># 查看u盘盘符，假设为sdb</span><br><span class="line">fdisk /dev/sdb</span><br><span class="line">主要选项：o</span><br><span class="line"> boot分区：n</span><br><span class="line">       +128M</span><br><span class="line"> 根分区：n</span><br><span class="line"> 其余默认</span><br><span class="line"> 写入修改：w</span><br><span class="line"> 打印: p</span><br></pre></td></tr></table></figure>
-
+<pre><code>lsblk   
+# 查看u盘盘符，假设为sdb
+fdisk /dev/sdb
+主要选项：o
+ boot分区：n
+       +128M
+ 根分区：n
+ 其余默认
+ 写入修改：w
+ 打印: p
+</code></pre>
 <ol start="2">
 <li><strong>格式化</strong></li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkfs.fat -F32 /dev/sdb1</span><br><span class="line">mkfs.ext4 /dev/sdb2</span><br></pre></td></tr></table></figure>
-
+<pre><code>mkfs.fat -F32 /dev/sdb1
+mkfs.ext4 /dev/sdb2
+</code></pre>
 <ol start="3">
 <li><strong>挂载</strong></li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sdb2 /mnt</span><br></pre></td></tr></table></figure>
-
+<pre><code>mount /dev/sdb2 /mnt
+</code></pre>
 <h2 id="ArchLinux"><a href="#ArchLinux" class="headerlink" title="ArchLinux"></a>ArchLinux</h2><ol>
 <li><strong>安装</strong></li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 修改软件源为国内源</span><br><span class="line">cd /etc/pacman.d</span><br><span class="line">cp mirrorlist mirrorlist.bk</span><br><span class="line">cat mirrorlist.bk | grep China -A 1 | grep -v &#x27;-&#x27; &gt; mirrorlist</span><br><span class="line"></span><br><span class="line">pacstrap /mnt base base-devel linux linux-firmware dhcpcd</span><br><span class="line">genfstab -L /mnt &gt;&gt; /mnt/etc/fstab</span><br></pre></td></tr></table></figure>
+<pre><code># 修改软件源为国内源
+cd /etc/pacman.d
+cp mirrorlist mirrorlist.bk
+cat mirrorlist.bk | grep China -A 1 | grep -v &#39;-&#39; &gt; mirrorlist
 
+pacstrap /mnt base base-devel linux linux-firmware dhcpcd
+genfstab -L /mnt &gt;&gt; /mnt/etc/fstab
+</code></pre>
 <ol start="2">
 <li><strong>配置</strong></li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#进入u盘archlinux</span><br><span class="line">arch-chroot /mnt</span><br><span class="line"># 密码</span><br><span class="line">passwd</span><br><span class="line"># 时间</span><br><span class="line">ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br><span class="line">hwclock --systohc</span><br><span class="line"># 基础软件</span><br><span class="line">pacman -S vim dialog wpa_supplicant ntfs-3g networkmanager</span><br><span class="line"># 语言</span><br><span class="line">vim /etc/locale.gen  # 取消en_US.UTF-8 zh_CN.UTF-8的注释</span><br><span class="line">locale-gen</span><br><span class="line">vim /etc/locale.conf  # 添加 LANG=en_US.UTF-8</span><br><span class="line"># 主机名</span><br><span class="line">echo &#x27;myhostname&#x27; &gt; /etc/hostname</span><br><span class="line"># hosts</span><br><span class="line">vim /etc/hosts</span><br><span class="line"># 添加内容 </span><br><span class="line">			127.0.0.1	localhost</span><br><span class="line">			::1		localhost</span><br><span class="line">			127.0.1.1	myhostname.localdomain	myhostname</span><br></pre></td></tr></table></figure>
-
+<pre><code>#进入u盘archlinux
+arch-chroot /mnt
+# 密码
+passwd
+# 时间
+ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+hwclock --systohc
+# 基础软件
+pacman -S vim dialog wpa_supplicant ntfs-3g networkmanager
+# 语言
+vim /etc/locale.gen  # 取消en_US.UTF-8 zh_CN.UTF-8的注释
+locale-gen
+vim /etc/locale.conf  # 添加 LANG=en_US.UTF-8
+# 主机名
+echo &#39;myhostname&#39; &gt; /etc/hostname
+# hosts
+vim /etc/hosts
+# 添加内容 
+            127.0.0.1	localhost
+            ::1		localhost
+            127.0.1.1	myhostname.localdomain	myhostname
+</code></pre>
 <ol start="3">
 <li><strong>引导</strong></li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pacman -S intel-ucode os-prober ntfs-3g grub</span><br><span class="line">grub-install --target=i386-pc /dev/sdb</span><br><span class="line">grub-mkconfig -o /boot/grub/grub.cfg</span><br></pre></td></tr></table></figure>
-
+<pre><code>pacman -S intel-ucode os-prober ntfs-3g grub
+grub-install --target=i386-pc /dev/sdb
+grub-mkconfig -o /boot/grub/grub.cfg
+</code></pre>
 <ol start="4">
 <li><strong>收工</strong></li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exit</span><br><span class="line">umount /mnt</span><br></pre></td></tr></table></figure>
-
+<pre><code>exit
+umount /mnt
+</code></pre>
 <h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>重启，Fn + F12选择启动介质  或 Fn+F2进入Bios选择leagcy First, 并调整u盘为第一个 即可进入u盘的archlinux系统，经测试 编辑的文件会保留， 重启后再进入文件仍在。</p>
 <p>8G u盘过小，无法安装图形界面。可选用32G 等</p>
 <p>参考：</p>
@@ -551,7 +583,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">Xu Shouyin</a>
+                    <a href="https://Xsyin.github.io" rel="external nofollow noreferrer">Xu Shouyin</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -559,7 +591,7 @@
                     <i class="fas fa-link">
                         文章链接:
                     </i>
-                </span>
+                    </span>
                 <span class="reprint-info">
                     <a href="https://Xsyin.github.io/2020/02/19/archLinux%20%E5%AE%89%E8%A3%85%E5%88%B0u%E7%9B%98/">https://Xsyin.github.io/2020/02/19/archLinux%20%E5%AE%89%E8%A3%85%E5%88%B0u%E7%9B%98/</a>
                 </span>
@@ -572,9 +604,9 @@
                 </span>
                 <span class="reprint-info">
                     本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC-ND 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">Xu Shouyin</a>
+                    <a href="https://Xsyin.github.io" target="_blank">Xu Shouyin</a>
                     !
                 </span>
             </div>
@@ -615,7 +647,7 @@
 <div id="article-share">
 
     
-    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <div class="social-share" data-sites="wechat,weibo,douban" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
     <script src="/libs/share/js/social-share.min.js"></script>
     
 
@@ -883,6 +915,43 @@ crw------- root     root
 </div>
 
 
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Xsyin&#39;s blog<br />'
+            + '文章作者: Xu Shouyin<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
 
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
@@ -1005,67 +1074,13 @@ crw------- root     root
 
     <footer class="page-footer bg-color">
     
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
-
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
-
-    
-    <div class="container row center-align" style="margin-bottom: 0px !important;">
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2024</span>
             
-            <span id="year">2019</span>
+            <span id="year">2024</span>
             <a href="/about" target="_blank">Xu Shouyin</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
@@ -1089,39 +1104,67 @@ crw------- root     root
             
             <br>
             
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2024";
+                    var startMonth = "4";
+                    var startDate = "21";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
             <br>
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/Xsyin" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:shouyinxu@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
         <i class="fas fa-envelope-open"></i>
     </a>
 
 
 
 
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
 
 </div>
     </div>

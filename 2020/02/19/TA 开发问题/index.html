@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="trustZone">
-    <meta name="description" content="Go go">
+    <meta name="description" content="本网站是个人兴趣爱好，总结分享经验，记录生活点滴的平台，希望在以后的学习旅途中，走出自己的风景。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>TA 开发问题 | Xsyin</title>
+    <title>TA 开发问题 | Xsyin&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -29,7 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 
@@ -43,7 +44,7 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">Xsyin</span>
+                    <span class="logo-span">Xsyin&#39;s blog</span>
                 </a>
             </div>
             
@@ -117,17 +118,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -142,10 +132,10 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">Xsyin</div>
+        <div class="logo-name">Xsyin&#39;s blog</div>
         <div class="logo-desc">
             
-            Go go
+            本网站是个人兴趣爱好，总结分享经验，记录生活点滴的平台，希望在以后的学习旅途中，走出自己的风景。
             
         </div>
     </div>
@@ -220,21 +210,10 @@
           
         </li>
         
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
-		</a>
-          
-        </li>
-        
         
         <li><div class="divider"></div></li>
         <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+            <a href="https://github.com/Xsyin/Xsyin.github.io" class="waves-effect waves-light" target="_blank">
                 <i class="fab fa-github-square fa-fw"></i>Fork Me
             </a>
         </li>
@@ -291,7 +270,7 @@
     }
 </style>
 
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+<a href="https://github.com/Xsyin/Xsyin.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
    data-tooltip="Fork Me" data-position="left" data-delay="50">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
@@ -465,6 +444,11 @@
                 
 
                 
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2020-02-19
+                </div>
+                
 
                 
 
@@ -500,27 +484,145 @@
 <p>解决方法：全局变量写入文件保存，用时读取，但效率太低。</p>
 <p>寻找更好方法中……………… </p>
 <p><strong>user_ta_header_defines.h</strong> 中：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> TA_FLAGS                    (TA_FLAG_SINGLE_INSTANCE | TA_FLAG_MULTI_SESSION | TA_FLAG_EXEC_DDR | TA_FLAG_INSTANCE_KEEP_ALIVE)</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">define</span> TA_FLAGS                    (TA_FLAG_SINGLE_INSTANCE | TA_FLAG_MULTI_SESSION | TA_FLAG_EXEC_DDR | TA_FLAG_INSTANCE_KEEP_ALIVE)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <h2 id="5-参数传递"><a href="#5-参数传递" class="headerlink" title="5. 参数传递"></a>5. 参数传递</h2><p>字符串传递时末尾<code>‘\0’</code>  不会传递，不能使用<code>strlen()</code> 计算长度，将长度同时传递。</p>
 <p><code>strlen</code> 长度不包括末尾<code>\0</code> </p>
 <hr>
 <h2 id="QSEE-TA"><a href="#QSEE-TA" class="headerlink" title="QSEE TA"></a>QSEE TA</h2><h3 id="1-添加新TA-helloCA"><a href="#1-添加新TA-helloCA" class="headerlink" title="1. 添加新TA [helloCA]"></a>1. 添加新TA [helloCA]</h3><p>路径core&#x2F;bsp&#x2F;trustzone&#x2F;qsapps&#x2F; 下新建目录结构：</p>
 <p><img src="/file.png" alt="file"></p>
 <p>SConscript内容相应如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">Import(<span class="string">&#x27;env&#x27;</span>)</span><br><span class="line"></span><br><span class="line">env = env.Clone()</span><br><span class="line"><span class="comment">#env.Append(CFLAGS = &quot; -Werror &quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Check if we need to load this script or just bail-out</span></span><br><span class="line"><span class="comment">#------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># alias - First alias is always the target then the other possible aliases</span></span><br><span class="line">aliases = [</span><br><span class="line">   <span class="string">&#x27;helloCA&#x27;</span>, <span class="string">&#x27;all&#x27;</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">env.InitImageVars(</span><br><span class="line">  alias_list = aliases,       <span class="comment"># list of aliases, unique name index [0]</span></span><br><span class="line">  proc = <span class="string">&#x27;scorpion&#x27;</span>,               <span class="comment"># proc settings</span></span><br><span class="line">  config = <span class="string">&#x27;apps&#x27;</span>,            <span class="comment"># config settings</span></span><br><span class="line">  build_tags = [<span class="string">&#x27;APPS_PROC&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;HELLOCA_IMAGE&#x27;</span></span><br><span class="line">               ],</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> env.CheckAlias():</span><br><span class="line">   Return()</span><br><span class="line"><span class="comment">#------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Configure and load in USES and path variables</span></span><br><span class="line"><span class="comment">#------------------------------------------------------------------------------</span></span><br><span class="line">env.LoadToolScript(<span class="string">&#x27;$&#123;BUILD_ROOT&#125;/core/bsp/build/scripts/secure_app_builder.py&#x27;</span>)</span><br><span class="line">env.InitBuildConfig()</span><br><span class="line">env.Append(OUT_DIR= os.getcwd())</span><br><span class="line">sconspath = env.subst(<span class="string">&#x27;$&#123;BUILD_ROOT&#125;/core/securemsm/trustzone/qsapps/helloCA/src/SConscript&#x27;</span>)</span><br><span class="line">env.Replace(SRC_SCONS_ROOT = sconspath.split(<span class="string">&#x27;SConscript&#x27;</span>)[<span class="number">0</span>])</span><br><span class="line">SConscript( sconspath, exports=<span class="string">&#x27;env&#x27;</span>,)</span><br><span class="line">env.Deploy(<span class="string">&#x27;SConscript&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> os
+Import<span class="token punctuation">(</span><span class="token string">'env'</span><span class="token punctuation">)</span>
 
+env <span class="token operator">=</span> env<span class="token punctuation">.</span>Clone<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#env.Append(CFLAGS = " -Werror ")</span>
+
+<span class="token comment" spellcheck="true">#------------------------------------------------------------------------------</span>
+<span class="token comment" spellcheck="true"># Check if we need to load this script or just bail-out</span>
+<span class="token comment" spellcheck="true">#------------------------------------------------------------------------------</span>
+<span class="token comment" spellcheck="true"># alias - First alias is always the target then the other possible aliases</span>
+aliases <span class="token operator">=</span> <span class="token punctuation">[</span>
+   <span class="token string">'helloCA'</span><span class="token punctuation">,</span> <span class="token string">'all'</span>
+<span class="token punctuation">]</span>
+
+env<span class="token punctuation">.</span>InitImageVars<span class="token punctuation">(</span>
+  alias_list <span class="token operator">=</span> aliases<span class="token punctuation">,</span>       <span class="token comment" spellcheck="true"># list of aliases, unique name index [0]</span>
+  proc <span class="token operator">=</span> <span class="token string">'scorpion'</span><span class="token punctuation">,</span>               <span class="token comment" spellcheck="true"># proc settings</span>
+  config <span class="token operator">=</span> <span class="token string">'apps'</span><span class="token punctuation">,</span>            <span class="token comment" spellcheck="true"># config settings</span>
+  build_tags <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'APPS_PROC'</span><span class="token punctuation">,</span>
+                <span class="token string">'HELLOCA_IMAGE'</span>
+               <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> <span class="token operator">not</span> env<span class="token punctuation">.</span>CheckAlias<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+   Return<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">#------------------------------------------------------------------------------</span>
+<span class="token comment" spellcheck="true"># Configure and load in USES and path variables</span>
+<span class="token comment" spellcheck="true">#------------------------------------------------------------------------------</span>
+env<span class="token punctuation">.</span>LoadToolScript<span class="token punctuation">(</span><span class="token string">'$&amp;#123;BUILD_ROOT&amp;#125;/core/bsp/build/scripts/secure_app_builder.py'</span><span class="token punctuation">)</span>
+env<span class="token punctuation">.</span>InitBuildConfig<span class="token punctuation">(</span><span class="token punctuation">)</span>
+env<span class="token punctuation">.</span>Append<span class="token punctuation">(</span>OUT_DIR<span class="token operator">=</span> os<span class="token punctuation">.</span>getcwd<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+sconspath <span class="token operator">=</span> env<span class="token punctuation">.</span>subst<span class="token punctuation">(</span><span class="token string">'$&amp;#123;BUILD_ROOT&amp;#125;/core/securemsm/trustzone/qsapps/helloCA/src/SConscript'</span><span class="token punctuation">)</span>
+env<span class="token punctuation">.</span>Replace<span class="token punctuation">(</span>SRC_SCONS_ROOT <span class="token operator">=</span> sconspath<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">'SConscript'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+SConscript<span class="token punctuation">(</span> sconspath<span class="token punctuation">,</span> exports<span class="token operator">=</span><span class="token string">'env'</span><span class="token punctuation">,</span><span class="token punctuation">)</span>
+env<span class="token punctuation">.</span>Deploy<span class="token punctuation">(</span><span class="token string">'SConscript'</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>   路径core&#x2F;securemsm&#x2F;trustzone&#x2F;qsapps&#x2F;为项目源码文件夹，新建文件结构：</p>
 <p><img src="/file1.png" alt="file1"></p>
 <p>SConscript内容如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">Import(<span class="string">&#x27;env&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> env.has_key(<span class="string">&#x27;USES_NO_CP&#x27;</span>):</span><br><span class="line">  env.Append(CCFLAGS = <span class="string">&#x27; -DUSES_NO_CP &#x27;</span>)</span><br><span class="line">  </span><br><span class="line"><span class="comment">#-------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Compiler, object, and linker definitions</span></span><br><span class="line"><span class="comment">#-------------------------------------------------------------------------------</span></span><br><span class="line">includes = [</span><br><span class="line">  <span class="string">&quot;$&#123;BUILD_ROOT&#125;/core/api/kernel/libstd/stringl&quot;</span>,</span><br><span class="line">  <span class="string">&quot;$&#123;BUILD_ROOT&#125;/core/securemsm/trustzone/qsapps/helloCA/inc&quot;</span>,</span><br><span class="line">  <span class="string">&#x27;$&#123;BUILD_ROOT&#125;/core/securemsm/sse/log/inc&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;$&#123;BUILD_ROOT&#125;/coreapi/securemsm/trustzone/qsee&#x27;</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">#------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># We need to specify &quot;neon&quot; to generate SIMD instructions in 32-bit mode</span></span><br><span class="line"><span class="comment">#------------------------------------------------------------------------------</span></span><br><span class="line"><span class="keyword">if</span> env[<span class="string">&#x27;PROC&#x27;</span>] == <span class="string">&#x27;scorpion&#x27;</span>:</span><br><span class="line">  env.Append(CCFLAGS = <span class="string">&quot; -mfpu=neon &quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">target_name = <span class="string">&#x27;helloCA&#x27;</span></span><br><span class="line">app_name = <span class="string">&#x27;helloCA&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># enable logging</span></span><br><span class="line">env.Append(CPPDEFINES = [<span class="string">&#x27;-DSSE_LOG_GLOBAL&#x27;</span>])</span><br><span class="line">env.Append(CPPDEFINES = [<span class="string">&#x27;-DSSE_LOG_FILE&#x27;</span>])</span><br><span class="line">env.Append(CPPDEFINES = [<span class="string">&#x27;-DLOG_TAG=helloCA&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#----------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># App core Objects</span></span><br><span class="line"><span class="comment">#----------------------------------------------------------------------------</span></span><br><span class="line">sources = [</span><br><span class="line">  <span class="string">&#x27;app_main.c&#x27;</span>,</span><br><span class="line">]</span><br><span class="line"><span class="comment">#-------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># Add metadata to image</span></span><br><span class="line"><span class="comment">#-------------------------------------------------------------------------------</span></span><br><span class="line">md = &#123;</span><br><span class="line">  <span class="string">&#x27;appName&#x27;</span>:    app_name,</span><br><span class="line">  <span class="string">&#x27;privileges&#x27;</span>: [<span class="string">&#x27;default&#x27;</span>],</span><br><span class="line">  <span class="string">&#x27;acceptBufSize&#x27;</span>: <span class="number">8192</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> env[<span class="string">&#x27;PROC&#x27;</span>] == <span class="string">&#x27;scorpion&#x27;</span>:</span><br><span class="line">  md[<span class="string">&#x27;memoryType&#x27;</span>] = <span class="string">&#x27;Unprotected&#x27;</span></span><br><span class="line"></span><br><span class="line">deploy_header_files = env.Glob(<span class="string">&#x27;../inc/*&#x27;</span>)</span><br><span class="line"></span><br><span class="line">helloCA_units = env.SecureAppBuilder(</span><br><span class="line">  sources = sources,</span><br><span class="line">  includes = includes,</span><br><span class="line">  metadata = md,</span><br><span class="line">  image = target_name,</span><br><span class="line">  deploy_sources = sources + [<span class="string">&#x27;SConscript&#x27;</span>] + deploy_header_files</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> image <span class="keyword">in</span> env[<span class="string">&#x27;IMAGE_ALIASES&#x27;</span>]:</span><br><span class="line">  op = env.Alias(image, helloCA_units)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-python"><code class="language-python">Import<span class="token punctuation">(</span><span class="token string">'env'</span><span class="token punctuation">)</span>
 
+<span class="token keyword">if</span> env<span class="token punctuation">.</span>has_key<span class="token punctuation">(</span><span class="token string">'USES_NO_CP'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+  env<span class="token punctuation">.</span>Append<span class="token punctuation">(</span>CCFLAGS <span class="token operator">=</span> <span class="token string">' -DUSES_NO_CP '</span><span class="token punctuation">)</span>
+  
+<span class="token comment" spellcheck="true">#-------------------------------------------------------------------------------</span>
+<span class="token comment" spellcheck="true"># Compiler, object, and linker definitions</span>
+<span class="token comment" spellcheck="true">#-------------------------------------------------------------------------------</span>
+includes <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token string">"$&amp;#123;BUILD_ROOT&amp;#125;/core/api/kernel/libstd/stringl"</span><span class="token punctuation">,</span>
+  <span class="token string">"$&amp;#123;BUILD_ROOT&amp;#125;/core/securemsm/trustzone/qsapps/helloCA/inc"</span><span class="token punctuation">,</span>
+  <span class="token string">'$&amp;#123;BUILD_ROOT&amp;#125;/core/securemsm/sse/log/inc'</span><span class="token punctuation">,</span>
+  <span class="token string">'$&amp;#123;BUILD_ROOT&amp;#125;/coreapi/securemsm/trustzone/qsee'</span>
+<span class="token punctuation">]</span>
+
+<span class="token comment" spellcheck="true">#------------------------------------------------------------------------------</span>
+<span class="token comment" spellcheck="true"># We need to specify "neon" to generate SIMD instructions in 32-bit mode</span>
+<span class="token comment" spellcheck="true">#------------------------------------------------------------------------------</span>
+<span class="token keyword">if</span> env<span class="token punctuation">[</span><span class="token string">'PROC'</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'scorpion'</span><span class="token punctuation">:</span>
+  env<span class="token punctuation">.</span>Append<span class="token punctuation">(</span>CCFLAGS <span class="token operator">=</span> <span class="token string">" -mfpu=neon "</span><span class="token punctuation">)</span>
+
+
+target_name <span class="token operator">=</span> <span class="token string">'helloCA'</span>
+app_name <span class="token operator">=</span> <span class="token string">'helloCA'</span>
+
+
+
+<span class="token comment" spellcheck="true"># enable logging</span>
+env<span class="token punctuation">.</span>Append<span class="token punctuation">(</span>CPPDEFINES <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'-DSSE_LOG_GLOBAL'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+env<span class="token punctuation">.</span>Append<span class="token punctuation">(</span>CPPDEFINES <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'-DSSE_LOG_FILE'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+env<span class="token punctuation">.</span>Append<span class="token punctuation">(</span>CPPDEFINES <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'-DLOG_TAG=helloCA'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">#----------------------------------------------------------------------------</span>
+<span class="token comment" spellcheck="true"># App core Objects</span>
+<span class="token comment" spellcheck="true">#----------------------------------------------------------------------------</span>
+sources <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token string">'app_main.c'</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true">#-------------------------------------------------------------------------------</span>
+<span class="token comment" spellcheck="true"># Add metadata to image</span>
+<span class="token comment" spellcheck="true">#-------------------------------------------------------------------------------</span>
+md <span class="token operator">=</span> <span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#123;</span>
+  <span class="token string">'appName'</span><span class="token punctuation">:</span>    app_name<span class="token punctuation">,</span>
+  <span class="token string">'privileges'</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'default'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">'acceptBufSize'</span><span class="token punctuation">:</span> <span class="token number">8192</span><span class="token punctuation">,</span>
+<span class="token operator">&amp;</span><span class="token comment" spellcheck="true">#125;</span>
+
+<span class="token keyword">if</span> env<span class="token punctuation">[</span><span class="token string">'PROC'</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token string">'scorpion'</span><span class="token punctuation">:</span>
+  md<span class="token punctuation">[</span><span class="token string">'memoryType'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'Unprotected'</span>
+
+deploy_header_files <span class="token operator">=</span> env<span class="token punctuation">.</span>Glob<span class="token punctuation">(</span><span class="token string">'../inc/*'</span><span class="token punctuation">)</span>
+
+helloCA_units <span class="token operator">=</span> env<span class="token punctuation">.</span>SecureAppBuilder<span class="token punctuation">(</span>
+  sources <span class="token operator">=</span> sources<span class="token punctuation">,</span>
+  includes <span class="token operator">=</span> includes<span class="token punctuation">,</span>
+  metadata <span class="token operator">=</span> md<span class="token punctuation">,</span>
+  image <span class="token operator">=</span> target_name<span class="token punctuation">,</span>
+  deploy_sources <span class="token operator">=</span> sources <span class="token operator">+</span> <span class="token punctuation">[</span><span class="token string">'SConscript'</span><span class="token punctuation">]</span> <span class="token operator">+</span> deploy_header_files
+<span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> image <span class="token keyword">in</span> env<span class="token punctuation">[</span><span class="token string">'IMAGE_ALIASES'</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+  op <span class="token operator">=</span> env<span class="token punctuation">.</span>Alias<span class="token punctuation">(</span>image<span class="token punctuation">,</span> helloCA_units<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>  配置文件build&#x2F;ms路径下build_config.xml中 &lt;target name&#x3D;”common”&gt; 标签下添加</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">file</span> <span class="attr">name</span>=<span class="string">&quot;helloCA&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">recompile</span>=<span class="string">&quot;true&quot;</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifact</span> <span class="attr">name</span>=<span class="string">&quot;helloCA&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mapreport</span> <span class="attr">path</span>=<span class="string">&quot;core/bsp/trustzone/qsapps&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;USES_FLAGS&quot;</span> <span class="attr">value</span>=<span class="string">&quot;USES_NO_CP&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">file</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>file</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>helloCA<span class="token punctuation">"</span></span>
+      <span class="token attr-name">recompile</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span> <span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifact</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>helloCA<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mapreport</span> <span class="token attr-name">path</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>core/bsp/trustzone/qsapps<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>USES_FLAGS<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>USES_NO_CP<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>file</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>相同路径下新建编译脚本helloCA.sh:</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">python build_all.py -b TZ.BF.4.0 CHIPSET=sdm660 helloCA -c</span><br><span class="line"></span><br><span class="line">python build_all.py -b TZ.BF.4.0 CHIPSET=sdm660 helloCA</span><br><span class="line"></span><br><span class="line"><span class="comment">#:&lt;&lt;!</span></span><br><span class="line">adb shell mount /firmware -o rw,remount</span><br><span class="line"><span class="comment"># echo &quot;start push smplap32...... goodixfp&quot;</span></span><br><span class="line"><span class="comment"># find /home/yin/TZ.BF.4.0.7/trustzone_images/build/ms/bin/PIL_IMAGES/SPLITBINS_KAJAANAA/ -maxdepth 1 -name &quot;smplap32.*&quot; -exec adb -s f7a66acc push &#123;&#125; /firmware/image/ \;</span></span><br><span class="line"><span class="comment"># echo &quot;push finished !&quot; </span></span><br><span class="line"><span class="comment">#cat /sys/kernel/debug/tzdbg/qsee_log</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;start push helloCA......&quot;</span></span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> /home/yin/Documents/TZ.BF.4.0.7/trustzone_images/build/ms/bin/PIL_IMAGES/SPLITBINS_KAJAANAA/helloCA.*</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="variable">$f</span></span><br><span class="line">	adb -s f7a66acc push <span class="variable">$f</span> /firmware/image/</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;push finished !&quot;</span></span><br><span class="line"><span class="comment">#!</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-sh"><code class="language-sh">python build_all.py -b TZ.BF.4.0 CHIPSET=sdm660 helloCA -c
 
+python build_all.py -b TZ.BF.4.0 CHIPSET=sdm660 helloCA
+
+#:<<!
+adb shell mount /firmware -o rw,remount
+# echo "start push smplap32...... goodixfp"
+# find /home/yin/TZ.BF.4.0.7/trustzone_images/build/ms/bin/PIL_IMAGES/SPLITBINS_KAJAANAA/ -maxdepth 1 -name "smplap32.*" -exec adb -s f7a66acc push &#123;&#125; /firmware/image/ \;
+# echo "push finished !" 
+#cat /sys/kernel/debug/tzdbg/qsee_log
+
+echo "start push helloCA......"
+for f in /home/yin/Documents/TZ.BF.4.0.7/trustzone_images/build/ms/bin/PIL_IMAGES/SPLITBINS_KAJAANAA/helloCA.*
+do
+    echo $f
+    adb -s f7a66acc push $f /firmware/image/
+done
+echo "push finished !"
+#!
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -537,7 +639,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">Xu Shouyin</a>
+                    <a href="https://Xsyin.github.io" rel="external nofollow noreferrer">Xu Shouyin</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -545,7 +647,7 @@
                     <i class="fas fa-link">
                         文章链接:
                     </i>
-                </span>
+                    </span>
                 <span class="reprint-info">
                     <a href="https://Xsyin.github.io/2020/02/19/TA%20%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98/">https://Xsyin.github.io/2020/02/19/TA%20%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98/</a>
                 </span>
@@ -558,9 +660,9 @@
                 </span>
                 <span class="reprint-info">
                     本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC-ND 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">Xu Shouyin</a>
+                    <a href="https://Xsyin.github.io" target="_blank">Xu Shouyin</a>
                     !
                 </span>
             </div>
@@ -601,7 +703,7 @@
 <div id="article-share">
 
     
-    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <div class="social-share" data-sites="wechat,weibo,douban" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
     <script src="/libs/share/js/social-share.min.js"></script>
     
 
@@ -776,7 +878,8 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            前置环境12sudo apt-get install qemu libssl-dev libncurses5-dev gcc-5-aarch64-linux-gnu build-essential gdb-multiarchsudo upd
+                            前置环境sudo apt-get install qemu libssl-dev libncurses5-dev gcc-5-aarch64-linux-gnu build-essential gdb-multiarch
+sudo upda
                         
                     </div>
                     <div class="publish-info">
@@ -872,6 +975,43 @@ PS：
 
 </div>
 
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Xsyin&#39;s blog<br />'
+            + '文章作者: Xu Shouyin<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
 
 
 <!-- 代码块功能依赖 -->
@@ -995,67 +1135,13 @@ PS：
 
     <footer class="page-footer bg-color">
     
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
-
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
-
-    
-    <div class="container row center-align" style="margin-bottom: 0px !important;">
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2024</span>
             
-            <span id="year">2019</span>
+            <span id="year">2024</span>
             <a href="/about" target="_blank">Xu Shouyin</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
@@ -1079,39 +1165,67 @@ PS：
             
             <br>
             
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2024";
+                    var startMonth = "4";
+                    var startDate = "21";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
             <br>
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/Xsyin" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:shouyinxu@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
         <i class="fas fa-envelope-open"></i>
     </a>
 
 
 
 
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
 
 </div>
     </div>

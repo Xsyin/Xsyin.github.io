@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Linux Capability setuid 权能 ping">
-    <meta name="description" content="Go go">
+    <meta name="description" content="本网站是个人兴趣爱好，总结分享经验，记录生活点滴的平台，希望在以后的学习旅途中，走出自己的风景。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Linux 权能机制 | Xsyin</title>
+    <title>Linux 权能机制 | Xsyin&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -29,7 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 
@@ -43,7 +44,7 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">Xsyin</span>
+                    <span class="logo-span">Xsyin&#39;s blog</span>
                 </a>
             </div>
             
@@ -117,17 +118,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -142,10 +132,10 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">Xsyin</div>
+        <div class="logo-name">Xsyin&#39;s blog</div>
         <div class="logo-desc">
             
-            Go go
+            本网站是个人兴趣爱好，总结分享经验，记录生活点滴的平台，希望在以后的学习旅途中，走出自己的风景。
             
         </div>
     </div>
@@ -220,21 +210,10 @@
           
         </li>
         
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
-		</a>
-          
-        </li>
-        
         
         <li><div class="divider"></div></li>
         <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+            <a href="https://github.com/Xsyin/Xsyin.github.io" class="waves-effect waves-light" target="_blank">
                 <i class="fab fa-github-square fa-fw"></i>Fork Me
             </a>
         </li>
@@ -291,7 +270,7 @@
     }
 </style>
 
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+<a href="https://github.com/Xsyin/Xsyin.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
    data-tooltip="Fork Me" data-position="left" data-delay="50">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
@@ -464,6 +443,11 @@
                 </div>
                 
 
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2018-05-01
+                </div>
                 
 
                 
@@ -681,8 +665,9 @@
 <ol>
 <li>找出所有设置<code>uid</code> 位程序，使用以下命令：</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">find / -perm /u=s</span><br><span class="line">find / -perm -4000</span><br></pre></td></tr></table></figure>
-
+<pre><code>find / -perm /u=s
+find / -perm -4000
+</code></pre>
 <p>结果如下：</p>
 <p><img src="/%E9%80%89%E5%8C%BA_048.png" alt="选区_048"></p>
 <p><img src="/%E9%80%89%E5%8C%BA_049.png" alt="选区_049"></p>
@@ -727,8 +712,11 @@
 <li>inheritable：可以被继承的能力</li>
 </ul>
 <p>linux程序调用子程序，权能变换公式如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">P’(ambient) = (file <span class="keyword">is</span> privileged) ? <span class="number">0</span> : P(ambient)</span><br><span class="line">P<span class="string">&#x27;(permitted) = (P(inheritable) &amp; F(inheritable)) | (F(permitted) &amp; cap_bset)| P’(ambient)</span></span><br><span class="line"><span class="string">P&#x27;</span>(effective) = F(effective) ? P<span class="string">&#x27;(permitted) : P’(ambient)</span></span><br><span class="line"><span class="string">P&#x27;</span>(inheritable) = P(inheritable) [i.e., unchanged]</span><br></pre></td></tr></table></figure>
-
+<pre class="line-numbers language-python"><code class="language-python">P’<span class="token punctuation">(</span>ambient<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">(</span>file <span class="token keyword">is</span> privileged<span class="token punctuation">)</span> ? <span class="token number">0</span> <span class="token punctuation">:</span> P<span class="token punctuation">(</span>ambient<span class="token punctuation">)</span>
+P'<span class="token punctuation">(</span>permitted<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token punctuation">(</span>P<span class="token punctuation">(</span>inheritable<span class="token punctuation">)</span> <span class="token operator">&amp;</span> F<span class="token punctuation">(</span>inheritable<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">|</span> <span class="token punctuation">(</span>F<span class="token punctuation">(</span>permitted<span class="token punctuation">)</span> <span class="token operator">&amp;</span> cap_bset<span class="token punctuation">)</span><span class="token operator">|</span> P’<span class="token punctuation">(</span>ambient<span class="token punctuation">)</span>
+P<span class="token string">'(effective) = F(effective) ? P'</span><span class="token punctuation">(</span>permitted<span class="token punctuation">)</span> <span class="token punctuation">:</span> P’<span class="token punctuation">(</span>ambient<span class="token punctuation">)</span>
+P'<span class="token punctuation">(</span>inheritable<span class="token punctuation">)</span> <span class="token operator">=</span> P<span class="token punctuation">(</span>inheritable<span class="token punctuation">)</span> <span class="token punctuation">[</span>i<span class="token punctuation">.</span>e<span class="token punctuation">.</span><span class="token punctuation">,</span> unchanged<span class="token punctuation">]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p>其中：</p>
 <ul>
 <li>P denotes the value of a thread capability set before the execve(2)</li>
@@ -754,8 +742,128 @@
 <li>设置当前的进程的权能有cap_net_raw+i权能</li>
 </ul>
 <p>永久删除子进程的权能就移除effective和inheritable、permitted的，暂时性删除就移除effective和inheritable的，恢复暂时性删除的就添加进effective和inheritable。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/capability.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/prctl.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">undef</span> _POSIX_SOURCE</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">int</span> errno;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">whoami</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;uid=%i  euid=%i  gid=%i\n&quot;</span>, getuid(), geteuid(), getgid());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">listCaps</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">cap_t</span> caps = cap_get_proc();</span><br><span class="line">    <span class="type">ssize_t</span> y = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;The Process %d was give capabilities %s\n&quot;</span>,(<span class="type">int</span>) getpid(), cap_to_text(caps, &amp;y));</span><br><span class="line">    fflush(<span class="number">0</span>);</span><br><span class="line">    cap_free(caps);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">do_ping</span><span class="params">()</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!fork())&#123;</span><br><span class="line">		whoami();</span><br><span class="line">		listCaps();</span><br><span class="line">		execlp(<span class="string">&quot;ping&quot;</span>,<span class="string">&quot;ping&quot;</span>,<span class="string">&quot;-c 1&quot;</span>,<span class="string">&quot;localhost&quot;</span>,<span class="literal">NULL</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">init</span><span class="params">()</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(getuid() != <span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">&quot;请使用sudo执行本程序&quot;</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">		</span><br><span class="line">	<span class="type">cap_value_t</span> cap_values[] = &#123;CAP_SETUID, CAP_SETGID, CAP_SETPCAP ,CAP_NET_RAW&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="type">cap_t</span> caps = cap_init();</span><br><span class="line">    cap_set_flag(caps, CAP_PERMITTED, <span class="number">4</span>, cap_values, CAP_SET);</span><br><span class="line">	cap_set_flag(caps, CAP_EFFECTIVE, <span class="number">4</span>, cap_values, CAP_SET);</span><br><span class="line">    cap_set_proc(caps);</span><br><span class="line">    prctl(PR_SET_KEEPCAPS, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    cap_free(caps);</span><br><span class="line"></span><br><span class="line">    setgid(<span class="number">1000</span>);</span><br><span class="line">	setuid(<span class="number">1000</span>);</span><br><span class="line">	</span><br><span class="line">    caps = cap_get_proc();</span><br><span class="line">    cap_set_flag(caps, CAP_EFFECTIVE, <span class="number">4</span>, cap_values, CAP_SET);</span><br><span class="line">	cap_set_flag(caps, CAP_INHERITABLE, <span class="number">4</span>, cap_values, CAP_SET);</span><br><span class="line">    cap_set_proc(caps);</span><br><span class="line">    cap_free(caps);</span><br><span class="line">	whoami();</span><br><span class="line">	listCaps();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">printInfo</span><span class="params">()</span>&#123;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">&quot;\n------权能测试小程序------\n\</span></span><br><span class="line"><span class="string">请输入如下字符:\n\</span></span><br><span class="line"><span class="string">1 : 永久的删除其子进程的某个权能\n\</span></span><br><span class="line"><span class="string">2 : 暂时性的删除其子进程的某个权能\n\</span></span><br><span class="line"><span class="string">3 : 暂时性删除的权能重新获得\n\</span></span><br><span class="line"><span class="string">4 : ping -c 1 localhost\n\</span></span><br><span class="line"><span class="string">5 : 查看当前权能\n\</span></span><br><span class="line"><span class="string">q : 退出\n\</span></span><br><span class="line"><span class="string">---------------------------\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span></span><br><span class="line">&#123;</span><br><span class="line">	init();</span><br><span class="line">	<span class="type">char</span> line[<span class="number">128</span>];</span><br><span class="line">	printInfo();</span><br><span class="line">	<span class="keyword">while</span>(fgets(line, <span class="keyword">sizeof</span>(line), <span class="built_in">stdin</span>))&#123;</span><br><span class="line">		<span class="type">char</span> cmd = line[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(cmd == <span class="string">&#x27;1&#x27;</span> || cmd == <span class="string">&#x27;2&#x27;</span> || cmd == <span class="string">&#x27;3&#x27;</span>)&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;输入要操作的权能名，如cap_net_raw\n&quot;</span>);</span><br><span class="line">			fgets(line, <span class="keyword">sizeof</span>(line), <span class="built_in">stdin</span>);</span><br><span class="line">			line[<span class="built_in">strlen</span>(line) - <span class="number">1</span>] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">			<span class="type">cap_value_t</span> temp;</span><br><span class="line">			<span class="keyword">if</span>(cap_from_name(line, &amp;temp) &lt; <span class="number">0</span>)&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;Error capability name\n&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="type">cap_t</span> caps = cap_get_proc();</span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span>(cmd == <span class="string">&#x27;3&#x27;</span>)&#123;</span><br><span class="line">					cap_set_flag(caps, CAP_EFFECTIVE, <span class="number">1</span>, &amp;temp, CAP_SET);</span><br><span class="line">					cap_set_flag(caps, CAP_INHERITABLE, <span class="number">1</span>, &amp;temp, CAP_SET);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span>&#123;</span><br><span class="line">					cap_set_flag(caps, CAP_EFFECTIVE, <span class="number">1</span>, &amp;temp, CAP_CLEAR);</span><br><span class="line">					cap_set_flag(caps, CAP_INHERITABLE, <span class="number">1</span>, &amp;temp, CAP_CLEAR);</span><br><span class="line">					<span class="keyword">if</span>(cmd == <span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">						cap_set_flag(caps, CAP_PERMITTED, <span class="number">1</span>, &amp;temp, CAP_CLEAR);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span>(cap_set_proc(caps))</span><br><span class="line">					perror(<span class="string">&quot;cap_set_proc() ERROR: &quot;</span>);</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">&quot;%s %s success\n&quot;</span>, (cmd ==<span class="string">&#x27;3&#x27;</span>? <span class="string">&quot;recover&quot;</span>:<span class="string">&quot;remove&quot;</span>),line);</span><br><span class="line"></span><br><span class="line">				cap_free(caps);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(cmd == <span class="string">&#x27;4&#x27;</span>)</span><br><span class="line">			do_ping();</span><br><span class="line"> 		<span class="keyword">else</span> <span class="keyword">if</span>(cmd == <span class="string">&#x27;5&#x27;</span>)</span><br><span class="line">			listCaps();</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(cmd == <span class="string">&#x27;q&#x27;</span>)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">       sleep(<span class="number">1</span>);  <span class="comment">//休眠1s</span></span><br><span class="line">		printInfo();</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;string.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;sys/types.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;sys/capability.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;sys/prctl.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">undef</span> _POSIX_SOURCE</span>
 
+<span class="token keyword">extern</span> <span class="token keyword">int</span> errno<span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">whoami</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"uid=%i  euid=%i  gid=%i\n"</span><span class="token punctuation">,</span> <span class="token function">getuid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">geteuid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">getgid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+
+<span class="token keyword">void</span> <span class="token function">listCaps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    cap_t caps <span class="token operator">=</span> <span class="token function">cap_get_proc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    ssize_t y <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"The Process %d was give capabilities %s\n"</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token function">getpid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">cap_to_text</span><span class="token punctuation">(</span>caps<span class="token punctuation">,</span> <span class="token operator">&amp;</span>y<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">fflush</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">cap_free</span><span class="token punctuation">(</span>caps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+
+<span class="token keyword">void</span> <span class="token function">do_ping</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token function">whoami</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">listCaps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">execlp</span><span class="token punctuation">(</span><span class="token string">"ping"</span><span class="token punctuation">,</span><span class="token string">"ping"</span><span class="token punctuation">,</span><span class="token string">"-c 1"</span><span class="token punctuation">,</span><span class="token string">"localhost"</span><span class="token punctuation">,</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+
+<span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">getuid</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"请使用sudo执行本程序"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        
+    cap_value_t cap_values<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>CAP_SETUID<span class="token punctuation">,</span> CAP_SETGID<span class="token punctuation">,</span> CAP_SETPCAP <span class="token punctuation">,</span>CAP_NET_RAW<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+
+    cap_t caps <span class="token operator">=</span> <span class="token function">cap_init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">cap_set_flag</span><span class="token punctuation">(</span>caps<span class="token punctuation">,</span> CAP_PERMITTED<span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> cap_values<span class="token punctuation">,</span> CAP_SET<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">cap_set_flag</span><span class="token punctuation">(</span>caps<span class="token punctuation">,</span> CAP_EFFECTIVE<span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> cap_values<span class="token punctuation">,</span> CAP_SET<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">cap_set_proc</span><span class="token punctuation">(</span>caps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">prctl</span><span class="token punctuation">(</span>PR_SET_KEEPCAPS<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">cap_free</span><span class="token punctuation">(</span>caps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">setgid</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">setuid</span><span class="token punctuation">(</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    caps <span class="token operator">=</span> <span class="token function">cap_get_proc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">cap_set_flag</span><span class="token punctuation">(</span>caps<span class="token punctuation">,</span> CAP_EFFECTIVE<span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> cap_values<span class="token punctuation">,</span> CAP_SET<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">cap_set_flag</span><span class="token punctuation">(</span>caps<span class="token punctuation">,</span> CAP_INHERITABLE<span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> cap_values<span class="token punctuation">,</span> CAP_SET<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">cap_set_proc</span><span class="token punctuation">(</span>caps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">cap_free</span><span class="token punctuation">(</span>caps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">whoami</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">listCaps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">printInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token function">puts</span><span class="token punctuation">(</span><span class="token string">"\n------权能测试小程序------\n\
+请输入如下字符:\n\
+1 : 永久的删除其子进程的某个权能\n\
+2 : 暂时性的删除其子进程的某个权能\n\
+3 : 暂时性删除的权能重新获得\n\
+4 : ping -c 1 localhost\n\
+5 : 查看当前权能\n\
+q : 退出\n\
+---------------------------\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">char</span> line<span class="token punctuation">[</span><span class="token number">128</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token function">printInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token function">fgets</span><span class="token punctuation">(</span>line<span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>line<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token constant">stdin</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token keyword">char</span> cmd <span class="token operator">=</span> line<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span><span class="token punctuation">(</span>cmd <span class="token operator">==</span> <span class="token string">'1'</span> <span class="token operator">||</span> cmd <span class="token operator">==</span> <span class="token string">'2'</span> <span class="token operator">||</span> cmd <span class="token operator">==</span> <span class="token string">'3'</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"输入要操作的权能名，如cap_net_raw\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">fgets</span><span class="token punctuation">(</span>line<span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>line<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token constant">stdin</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            line<span class="token punctuation">[</span><span class="token function">strlen</span><span class="token punctuation">(</span>line<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'\0'</span><span class="token punctuation">;</span>
+            cap_value_t temp<span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">cap_from_name</span><span class="token punctuation">(</span>line<span class="token punctuation">,</span> <span class="token operator">&amp;</span>temp<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Error capability name\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                cap_t caps <span class="token operator">=</span> <span class="token function">cap_get_proc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">if</span><span class="token punctuation">(</span>cmd <span class="token operator">==</span> <span class="token string">'3'</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                    <span class="token function">cap_set_flag</span><span class="token punctuation">(</span>caps<span class="token punctuation">,</span> CAP_EFFECTIVE<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>temp<span class="token punctuation">,</span> CAP_SET<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">cap_set_flag</span><span class="token punctuation">(</span>caps<span class="token punctuation">,</span> CAP_INHERITABLE<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>temp<span class="token punctuation">,</span> CAP_SET<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                <span class="token keyword">else</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+                    <span class="token function">cap_set_flag</span><span class="token punctuation">(</span>caps<span class="token punctuation">,</span> CAP_EFFECTIVE<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>temp<span class="token punctuation">,</span> CAP_CLEAR<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">cap_set_flag</span><span class="token punctuation">(</span>caps<span class="token punctuation">,</span> CAP_INHERITABLE<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>temp<span class="token punctuation">,</span> CAP_CLEAR<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">if</span><span class="token punctuation">(</span>cmd <span class="token operator">==</span> <span class="token string">'1'</span><span class="token punctuation">)</span>
+                        <span class="token function">cap_set_flag</span><span class="token punctuation">(</span>caps<span class="token punctuation">,</span> CAP_PERMITTED<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>temp<span class="token punctuation">,</span> CAP_CLEAR<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">cap_set_proc</span><span class="token punctuation">(</span>caps<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token function">perror</span><span class="token punctuation">(</span><span class="token string">"cap_set_proc() ERROR: "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">else</span>
+                    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%s %s success\n"</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>cmd <span class="token operator">==</span><span class="token string">'3'</span><span class="token operator">?</span> <span class="token string">"recover"</span><span class="token punctuation">:</span><span class="token string">"remove"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>line<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token function">cap_free</span><span class="token punctuation">(</span>caps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>cmd <span class="token operator">==</span> <span class="token string">'4'</span><span class="token punctuation">)</span>
+            <span class="token function">do_ping</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>cmd <span class="token operator">==</span> <span class="token string">'5'</span><span class="token punctuation">)</span>
+            <span class="token function">listCaps</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>cmd <span class="token operator">==</span> <span class="token string">'q'</span><span class="token punctuation">)</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+       <span class="token function">sleep</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//休眠1s</span>
+        <span class="token function">printInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>程序测试：</p>
 <p>测试环境：</p>
 <p><img src="/%E9%80%89%E5%8C%BA_052.png" alt="选区_052"></p>
@@ -797,7 +905,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">Xu Shouyin</a>
+                    <a href="https://Xsyin.github.io" rel="external nofollow noreferrer">Xu Shouyin</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -805,7 +913,7 @@
                     <i class="fas fa-link">
                         文章链接:
                     </i>
-                </span>
+                    </span>
                 <span class="reprint-info">
                     <a href="https://Xsyin.github.io/2018/05/01/Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/">https://Xsyin.github.io/2018/05/01/Linux-%E6%9D%83%E8%83%BD%E6%9C%BA%E5%88%B6/</a>
                 </span>
@@ -818,9 +926,9 @@
                 </span>
                 <span class="reprint-info">
                     本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC-ND 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">Xu Shouyin</a>
+                    <a href="https://Xsyin.github.io" target="_blank">Xu Shouyin</a>
                     !
                 </span>
             </div>
@@ -861,7 +969,7 @@
 <div id="article-share">
 
     
-    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <div class="social-share" data-sites="wechat,weibo,douban" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
     <script src="/libs/share/js/social-share.min.js"></script>
     
 
@@ -1136,6 +1244,43 @@ Shellcode 构造
 </div>
 
 
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Xsyin&#39;s blog<br />'
+            + '文章作者: Xu Shouyin<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
 
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
@@ -1258,67 +1403,13 @@ Shellcode 构造
 
     <footer class="page-footer bg-color">
     
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
-
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
-
-    
-    <div class="container row center-align" style="margin-bottom: 0px !important;">
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2024</span>
             
-            <span id="year">2019</span>
+            <span id="year">2024</span>
             <a href="/about" target="_blank">Xu Shouyin</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
@@ -1342,39 +1433,67 @@ Shellcode 构造
             
             <br>
             
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2024";
+                    var startMonth = "4";
+                    var startDate = "21";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
             <br>
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/Xsyin" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:shouyinxu@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
         <i class="fas fa-envelope-open"></i>
     </a>
 
 
 
 
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
 
 </div>
     </div>

