@@ -31,6 +31,14 @@ jobs:
             ${{ runner.OS }}-npm-cache
       - name: Install Dependencies
         run: npm install
+      - name: who am i
+        run: whoami
+      - name: owner 1
+        run: ls -l ..
+      - name: owner 2
+        run: ls -l .
+      - name: Clean
+        run: npm run clean
       - name: Build
         run: npm run build
       - name: Upload Pages artifact
