@@ -57,7 +57,7 @@ jobs:
   #     - name: Get the output
   #       run: |
   #         echo "${{ steps.deploy.outputs.notify }}"
-  - name: Deploy
+    - name: Deploy
       id: deploy
       uses: sma11black/hexo-action@v1.0.3
       with:
